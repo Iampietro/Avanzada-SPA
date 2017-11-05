@@ -1070,7 +1070,7 @@ module.exports = defaults;
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(process) {/**
-  * vue-router v2.8.0
+  * vue-router v2.8.1
   * (c) 2017 Evan You
   * @license MIT
   */
@@ -1165,13 +1165,17 @@ var View = {
     };
 
     // resolve props
-    data.props = resolveProps(route, matched.props && matched.props[name]);
-    data.attrs = {};
-
-    for (var key in data.props) {
-      if (!('props' in component) || !(key in component.props)) {
-        data.attrs[key] = data.props[key];
-        delete data.props[key];
+    var propsToPass = data.props = resolveProps(route, matched.props && matched.props[name]);
+    if (propsToPass) {
+      // clone to prevent mutation
+      propsToPass = data.props = extend({}, propsToPass);
+      // pass non-declared props as attrs
+      var attrs = data.attrs = data.attrs || {};
+      for (var key in propsToPass) {
+        if (!component.props || !(key in component.props)) {
+          attrs[key] = propsToPass[key];
+          delete propsToPass[key];
+        }
       }
     }
 
@@ -1198,6 +1202,13 @@ function resolveProps (route, config) {
         );
       }
   }
+}
+
+function extend (to, from) {
+  for (var key in from) {
+    to[key] = from[key];
+  }
+  return to
 }
 
 /*  */
@@ -3674,7 +3685,7 @@ function createHref (base, fullPath, mode) {
 }
 
 VueRouter.install = install;
-VueRouter.version = '2.8.0';
+VueRouter.version = '2.8.1';
 
 if (inBrowser && window.Vue) {
   window.Vue.use(VueRouter);
@@ -3982,14 +3993,16 @@ var _router2 = _interopRequireDefault(_router);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//import unirest from 'unirest'
 //import socketio from 'socket.io-client'
 //import VueSocketio from 'vue-socket.io'
 
 //export const SocketInstance = socketio('http://localhost:3000'); 
 
 _vue2.default.use(_vueRouter2.default);
-//Vue.use(VueSocketio, SocketInstance);
 _vue2.default.prototype.$http = _axios2.default;
+//Vue.prototype.$unirest = unirest;
+//Vue.use(VueSocketio, SocketInstance);
 //Vue.prototype.$socket = socketio;
 new _vue2.default({
    router: _router2.default,
@@ -16228,7 +16241,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.dropbox {\n  outline: 2px dashed grey; /* the dash box */\n  outline-offset: -10px;\n  background: lightcyan;\n  color: dimgray;\n  padding: 10px 10px;\n  min-height: 200px; /* minimum height */\n  position: relative;\n  cursor: pointer;\n}\n.input-file {\n  opacity: 0; /* invisible but it's there! */\n  width: 100%;\n  height: 200px;\n  position: absolute;\n  cursor: pointer;\n}\n.dropbox:hover {\n  background: lightblue; /* when mouse over to the drop zone, change color */\n}\n.dropbox p {\n  font-size: 1.2em;\n  text-align: center;\n  padding: 50px 0;\n}\n", ""]);
 
 // exports
 
@@ -16243,15 +16256,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -16292,44 +16296,13 @@ exports.default = {
 
   computed: {},
   methods: {
-    on_file_change: function on_file_change(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      this.create_image(files[0]);
-    },
-    create_image: function create_image(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
-
-      reader.onload = function (e) {
-        vm.image = e.target.result;
-      };
-      reader.readAsDataURL(file);
-      console.log(this.image);
-    },
-
-    remove_image: function remove_image(e) {
-      this.image = '';
-    },
     upload_image: function upload_image() {
-      /*const unirest = require('unirest');
-       unirest.post('https://api.pixhost.org/images')
-        .headers({'Content-Type': 'multipart/form-data'})
-        .field('parameter', 'value') // Form field 
-        .attach('file', '/tmp/file') // Attachment 
-        .end(function (response) {
-          console.log(response.body);
-      });*/
-
-      /*
-                this.$http.post('https://api.pixhost.org/images&img=' + this.image + '&content_type=0').then((response) => {
-                    console.log("se pudoo");
-                    console.log(response.status)
-                  })
-                  .catch((error) => {
-                   console.log(error);
-                 })*/
+      this.$http.post('https://api.pixhost.org/images&img=' + this.image + '&content_type=0').then(function (response) {
+        console.log("se pudoo");
+        console.log(response.status);
+      }).catch(function (error) {
+        console.log(error);
+      });
       //this.message = true;
       //setTimeout(this.message_false, 4000);
     }
@@ -16355,46 +16328,35 @@ var render = function() {
       },
       [
         _c(
-          "form",
+          "div",
           { staticClass: "card-content", attrs: { autocomplete: "off" } },
           [
             _c("h2", [_vm._v("Upload")]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col l12" }, [
-                _c("form", [
-                  !_vm.image
-                    ? _c("div", [
-                        _c("h2", [_vm._v("Select an image")]),
-                        _vm._v(" "),
-                        _c("input", {
+                !_vm.image
+                  ? _c("div", [
+                      _c("h2", [_vm._v("Select an image")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "btn waves-effect waves-light right",
+                        attrs: { type: "file" },
+                        on: { change: _vm.on_file_change }
+                      })
+                    ])
+                  : _c("div", [
+                      _c("img", { attrs: { src: _vm.image } }),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
                           staticClass: "btn waves-effect waves-light right",
-                          attrs: { type: "file" },
-                          on: { change: _vm.on_file_change }
-                        })
-                      ])
-                    : _c("div", [
-                        _c("img", { attrs: { src: _vm.image } }),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn waves-effect waves-light right",
-                            on: { click: _vm.remove_image }
-                          },
-                          [_vm._v("Remove image")]
-                        )
-                      ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn waves-effect waves-light right",
-                      on: { click: _vm.upload_image }
-                    },
-                    [_vm._v("Upload")]
-                  )
-                ])
+                          on: { click: _vm.remove_image }
+                        },
+                        [_vm._v("Remove image")]
+                      )
+                    ])
               ])
             ])
           ]
