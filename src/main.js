@@ -12,6 +12,7 @@ Vue.use(VueRouter);
 //Vue.use(VueSocketio, SocketInstance);
 Vue.prototype.$http = axios;
 //Vue.prototype.$socket = socketio;
+
 new Vue({
 	router,
     el: '#app',
