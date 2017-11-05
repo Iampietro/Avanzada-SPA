@@ -1,7 +1,9 @@
 <template>
     <div class="app">
     	<top-menu></top-menu>
-      <router-view></router-view>
+      <router-view @seeOneGif="seeOneGif" :particularGif="particularGif">
+        
+      </router-view>
     </div>
 </template>
 
@@ -13,8 +15,15 @@
     	components: {
     		topMenu
     	},
-      mounted(){
-        
+      data() {
+          return {
+              particularGif: {}
+          }
+      },
+      methods: {
+          seeOneGif(gif){
+              this.particularGif = gif;
+          }
       }
     }
 </script>
