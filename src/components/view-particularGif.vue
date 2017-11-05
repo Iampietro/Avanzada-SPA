@@ -9,15 +9,11 @@
 		</div>
 		<div class="divider"></div>
 		<div class="row">
-			<div class="col s4 l4" v-for="s in suggestions">		 
-				<div class="slideshow-container">
-					<div class="mySlides fade" v-for="s in suggestions">
-					    <img :src="s.media[0].gif.url" style="width:100%">
-					</div>
-					<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  					<a class="next" onclick="plusSlides(1)">&#10095;</a>
-				</div>
-
+			<div class="col s4 l4">
+				<p>
+			        <a @click="prev">Previous</a> || <a @click="next">Next</a>
+			    </p>		 
+				<img :src="suggestions[position].media[0].gif.url" v-if="arrayOk">
 			</div>
 		</div>
 	</div>
@@ -30,40 +26,48 @@
 		data(){
 			return {
 				tags: {},
-				suggestions: {}
+				suggestions: {},
+				currentNumber: 0,
+				timer: null
+			}
+		},
+		computed: {
+			arrayOk() {
+				return this.suggestions.length;
+			},
+			position() {
+				return Math.abs(this.currentNumber) % this.suggestions.length
 			}
 		},
 		methods: {
 			getSuggestions() {
 				const randomTag = this.tags[Math.floor(Math.random() * this.tags.length)];
-				this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&q=' + randomTag.searchterm)
+				this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&q=' + randomTag.searchterm + 			'&limit=10')
 					.then( response => {
 						this.suggestions = response.data.results
 					})
 					.catch( msg => console.log('Error: ', msg));
 			},
-			showSlides() {
-				let i;
-				let slideIndex = 0;
-				const slides = document.getElementsByClassName("mySlides");
-			    for (i = 0; i < slides.length; i++) {
-			        slides[i].style.display = "none"; 
-			    }
-			    slideIndex++;
-			    if (slideIndex > slides.length) {slideIndex = 1} 
-			    slides[slideIndex-1].style.display = "block"; 
-			    setTimeout(showSlides, 2000); // Change image every 2 seconds
+			startRotation() {
+				this.timer = setInterval(this.next, 3000);
 			},
-			plusSlides(n) {
-			  showSlides(slideIndex += n);
-			}
+			stopRotation() {
+	            clearTimeout(this.timer);
+	            this.timer = null;
+        	},
+        	next() {
+        		this.currentNumber += 1;
+        	},
+        	prev() {
+	            this.currentNumber -= 1
+	        }
 		},
 		watch: {
 			tags: function () {
 				this.getSuggestions();
 			},
 			suggestions: function() {
-				this.showSlides();
+				
 			}
 		},
 		created() {
@@ -72,6 +76,9 @@
                     this.tags =  response.data.tags
                 })
                 .catch((msg) => console.log('Error: ', msg));
+		},
+		mounted() {
+			this.startRotation();
 		}
 	}
 	
