@@ -5,10 +5,9 @@
             <h2>Trending GIFs</h2>
             
             <div class="row">
-              <div class="col l12">
-              <div v-if="!gifs">genera uno wachin</div>
-              <div v-else v-for="gif in gifs"> <img :src="gif.media[0].gif.url"> </div>
-              </div>
+                  <div v-for="gif in gifs" >
+                      <img :src="gif.media[0].gif.url">
+                  </div>
             </div>
         </form>
     </div> 
@@ -18,6 +17,7 @@
     <br>
   </div>
 </template>
+
 
 <script>
 

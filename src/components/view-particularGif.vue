@@ -13,7 +13,7 @@
 				<p>
 			        <a @click="prev">Previous</a> || <a @click="next">Next</a>
 			    </p>		 
-				<img :src="suggestions[position].media[0].gif.url" v-if="arrayOk">
+				<img :src="suggestions[position].media[0].tinymp4.preview" v-if="arrayOk">
 			</div>
 			<div v-if="errorStatus" class="row">
 				<h3 class="center-align">Sorry, there was a problem with the server ¡Please excuse us!</h3>
@@ -56,7 +56,7 @@
 					});
 			},
 			startRotation() {
-				this.timer = setInterval(this.next, 3000);
+				this.timer = setInterval(this.next, 6000);
 			},
 			stopRotation() {
 	            clearTimeout(this.timer);

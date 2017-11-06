@@ -5,7 +5,7 @@
                   <h2>Search for GIFs</h2>
                   <div class="row">
                       <div class="col l12">
-                          <div v-if="!gifs">genera uno wachin</div>
+                          <h3 v-if="noResults">We're sorry, your search did't have any matches</h3>
                           <div v-else v-for="gif in gifs" class="card gif">
                               <div class="card-image">
                                   <router-link to="/particularGif"> 
@@ -36,11 +36,22 @@
           gifs: [],
           search: '',
           errorStatus: false,
+          noResults: false
         }
       },
       mounted() {
       },
       computed:{
+        
+      },
+      watch: {
+        gifs: function() {
+            if (this.gifs.length == 0) {
+                this.noResults = true;
+            }else{
+              this.noResults = false;
+            }
+        }
       },
       methods:{
         searchGifs(){

@@ -90,10 +90,11 @@ select {
 }
 
 img {
-  width: 30%;
-  margin: auto;
+  width: 40%;
+  height: 200px;
+  margin: 20px 20px 20px 20px;
   display: inline;
-  margin-bottom: 10px;
+  float: left;
 }
 
 .gif {
