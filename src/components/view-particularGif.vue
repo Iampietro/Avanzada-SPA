@@ -15,6 +15,9 @@
 			    </p>		 
 				<img :src="suggestions[position].media[0].gif.url" v-if="arrayOk">
 			</div>
+			<div v-if="errorStatus" class="row">
+				<h3 class="center-align">Sorry, there was a problem with the server ¡Please excuse us!</h3>
+			</div>
 		</div>
 	</div>
 </template>
@@ -28,7 +31,8 @@
 				tags: {},
 				suggestions: {},
 				currentNumber: 0,
-				timer: null
+				timer: null,
+				errorStatus: null
 			}
 		},
 		computed: {
@@ -45,8 +49,11 @@
 				this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&q=' + randomTag.searchterm + 			'&limit=10')
 					.then( response => {
 						this.suggestions = response.data.results
+						this.errorStatus = false
 					})
-					.catch( msg => console.log('Error: ', msg));
+					.catch( msg => {
+						this.errorStatus = true
+					});
 			},
 			startRotation() {
 				this.timer = setInterval(this.next, 3000);
