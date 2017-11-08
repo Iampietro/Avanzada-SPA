@@ -4,6 +4,7 @@ import viewTrendingGIF from '../components/viewTrendingGIF.vue'
 import viewHome from '../components/viewHome.vue'
 import viewUpload from '../components/viewUpload.vue'
 import viewParticularGif from '../components/view-particularGif.vue'
+import viewCreateGallery from '../components/viewCreateGallery.vue'
 
 export default new VueRouter({
   routes: [
@@ -11,6 +12,7 @@ export default new VueRouter({
 	  { path: '/trendingGIFs', component: viewTrendingGIF },
 	  { path: '/', component: viewHome },
 	  { path: '/upload', component: viewUpload },
-	  { path: '/particularGif', component: viewParticularGif }
+	  { path: '/particularGif', component: viewParticularGif },
+	  { path: '/createGallery', component: viewCreateGallery }
 	]
 });

@@ -6,16 +6,25 @@
             <div class="row">
               <div class="col l12">
                 
-                <div v-if="!image">
-                  <h2>Select an image</h2>
-                  <input type="file" @change="on_file_change" class="btn waves-effect waves-light right">
-                </div>
-                <div v-else>
-                  <img :src="image" />
-                  <button class="btn waves-effect waves-light right" @click="remove_image">Remove image</button>
+                <input type="file" name="images[]" id="image-upload" @change="imagePreview($event)">
+
+                <button
+                  :class="{ 'btn-medium': true, 'is-loading': isLoading }"
+                  @click.prevent="sharePikir($event)">
+                  Paýlaşmak
+                </button>
+                <!--<div id="app">
+                  <div v-if="!image">
+                    <h2>Select an image</h2>
+                    <input type="file" @change="onFileChange">
+                  </div>
+                  <div v-else>
+                    <img :src="image" />
+                    <button @click="removeImage">Remove image</button>
+                  </div>
                 </div>
 
-                <button class="btn waves-effect waves-light right" @click="upload_image">Upload</button>
+                <button class="btn waves-effect waves-light right" @click="upload_image">Upload</button>-->
 
             </div>
           </div>
@@ -32,8 +41,12 @@ export default {
       props: [],
       data(){ 
         return {
-          image: '',
-          NSFW: ''
+          formData: new FormData(),
+          pikir: {
+            body: '',
+          },
+          isLoading: false,
+          images: []
         }
       },
       mounted() {
@@ -41,28 +54,65 @@ export default {
       computed:{
       },
       methods:{
-        on_file_change(e) {
-          let files = e.target.files || e.dataTransfer.files;
+        
+        imagePreview(event) {
+          let input = event.target;
+          if (input.files[0]) {
+              
+            let reader = new FileReader();
+
+            reader.onload = e => {
+              this.images.push(e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+              
+            Array.from(Array(event.target.files.length).keys())
+              .map(x => {
+                this.formData
+                  .append('img',
+                    event.target.files[x], event.target.files[x].name);
+                  this.formData
+                  .append('content_type', 0);
+            });
+          }
+        },
+
+        sharePikir() {
+          this.formData.append('body', this.pikir.body);
+          
+          this.$http.post('https://api.pixhost.org/images', this.formData)
+            .then(response => {
+              this.pikir.body = '';
+            })
+            .catch(() => {
+              console.log(response);
+            });
+        }
+
+
+/*
+        onFileChange(e) {
+          var files = e.target.files || e.dataTransfer.files;
           if (!files.length)
             return;
-          this.create_image(files[0]);
+          this.createImage(files[0]);
         },
-        create_image(file) {
-          let image = new Image();
-          let reader = new FileReader();
-          let vm = this;
+        createImage(file) {
+          var image = new Image();
+          var reader = new FileReader();
+          var vm = this;
+
           reader.onload = (e) => {
             vm.image = e.target.result;
           };
           reader.readAsDataURL(file);
-          console.log(this.image);
         },
-        remove_image: function (e) {
+        removeImage: function (e) {
           this.image = '';
         },
         upload_image(){
           this.$http.post('https://api.pixhost.org/images&img=' + this.image + '&content_type=0').then((response) => {
-              console.log("se pudoo");
               console.log(response.status)
             })
             .catch((error) => {
@@ -70,7 +120,7 @@ export default {
            })
             //this.message = true;
             //setTimeout(this.message_false, 4000);
-        }
+        }*/
       },
       created() {
       }
