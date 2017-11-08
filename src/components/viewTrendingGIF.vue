@@ -5,16 +5,19 @@
             <h2>Trending GIFs</h2>
             
             <div class="row">
-              <div class="col l12">
-              <div v-if="!gifs">genera uno wachin</div>
-              <div v-else v-for="gif in gifs"> <img :src="gif.media[0].gif.url"> </div>
-              </div>
+                  <div v-for="gif in gifs" >
+                      <img :src="gif.media[0].gif.url">
+                  </div>
             </div>
         </form>
     </div> 
+    <div class="row" v-if="errorStatus">
+        <h3>Sorry, there was a problem with the server. ¡Please excuse us!</h3>
+    </div>
     <br>
   </div>
 </template>
+
 
 <script>
 
@@ -23,7 +26,8 @@
       props: [],
       data(){ 
         return {
-          gifs: []
+          gifs: [],
+          errorStatus: false
         }
       },
       mounted() {
@@ -35,8 +39,11 @@
             this.$http.get('https://api.tenor.com/v1/trending?key=N7HZW5YZJLP3&limit=10')
                 .then((response) => {
                     this.gifs =  response.data.results
+                    this.errorStatus = false
                 })
-                .catch((msg) => console.log('Error: ', msg));
+                .catch((msg) => {
+                    this.errorStatus = true
+                });
         }
       },
       created() {
