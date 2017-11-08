@@ -3980,14 +3980,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+//import unirest from 'unirest'
 //import socketio from 'socket.io-client'
 //import VueSocketio from 'vue-socket.io'
 
 //export const SocketInstance = socketio('http://localhost:3000'); 
 
+<<<<<<< HEAD
 __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 //Vue.use(VueSocketio, SocketInstance);
 __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].prototype.$http = __WEBPACK_IMPORTED_MODULE_2_axios___default.a;
+=======
+_vue2.default.use(_vueRouter2.default);
+_vue2.default.prototype.$http = _axios2.default;
+//Vue.prototype.$unirest = unirest;
+//Vue.use(VueSocketio, SocketInstance);
+>>>>>>> fc29f2e4707981c272b37ef367b1ef21a83b3e5c
 //Vue.prototype.$socket = socketio;
 
 new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
@@ -16230,7 +16238,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.dropbox {\n  outline: 2px dashed grey; /* the dash box */\n  outline-offset: -10px;\n  background: lightcyan;\n  color: dimgray;\n  padding: 10px 10px;\n  min-height: 200px; /* minimum height */\n  position: relative;\n  cursor: pointer;\n}\n.input-file {\n  opacity: 0; /* invisible but it's there! */\n  width: 100%;\n  height: 200px;\n  position: absolute;\n  cursor: pointer;\n}\n.dropbox:hover {\n  background: lightblue; /* when mouse over to the drop zone, change color */\n}\n.dropbox p {\n  font-size: 1.2em;\n  text-align: center;\n  padding: 50px 0;\n}\n", ""]);
 
 // exports
 
@@ -16240,15 +16248,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -16288,6 +16287,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
   mounted() {},
   computed: {},
   methods: {
+<<<<<<< HEAD
     on_file_change(e) {
       let files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
@@ -16325,6 +16325,15 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
                   .catch((error) => {
                    console.log(error);
                  })*/
+=======
+    upload_image: function upload_image() {
+      this.$http.post('https://api.pixhost.org/images&img=' + this.image + '&content_type=0').then(function (response) {
+        console.log("se pudoo");
+        console.log(response.status);
+      }).catch(function (error) {
+        console.log(error);
+      });
+>>>>>>> fc29f2e4707981c272b37ef367b1ef21a83b3e5c
       //this.message = true;
       //setTimeout(this.message_false, 4000);
     }
@@ -16350,46 +16359,35 @@ var render = function() {
       },
       [
         _c(
-          "form",
+          "div",
           { staticClass: "card-content", attrs: { autocomplete: "off" } },
           [
             _c("h2", [_vm._v("Upload")]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col l12" }, [
-                _c("form", [
-                  !_vm.image
-                    ? _c("div", [
-                        _c("h2", [_vm._v("Select an image")]),
-                        _vm._v(" "),
-                        _c("input", {
+                !_vm.image
+                  ? _c("div", [
+                      _c("h2", [_vm._v("Select an image")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "btn waves-effect waves-light right",
+                        attrs: { type: "file" },
+                        on: { change: _vm.on_file_change }
+                      })
+                    ])
+                  : _c("div", [
+                      _c("img", { attrs: { src: _vm.image } }),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
                           staticClass: "btn waves-effect waves-light right",
-                          attrs: { type: "file" },
-                          on: { change: _vm.on_file_change }
-                        })
-                      ])
-                    : _c("div", [
-                        _c("img", { attrs: { src: _vm.image } }),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn waves-effect waves-light right",
-                            on: { click: _vm.remove_image }
-                          },
-                          [_vm._v("Remove image")]
-                        )
-                      ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn waves-effect waves-light right",
-                      on: { click: _vm.upload_image }
-                    },
-                    [_vm._v("Upload")]
-                  )
-                ])
+                          on: { click: _vm.remove_image }
+                        },
+                        [_vm._v("Remove image")]
+                      )
+                    ])
               ])
             ])
           ]
