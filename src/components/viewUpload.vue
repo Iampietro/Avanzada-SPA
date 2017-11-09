@@ -5,15 +5,15 @@
           <h2>Upload</h2>
             <div class="row">
               <div class="col l12">
-                
+                <!--
                 <input type="file" name="images[]" id="image-upload" @change="imagePreview($event)">
 
                 <button
                   :class="{ 'btn-medium': true, 'is-loading': isLoading }"
                   @click.prevent="sharePikir($event)">
                   Paýlaşmak
-                </button>
-                <!--<div id="app">
+                </button>-->
+                <div id="app">
                   <div v-if="!image">
                     <h2>Select an image</h2>
                     <input type="file" @change="onFileChange">
@@ -24,7 +24,7 @@
                   </div>
                 </div>
 
-                <button class="btn waves-effect waves-light right" @click="upload_image">Upload</button>-->
+                <button class="btn waves-effect waves-light right" @click="upload_image">Upload</button>
 
             </div>
           </div>
@@ -46,7 +46,7 @@ export default {
             body: '',
           },
           isLoading: false,
-          images: []
+          image: {}
         }
       },
       mounted() {
@@ -77,7 +77,7 @@ export default {
             });
           }
         },
-
+/*
         sharePikir() {
           this.formData.append('body', this.pikir.body);
           
@@ -89,9 +89,9 @@ export default {
               console.log(response);
             });
         }
+*/
 
 
-/*
         onFileChange(e) {
           var files = e.target.files || e.dataTransfer.files;
           if (!files.length)
@@ -120,7 +120,7 @@ export default {
            })
             //this.message = true;
             //setTimeout(this.message_false, 4000);
-        }*/
+        }
       },
       created() {
       }
