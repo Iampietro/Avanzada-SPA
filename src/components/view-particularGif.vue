@@ -1,19 +1,24 @@
 <template>
 	<div class="container">
 		<div class="row center-align">
-			<h4 v-if="particularGif.title">{{ particularGif.title }}</h4>
-			<h4 v-else>Untitled</h4>
-			<div class="center-align">
-                <img :src="particularGif.media[0].gif.url" class="responsive-img"> 
+			<div class="col s12 m12 l12">
+				<h4 v-if="particularGif.title">{{ particularGif.title }}</h4>
+				<h4 v-else>Untitled</h4>
+			</div>
+			<div class="col s12 m12 l12 offset-l3">
+				<div>
+	                <img :src="particularGif.media[0].gif.url" class="responsive-img"> 
+				</div>
 			</div>
 		</div>
 		<div class="divider"></div>
 		<div class="row">
-			<div class="col s4 l4">
-				<p>
+			<div class="col s12 l12">
+				<p class="center-align">
 			        <a @click="prev">Previous</a> || <a @click="next">Next</a>
 			    </p>		 
-				<img :src="suggestions[position].media[0].tinymp4.preview" v-if="arrayOk">
+				<img :src="suggestions[position].media[0].tinymp4.preview" v-if="arrayOk" class="suggestion"
+																		   @click="change(suggestions[position])">
 			</div>
 			<div v-if="errorStatus" class="row">
 				<h3 class="center-align">Sorry, there was a problem with the server ¡Please excuse us!</h3>
@@ -67,6 +72,9 @@
         	},
         	prev() {
 	            this.currentNumber -= 1
+	        },
+	        change(gifToChange) {
+	        	this.$emit('seeOneGif', gifToChange);
 	        }
 		},
 		watch: {
