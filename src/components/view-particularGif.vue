@@ -56,7 +56,7 @@
 					});
 			},
 			startRotation() {
-				this.timer = setInterval(this.next, 6000);
+				this.timer = setInterval(this.next, 5000);
 			},
 			stopRotation() {
 	            clearTimeout(this.timer);
@@ -74,18 +74,21 @@
 				this.getSuggestions();
 			},
 			suggestions: function() {
-				
+				this.startRotation();
 			}
 		},
-		created() {
+		created() { // Podriamos guardar esto en vuex (y quizas las sugerencias tmb)
 			this.$http.get('https://api.tenor.com/v1/tags?key=N7HZW5YZJLP3')
                 .then((response) => {
                     this.tags =  response.data.tags
+                    this.errorStatus = false
                 })
-                .catch((msg) => console.log('Error: ', msg));
+                .catch((msg) => {
+                	this.errorStatus = true
+                });
 		},
 		mounted() {
-			this.startRotation();
+			
 		}
 	}
 	
