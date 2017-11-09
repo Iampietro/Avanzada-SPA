@@ -6,7 +6,7 @@
             
             <div class="row">
                   <div v-for="gif in gifs" >
-                      <img :src="gif.media[0].gif.url">
+                      <img class="img-responsive center-align" :src="gif.media[0].gif.preview">
                   </div>
             </div>
         </form>

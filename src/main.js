@@ -10,7 +10,7 @@ import ProgressiveImage from 'progressive-image/dist/vue'
 
 //export const SocketInstance = socketio('http://localhost:3000'); 
 Vue.use(VueRouter);
-axios.defaults.headers.post['Content-Type'] = 'multipart/form-data'; //todos los posts son de este formato
+//axios.defaults.headers.post['Content-Type'] = 'multipart/form-data'; //todos los posts son de este formato
 Vue.prototype.$http = axios;
 //Vue.prototype.$unirest = unirest;
 //Vue.use(VueSocketio, SocketInstance);
