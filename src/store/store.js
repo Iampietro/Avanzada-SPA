@@ -10,7 +10,9 @@ export default new Vuex.Store({
 				user: {
 					username: 'juan',
 					password: 345
-				},
+				}
+			},
+			{
 				user: {
 					username: 'm',
 					password: 123
@@ -18,15 +20,10 @@ export default new Vuex.Store({
 			}
 		]
 	},
-	mutations: {
-		addOne(state) {
-			state.counter += 1;
-		},
-		addNumber(state, number) {
-			state.counter += number;
-		},
-	},
 	getters: {
-		twice: state => state.counter * 2
+		users_by_name: (state, getters) => (userToFind) =>  {
+			return state.users.find(userIterator => userIterator.user.username === userToFind.username &&
+													userIterator.user.password == userToFind.password)
+		}
 	}
 })

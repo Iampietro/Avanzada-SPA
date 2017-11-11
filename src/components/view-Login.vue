@@ -34,18 +34,11 @@
 			}
 		},
 		computed: {
-			users() {
-				debugger
-				return this.$store.state.users;
-			}
 		},
 		methods: {
-			findUser(user){
-				return this.users.find(u => (u.username == user.username && 
-									 		u.password == user.password)); 
-			},
 			submitLogin(){
-				const user = this.findUser(this.user);
+				debugger
+				const user = this.$store.getters.users_by_name(this.user);
 				if (user) {
 					this.$router.push('searchGIFs');
 				}
