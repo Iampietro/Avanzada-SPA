@@ -18,11 +18,7 @@
                             <div v-for="gif in gifs_left" class="card gif">
                                 <div class="card-image">
                                     <router-link to="/particularGif"> 
-<<<<<<< HEAD
-                                        <img class="img-responsive center-align grow" 
-=======
                                         <img class="img-responsive displayed" 
->>>>>>> 2f9d943cb8f1b0e5ec529cf4faf41087a37a4db9
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
@@ -33,11 +29,7 @@
                             <div v-for="gif in gifs_right" class="card gif">
                                 <div class="card-image">
                                     <router-link to="/particularGif"> 
-<<<<<<< HEAD
-                                        <img class="img-responsive center-align grow" 
-=======
                                         <img class="img-responsive displayed" 
->>>>>>> 2f9d943cb8f1b0e5ec529cf4faf41087a37a4db9
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
