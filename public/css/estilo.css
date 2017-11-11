@@ -84,8 +84,17 @@ img {
   max-width: 320px;
   /*max-height: 220px;*/
   margin: 20px 20px 20px 20px;
-  display: inline;
+  /*display: inline;*/
   float: left;
+  /*margin-left: auto;
+  margin-right: auto;*/
+
+}
+
+img .displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
 }
 /*
 .gif {
@@ -102,6 +111,5 @@ img {
 }*/
 
 .suggestion {
-  width: 200px;
-  height: 200pz;
+  max-width: 300px;
 }

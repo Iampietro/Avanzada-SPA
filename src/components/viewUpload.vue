@@ -29,6 +29,7 @@
 
 <script>
 import axios from "axios"
+
 export default {
       name: 'viewUpload',
       props: [],
@@ -40,7 +41,7 @@ export default {
           },
           isLoading: false,
           image: '',
-          imagen: {}
+          image_name: ''
         }
       },
       mounted() {
@@ -50,18 +51,18 @@ export default {
       methods:{
         onFileChange(e) {
           var files = e.target.files || e.dataTransfer.files;
+          this.image_name = files;
           if (!files.length)
             return;
           this.createImage(files[0]);
-          this.imagen = files[0];
         },
         createImage(file) {
           var image = new Image();
           var reader = new FileReader();
-          var vm = this;
 
           reader.onload = (e) => {
-            vm.image = e.target.result;
+            this.image = e.target.result;
+            console.log(e.target.result);
           };
           reader.readAsDataURL(file);
         },
@@ -73,10 +74,10 @@ export default {
             method: 'post',
             url: 'https://api.pixhost.org/images',
             data: {
-              img: this.imagen,
-              content_type: 0
+              img: this.image,
+              content_type: '0'
             },
-            headers: {'content-type': 'application/x-www-form-urlencoded'},
+            headers: { 'content_type': 'multipart/form-data' },
           })
             .then(response => {
               console.log(response.data);

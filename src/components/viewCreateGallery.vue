@@ -24,7 +24,6 @@ export default {
       props: [],
       data(){ 
         return {
-          formData: new FormData(),
           name: ''
         }
       },
