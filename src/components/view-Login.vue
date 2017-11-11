@@ -6,14 +6,14 @@
 					<form>
 						<div> <!-- form group --> 
 							<i class="material-icons">account_circle</i>
-							<input type="text" name="username" v-model="username" placeholder="Enter your username">
+							<input type="text" name="username" v-model="user.username" placeholder="Enter your username">
 						</div>
 						<div> <!-- form group --> 
 							<i class="material-icons">lock_open</i>
-							<input type="password" name="userpass" v-model="password">
+							<input type="password" name="userpass" v-model="user.password">
 						</div>
 						<div class="row">
-							<button class="btn waves-effect waves-light right" type="submit">Enter</button>
+							<button class="btn waves-effect waves-light right" @click="submitLogin">Enter</button>
 						</div>
 					</form>
 				</div>
@@ -23,6 +23,36 @@
 </template>
 
 <script>
+	export default {
+		name: 'viewLogin',
+		data () {
+			return {
+				user: {
+					username: '',
+					password: ''
+				}
+			}
+		},
+		computed: {
+			users() {
+				debugger
+				return this.$store.state.users;
+			}
+		},
+		methods: {
+			findUser(user){
+				return this.users.find(u => (u.username == user.username && 
+									 		u.password == user.password)); 
+			},
+			submitLogin(){
+				const user = this.findUser(this.user);
+				if (user) {
+					this.$router.push('searchGIFs');
+				}
+			}
+		}
+	}
+
 	
 </script>
 

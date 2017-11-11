@@ -18,7 +18,7 @@
                             <div v-for="gif in gifs_left" class="card gif">
                                 <div class="card-image">
                                     <router-link to="/particularGif"> 
-                                        <img class="img-responsive center-align" 
+                                        <img class="img-responsive center-align grow" 
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
@@ -29,7 +29,7 @@
                             <div v-for="gif in gifs_right" class="card gif">
                                 <div class="card-image">
                                     <router-link to="/particularGif"> 
-                                        <img class="img-responsive center-align" 
+                                        <img class="img-responsive center-align grow" 
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
@@ -112,5 +112,9 @@
 </script>
 
 <style>
-
+  .grow:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
 </style>

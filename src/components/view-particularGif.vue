@@ -5,7 +5,7 @@
 				<h4 v-if="particularGif.title">{{ particularGif.title }}</h4>
 				<h4 v-else>Untitled</h4>
 			</div>
-			<div class="col s12 m12 l12 offset-l3">
+			<div class="col s9 m9 l9 offset-l3">
 				<div>
 	                <img :src="particularGif.media[0].gif.url" class="responsive-img"> 
 				</div>
@@ -16,9 +16,13 @@
 			<div class="col s12 l12">
 				<p class="center-align">
 			        <a @click="prev">Previous</a> || <a @click="next">Next</a>
-			    </p>		 
-				<img :src="suggestions[position].media[0].tinymp4.preview" v-if="arrayOk" class="suggestion"
-																		   @click="change(suggestions[position])">
+			    </p>
+			    <transition name="fade" tag="p" mode="">
+				    	<img :src="suggestions[position].media[0].tinymp4.preview" :key="position" v-if="arrayOk" 																class="suggestion"
+																			   @click="change(suggestions[position])">
+			    </transition>
+			    	 
+				
 			</div>
 			<div v-if="errorStatus" class="row">
 				<h3 class="center-align">Sorry, there was a problem with the server ¡Please excuse us!</h3>
@@ -47,6 +51,7 @@
 			position() {
 				return Math.abs(this.currentNumber) % this.suggestions.length
 			}
+
 		},
 		methods: {
 			getSuggestions() {
@@ -69,9 +74,9 @@
         	},
         	next() {
         		this.currentNumber += 1;
-        	},
+	        },
         	prev() {
-	            this.currentNumber -= 1
+	            this.currentNumber -= 1;
 	        },
 	        change(gifToChange) {
 	        	this.$emit('seeOneGif', gifToChange);
@@ -103,15 +108,10 @@
 </script>
 
 <style>
-	.fade-transition {
-	  transition: all 0.8s ease;
-	  overflow: hidden;
-	  visibility: visible;
-	  opacity: 1;
-	  position: absolute;
+	.fade-enter-active, .fade-leave-active {
+	  transition: opacity .5s
 	}
-	.fade-enter, .fade-leave {
-	  opacity: 0;
-	  visibility: hidden;
+	.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+	  opacity: 0
 	}
 </style>
