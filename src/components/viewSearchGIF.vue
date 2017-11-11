@@ -18,7 +18,7 @@
                             <div v-for="gif in gifs_left" class="card gif">
                                 <div class="card-image">
                                     <router-link to="/particularGif"> 
-                                        <img class="img-responsive center-align" 
+                                        <img class="img-responsive displayed" 
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
@@ -29,7 +29,7 @@
                             <div v-for="gif in gifs_right" class="card gif">
                                 <div class="card-image">
                                     <router-link to="/particularGif"> 
-                                        <img class="img-responsive center-align" 
+                                        <img class="img-responsive displayed" 
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
@@ -93,15 +93,20 @@
         addGifsToLists(gifs_response){
           if(gifs_response)
           {
+            let lefty = [];
+            let righto = [];
             for(let i = 0; gifs_response.length > i; i++) 
             {
               if(i < gifs_response.length / 2)
               {
-                this.gifs_left.push(gifs_response[i]);
+                lefty.push(gifs_response[i]);
               } else {
-                this.gifs_right.push(gifs_response[i]);
+                righto.push(gifs_response[i]);
               }
             }
+
+            this.gifs_left = lefty;
+            this.gifs_right = righto;
           }
         }
       },
