@@ -13,12 +13,33 @@
 							<input type="password" name="userpass" v-model="user.password">
 						</div>
 						<div class="row">
-							<button class="btn waves-effect waves-light right" @click="submitLogin">Enter</button>
+							<button class="btn waves-effect waves-light right" @click.prevent="submitLogin">Enter</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
+
+		<div v-if="errorMsg">
+			<transition name="modal">
+				<div class="modal-mask" v-show="errorMsg" @click="close">
+					<div class="modal-container" @click.stop>
+						<div class="modal-header center-align">
+						    <h3>Wrong!</h3>
+						</div>
+						<div class="modal-body">
+						    <h5 class="black-text">Sorry! Username or password incorrect.</h5>
+						</div>
+						<div class="modal-footer text-right">
+						    <button class="btn waves-effect waves-light right" @click="errorMsg = false">
+						            Understood
+						    </button>
+						</div>
+					</div>
+				</div>
+			</transition>
+		</div>
+
 	</div>
 </template>
 
@@ -30,26 +51,31 @@
 				user: {
 					username: '',
 					password: ''
-				}
+				},
+				errorMsg: false
 			}
 		},
 		computed: {
-			users() {
-				debugger
-				return this.$store.state.users;
-			}
 		},
 		methods: {
-			findUser(user){
-				return this.users.find(u => (u.username == user.username && 
-									 		u.password == user.password)); 
-			},
 			submitLogin(){
-				const user = this.findUser(this.user);
+				const user = this.$store.getters.users_by_name(this.user);
 				if (user) {
 					this.$router.push('searchGIFs');
+				} else {
+					this.errorMsg = true;
 				}
+			},
+			close(){
+				this.errorMsg = false;
 			}
+		},
+		mounted() {
+			document.addEventListener("keydown", (e) => {
+				if (this.errorMsg && e.keyCode == 27) {
+					this.close();
+				}
+			})
 		}
 	}
 
@@ -60,7 +86,71 @@
 	.login{
 		margin: 150px 0px 0px 0px;
 	}
+
 	.btn{
 		margin: 0px 60px 0px 0px;
 	}
+
+	.modal-mask {
+	  position: fixed;
+	  z-index: 9998;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	  background-color: rgba(0, 0, 0, .5);
+	  display: table;
+	  transition: opacity .3s ease;
+	}
+
+	.modal-wrapper {
+	  display: table-cell;
+	  vertical-align: middle;
+	}
+
+	.modal-container {
+	  width: 300px;
+	  margin: 0px auto;
+	  padding: 20px 30px;
+	  background-color: #fff;
+	  border-radius: 2px;
+	  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+	  transition: transform .3s ease;
+	  font-family: Helvetica, Arial, sans-serif;
+	}
+
+	.modal-header h3 {
+	  margin-top: 0;
+	  color: #42b983;
+	}
+
+	.modal-body {
+	  margin: 20px 0;
+	}
+
+	.modal-default-button {
+	  float: right;
+	}
+
+	/*
+	 * The following styles are auto-applied to elements with
+	 * transition="modal" when their visibility is toggled
+	 * by Vue.js.
+	 *
+	 * You can easily play with the modal transition by editing
+	 * these styles.
+	 */
+
+.modal-enter, .modal-leave {
+  opacity: 0;
+}
+
+.modal-enter .modal-container {
+  transform: translate3d(0, 30px, 0);
+}
+
+.model-leave .modal-container {
+  transform: translate3d(0, -30px, 0);
+}
+
 </style>
