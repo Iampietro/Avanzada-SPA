@@ -1,6 +1,6 @@
 <template>
   	<div class="container">
-        <div class="ac-custom ac-radio ac-circle negrita card blue-grey darken-1">
+        <div class="negrita card blue-grey darken-1">
               <form class="card-content" autocomplete="off">
                   <h2>Search for GIFs</h2>
                   <div class="row">
