@@ -8,14 +8,14 @@ export default new Vuex.Store({
 		users: [
 			{
 				user: {
-					username: 'juan',
-					password: 345
+					username: 'iampietro',
+					password: 'punteo'
 				}
 			},
 			{
 				user: {
-					username: 'm',
-					password: 123
+					username: 'cooper',
+					password: 'crystalmountain'
 				}
 			}
 		]

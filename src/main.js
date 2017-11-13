@@ -4,6 +4,8 @@ import axios from 'axios'
 import App from './components/App.vue'
 import router from './utils/router'
 import store from './store/store'
+import VuePaginate from 'vue-paginate'
+
 
 Vue.config.productionTip = false
 
@@ -19,7 +21,7 @@ Vue.prototype.$http = axios;
 //Vue.prototype.$unirest = unirest;
 //Vue.use(VueSocketio, SocketInstance);
 //Vue.prototype.$socket = socketio;
-
+Vue.use(VuePaginate);
 
 
 new Vue({

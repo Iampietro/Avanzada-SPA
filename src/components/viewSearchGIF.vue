@@ -18,7 +18,7 @@
                             <div v-for="gif in gifs_left" class="card gif">
                                 <div class="card-image">
                                     <router-link to="/particularGif"> 
-                                        <img class="img-responsive displayed" 
+                                        <img class="img-responsive displayed grow" 
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
@@ -29,7 +29,7 @@
                             <div v-for="gif in gifs_right" class="card gif">
                                 <div class="card-image">
                                     <router-link to="/particularGif"> 
-                                        <img class="img-responsive displayed" 
+                                        <img class="img-responsive displayed grow" 
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
@@ -81,6 +81,7 @@
                 .then((response) => {
                     this.addGifsToLists(response.data.results)
                     this.errorStatus = false
+                    this.see = true
                 })
                 .catch((msg) => {
                     this.errorStatus = true

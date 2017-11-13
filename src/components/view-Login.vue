@@ -14,14 +14,15 @@
 						</div>
 						<div class="row">
 							<button class="btn waves-effect waves-light right" @click.prevent="submitLogin">Enter</button>
+							
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 
-		<div v-if="errorMsg">
-			<transition name="modal">
+		<transition name="modal">  	<!-- transiciones fuera del v-if !!!! --> 
+			<div v-if="errorMsg">
 				<div class="modal-mask" v-show="errorMsg" @click="close">
 					<div class="modal-container" @click.stop>
 						<div class="modal-header center-align">
@@ -37,8 +38,8 @@
 						</div>
 					</div>
 				</div>
-			</transition>
-		</div>
+			</div>
+		</transition>
 
 	</div>
 </template>
@@ -52,7 +53,8 @@
 					username: '',
 					password: ''
 				},
-				errorMsg: false
+				errorMsg: false,
+				show: false
 			}
 		},
 		computed: {
@@ -141,16 +143,11 @@
 	 * these styles.
 	 */
 
-.modal-enter, .modal-leave {
-  opacity: 0;
-}
-
-.modal-enter .modal-container {
-  transform: translate3d(0, 30px, 0);
-}
-
-.model-leave .modal-container {
-  transform: translate3d(0, -30px, 0);
-}
+	.modal-enter-active, .modal-leave-active {
+		  transition: opacity .5s
+		}
+	.modal-enter, .modal-leave-to /* .fade-leave-active in <2.1.8 */ {
+	  opacity: 0
+	}
 
 </style>

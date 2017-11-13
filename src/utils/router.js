@@ -13,7 +13,8 @@ export default new VueRouter({
 	  { path: '/trendingGIFs', component: viewTrendingGIF },
 	  { path: '/', component: viewLogin },
 	  { path: '/upload', component: viewUpload },
-	  { path: '/particularGif',component: viewParticularGif },
+	  { path: '/particularGif',component: viewParticularGif},
 	  { path: '/createGallery', component: viewCreateGallery }
 	]
+
 });
