@@ -63,6 +63,7 @@
 			submitLogin(){
 				const user = this.$store.getters.users_by_name(this.user);
 				if (user) {
+					this.$emit('login');
 					this.$router.push('searchGIFs');
 				} else {
 					this.errorMsg = true;

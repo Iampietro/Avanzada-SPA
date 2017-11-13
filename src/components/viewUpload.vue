@@ -32,7 +32,7 @@ import axios from "axios"
 
 export default {
       name: 'viewUpload',
-      props: [],
+      props: ['authorized'],
       data(){ 
         return {
           formData: new FormData(),
@@ -92,6 +92,10 @@ export default {
         
       },
       created() {
+        if (!this.authorized) {
+            console.log('Loguete gil, ke hace')
+            this.$router.push('/');
+          }
       }
     }
 </script>

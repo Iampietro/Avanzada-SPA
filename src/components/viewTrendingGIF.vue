@@ -23,7 +23,7 @@
 
     export default {
     	name: 'viewSearchGIF',
-      props: [],
+      props: ['authorized'],
       data(){ 
         return {
           gifs: [],
@@ -48,6 +48,9 @@
       },
       created() {
         this.getTrendingGIFS();
+        if (!this.authorized) {
+            this.$router.push('/');
+          }
       }
     }
 </script>

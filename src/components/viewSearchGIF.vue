@@ -51,7 +51,7 @@
 
     export default {
     	name: 'viewSearchGIF',
-      props: [],
+      props: ['authorized'],
       data(){ 
         return {
           gifs_left: [],
@@ -67,13 +67,7 @@
         
       },
       watch: {
-        gifs: function() {
-            if (!gifs_left) {
-                this.noResults = true;
-            }else{
-              this.noResults = false;
-            }
-        }
+        
       },
       methods:{
         searchGifs(){
@@ -82,6 +76,11 @@
                     this.addGifsToLists(response.data.results)
                     this.errorStatus = false
                     this.see = true
+                    if (response.data.results.length == 0) {
+                        this.noResults = true
+                    } else {
+                        this.noResults = false
+                    }
                 })
                 .catch((msg) => {
                     this.errorStatus = true
@@ -112,7 +111,9 @@
         }
       },
       created() {
-
+        if (!this.authorized) {
+          this.$router.push('/');
+        }
       }
     }
 </script>

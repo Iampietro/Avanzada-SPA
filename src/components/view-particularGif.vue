@@ -34,7 +34,7 @@
 <script>
 	export default {
 		name: 'viewParticularGif',
-		props: ['particularGif'],
+		props: ['particularGif', 'authorized'],
 		data(){
 			return {
 				tags: {},
@@ -99,6 +99,9 @@
                 .catch((msg) => {
                 	this.errorStatus = true
                 });
+            if (!this.authorized) {
+	          this.$router.push('/');
+	        }
 		},
 		mounted() {
 			
