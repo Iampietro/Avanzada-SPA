@@ -1,6 +1,6 @@
 <template>
     <div class="app">
-    	<top-menu></top-menu>
+    	<top-menu @logout="logout"></top-menu>
       <transition name="fade">
         <router-view @seeOneGif="seeOneGif" :particularGif="particularGif"
                      @login="login" :authorized="authorized"

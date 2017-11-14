@@ -48,6 +48,11 @@ export default {
       },
       computed:{
       },
+      watch: {
+        authorized: function() {
+          this.$router.push('/');
+        }
+      }
       methods:{
         onFileChange(e) {
           var files = e.target.files || e.dataTransfer.files;
