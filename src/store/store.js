@@ -10,7 +10,6 @@ export default new Vuex.Store({
 				user: {
 					username: 'iampietro',
 					password: 'punteo',
-					authorized: false
 				}
 			},
 			{
@@ -31,7 +30,8 @@ export default new Vuex.Store({
 					password: 'pantera'
 				}
 			}
-		]
+		],
+		authorized : false
 	},
 	getters: {
 		users_by_name: (state, getters) => (userToFind) =>  {
@@ -40,5 +40,11 @@ export default new Vuex.Store({
 		}
 	},
 	mutations: {
+		login(state){
+			state.authorized = true;
+		},
+		logout(state){
+			state.authorized = false;
+		}
 	}
 })

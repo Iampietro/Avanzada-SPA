@@ -21,7 +21,7 @@
 import axios from "axios"
 export default {
       name: 'viewUpload',
-      props: ['authorized'],
+      props: [],
       data(){ 
         return {
           name: ''
@@ -35,7 +35,7 @@ export default {
         authorized: function() {
           this.$router.push('/');
         }
-      }
+      },
       methods:{
         createGallery() {  
           axios({
@@ -56,9 +56,6 @@ export default {
       },
       created() {
         console.log('Lisandro tenes cara de sapo, ahora que vas a hacer?');
-        if (!this.authorized) {
-        this.$router.push('/');
-        }
       }
     }
 </script>

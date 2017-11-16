@@ -23,7 +23,7 @@
 
     export default {
     	name: 'viewSearchGIF',
-      props: ['authorized'],
+      props: [],
       data(){ 
         return {
           gifs: [],
@@ -38,7 +38,7 @@
         authorized: function() {
           this.$router.push('/');
         }
-      }
+      },
       methods:{
         getTrendingGIFS(){
             this.$http.get('https://api.tenor.com/v1/trending?key=N7HZW5YZJLP3&limit=10')
@@ -53,9 +53,7 @@
       },
       created() {
         this.getTrendingGIFS();
-        if (!this.authorized) {
-            this.$router.push('/');
-          }
+        
       }
     }
 </script>

@@ -1,10 +1,8 @@
 <template>
     <div class="app">
-    	<top-menu @logout="logout"></top-menu>
+    	<top-menu></top-menu>
       <transition name="fade">
-        <router-view @seeOneGif="seeOneGif" :particularGif="particularGif"
-                     @login="login" :authorized="authorized"
-                     @logout="logout">
+        <router-view @seeOneGif="seeOneGif" :particularGif="particularGif">
         </router-view>
       </transition>
     </div>
@@ -20,19 +18,12 @@
     	},
       data() {
           return {
-              particularGif: {},
-              authorized: false
+              particularGif: {}
           }
       },
       methods: {
           seeOneGif(gif){
               this.particularGif = gif;
-          },
-          login(){
-              this.authorized = true;
-          },
-          logout(){
-              this.authorized = false;
           }
       }
     }

@@ -23,8 +23,8 @@
 
 		<transition name="modal">  	<!-- transiciones fuera del v-if !!!! --> 
 			<div v-if="errorMsg">
-				<div class="modal-mask" v-show="errorMsg" @click="close">
-					<div class="modal-container" @click.stop>
+				<div class="modal-mask" v-show="errorMsg" @click.self="close">
+					<div class="modal-container">
 						<div class="modal-header center-align">
 						    <h3>Wrong!</h3>
 						</div>
@@ -58,12 +58,15 @@
 			}
 		},
 		computed: {
+			usuarios() {
+				return this.$store.state.users;
+			}
 		},
 		methods: {
 			submitLogin(){
 				const user = this.$store.getters.users_by_name(this.user);
-				if (user) {
-					this.$emit('login');
+				if(user != undefined) {
+					this.$store.commit('login');
 					this.$router.push('searchGIFs');
 				} else {
 					this.errorMsg = true;
@@ -74,8 +77,8 @@
 			}
 		},
 		mounted() {
-			document.addEventListener("keydown", (e) => {
-				if (this.errorMsg && e.keyCode == 27) {
+			document.addEventListener("keydown", (e) => {  /*La idea es para tener el chiche de cerrarlo con la tecla esc*/
+				if (this.errorMsg && e.keyCode == 27) {		/*No recomendable en mundo real*/
 					this.close();
 				}
 			})

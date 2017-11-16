@@ -51,7 +51,7 @@
 
     export default {
     	name: 'viewSearchGIF',
-      props: ['authorized'],
+      props: [],
       data(){ 
         return {
           gifs_left: [],
@@ -113,9 +113,7 @@
         }
       },
       created() {
-        if (!this.authorized) {
-          this.$router.push('/');
-        }
+        
       }
     }
 </script>

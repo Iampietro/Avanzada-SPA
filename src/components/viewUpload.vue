@@ -32,7 +32,7 @@ import axios from "axios"
 
 export default {
       name: 'viewUpload',
-      props: ['authorized'],
+      props: [],
       data(){ 
         return {
           formData: new FormData(),
@@ -52,7 +52,7 @@ export default {
         authorized: function() {
           this.$router.push('/');
         }
-      }
+      },
       methods:{
         onFileChange(e) {
           var files = e.target.files || e.dataTransfer.files;
@@ -97,10 +97,6 @@ export default {
         
       },
       created() {
-        if (!this.authorized) {
-            console.log('Loguete gil, ke hace')
-            this.$router.push('/');
-          }
       }
     }
 </script>

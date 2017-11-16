@@ -27,7 +27,8 @@
         },
         methods: {
           logout(){
-            this.$emit('logout');
+            this.$store.commit('logout');
+            this.$router.push('/')
           }
         }
     }
