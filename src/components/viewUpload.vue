@@ -5,20 +5,21 @@
           <h2>Upload</h2>
             <div class="row">
               <div class="col l12">
-
+              <form enctype="multipart/form-data">
                 <div id="app">
-                  <div v-if="!image">
+                  <div >
                     <h2>Select an image</h2>
-                    <input type="file" @change="onFileChange">
+                    <input type="file" @change="onFileChange($event.target.name, $event.target.files);"
+                      accept="image/*">
                   </div>
-                  <div v-else>
+                  <!--<div >
                     <img :src="image" />
                     <button @click="removeImage">Remove image</button>
-                  </div>
+                  </div>-->
                 </div>
 
-                <button class="btn waves-effect waves-light right" @click="upload_image">Upload</button>
-
+                <!--<button class="btn waves-effect waves-light right" @click.prevent="upload_image">Upload</button>-->
+                </form>
             </div>
           </div>
         </div>
@@ -29,19 +30,12 @@
 
 <script>
 import axios from "axios"
-
+import { upload } from './file-upload.service'
 export default {
       name: 'viewUpload',
       props: [],
       data(){ 
         return {
-          formData: new FormData(),
-          pikir: {
-            body: '',
-          },
-          isLoading: false,
-          image: '',
-          image_name: ''
         }
       },
       mounted() {
@@ -49,47 +43,35 @@ export default {
       computed:{
       },
       methods:{
-        onFileChange(e) {
-          var files = e.target.files || e.dataTransfer.files;
-          this.image_name = files;
-          if (!files.length)
-            return;
-          this.createImage(files[0]);
-        },
-        createImage(file) {
-          var image = new Image();
-          var reader = new FileReader();
+        onFileChange(fieldName, fileList) {
 
-          reader.onload = (e) => {
-            this.image = e.target.result;
-            console.log(e.target.result);
-          };
-          reader.readAsDataURL(file);
+          const formData = new FormData();
+
+          if (!fileList.length) return;
+          
+          formData.append("img", fileList[0]);
+          formData.append("content_type", 0);
+
+          this.save(formData);
         },
-        removeImage: function (e) {
-          this.image = '';
-        },
-        upload_image(){
-          axios({
-            method: 'post',
-            url: 'https://api.pixhost.org/images',
-            data: {
-              img: this.image,
-              content_type: '0'
-            },
-            headers: { 'content_type': 'multipart/form-data' },
-          })
+        save(formData) {
+
+          const url = `https://api.pixhost.org/images`;
+          return axios.post(url, formData)
+            // get data
             .then(response => {
-              console.log(response.data);
+              let image_info = response.data;
             })
             .catch((response) => {
               console.log(response);
             });
-        }
 
-            //this.message = true;
-            //setTimeout(this.message_false, 4000);
-        
+          this.particularGif(image_info);
+
+        },
+        particularGif(image_info){
+          this.$emit('seeOneGif', image_info);
+        }   
       },
       created() {
       }
@@ -97,5 +79,4 @@ export default {
 </script>
 
 <style>
-
 </style>
