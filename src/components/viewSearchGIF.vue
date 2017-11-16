@@ -18,7 +18,7 @@
                             <div v-for="gif in gifs_left" class="card gif">
                                 <div class="card-image">
                                     <router-link to="/particularGif"> 
-                                        <img class="img-responsive displayed" 
+                                        <img class="img-responsive displayed grow" 
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
@@ -29,7 +29,7 @@
                             <div v-for="gif in gifs_right" class="card gif">
                                 <div class="card-image">
                                     <router-link to="/particularGif"> 
-                                        <img class="img-responsive displayed" 
+                                        <img class="img-responsive displayed grow" 
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
@@ -67,12 +67,8 @@
         
       },
       watch: {
-        gifs: function() {
-            if (!gifs_left) {
-                this.noResults = true;
-            }else{
-              this.noResults = false;
-            }
+        authorized: function() {
+          this.$router.push('/');
         }
       },
       methods:{
@@ -81,6 +77,12 @@
                 .then((response) => {
                     this.addGifsToLists(response.data.results)
                     this.errorStatus = false
+                    this.see = true
+                    if (response.data.results.length == 0) {
+                        this.noResults = true
+                    } else {
+                        this.noResults = false
+                    }
                 })
                 .catch((msg) => {
                     this.errorStatus = true
@@ -111,7 +113,7 @@
         }
       },
       created() {
-
+        
       }
     }
 </script>

@@ -1,7 +1,8 @@
 <template>
   <nav>
     <div class="nav-wrapper negrita">
-      <label class="brand-logo right">La Pro-aborto App</label>
+      <label @click.prevent="logout">Logout</label>
+      <label class="brand-logo right">Logo</label>   <!-- esto idealmente sería un boton junto al logo --> 
         <ul class="left hide-on-med-and-down">
           <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/upload">Upload image</router-link></li>
@@ -25,6 +26,10 @@
         created() {
         },
         methods: {
+          logout(){
+            this.$store.commit('logout');
+            this.$router.push('/')
+          }
         }
     }
 </script>

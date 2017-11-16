@@ -31,6 +31,11 @@ export default {
       },
       computed:{
       },
+      watch: {
+        authorized: function() {
+          this.$router.push('/');
+        }
+      },
       methods:{
         createGallery() {  
           axios({
@@ -50,6 +55,7 @@ export default {
         }
       },
       created() {
+        console.log('Lisandro tenes cara de sapo, ahora que vas a hacer?');
       }
     }
 </script>

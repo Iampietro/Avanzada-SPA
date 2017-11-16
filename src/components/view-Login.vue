@@ -14,16 +14,17 @@
 						</div>
 						<div class="row">
 							<button class="btn waves-effect waves-light right" @click.prevent="submitLogin">Enter</button>
+							
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 
-		<div v-if="errorMsg">
-			<transition name="modal">
-				<div class="modal-mask" v-show="errorMsg" @click="close">
-					<div class="modal-container" @click.stop>
+		<transition name="modal">  	<!-- transiciones fuera del v-if !!!! --> 
+			<div v-if="errorMsg">
+				<div class="modal-mask" v-show="errorMsg" @click.self="close">
+					<div class="modal-container">
 						<div class="modal-header center-align">
 						    <h3>Wrong!</h3>
 						</div>
@@ -37,8 +38,8 @@
 						</div>
 					</div>
 				</div>
-			</transition>
-		</div>
+			</div>
+		</transition>
 
 	</div>
 </template>
@@ -52,15 +53,20 @@
 					username: '',
 					password: ''
 				},
-				errorMsg: false
+				errorMsg: false,
+				show: false
 			}
 		},
 		computed: {
+			usuarios() {
+				return this.$store.state.users;
+			}
 		},
 		methods: {
 			submitLogin(){
 				const user = this.$store.getters.users_by_name(this.user);
-				if (user) {
+				if(user != undefined) {
+					this.$store.commit('login');
 					this.$router.push('searchGIFs');
 				} else {
 					this.errorMsg = true;
@@ -71,8 +77,8 @@
 			}
 		},
 		mounted() {
-			document.addEventListener("keydown", (e) => {
-				if (this.errorMsg && e.keyCode == 27) {
+			document.addEventListener("keydown", (e) => {  /*La idea es para tener el chiche de cerrarlo con la tecla esc*/
+				if (this.errorMsg && e.keyCode == 27) {		/*No recomendable en mundo real*/
 					this.close();
 				}
 			})
@@ -141,16 +147,11 @@
 	 * these styles.
 	 */
 
-.modal-enter, .modal-leave {
-  opacity: 0;
-}
-
-.modal-enter .modal-container {
-  transform: translate3d(0, 30px, 0);
-}
-
-.model-leave .modal-container {
-  transform: translate3d(0, -30px, 0);
-}
+	.modal-enter-active, .modal-leave-active {
+		  transition: opacity .5s
+		}
+	.modal-enter, .modal-leave-to /* .fade-leave-active in <2.1.8 */ {
+	  opacity: 0
+	}
 
 </style>

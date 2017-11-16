@@ -42,6 +42,11 @@ export default {
       },
       computed:{
       },
+      watch: {
+        authorized: function() {
+          this.$router.push('/');
+        }
+      },
       methods:{
         onFileChange(fieldName, fileList) {
 

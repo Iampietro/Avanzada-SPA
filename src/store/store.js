@@ -8,22 +8,43 @@ export default new Vuex.Store({
 		users: [
 			{
 				user: {
-					username: 'juan',
-					password: 345
+					username: 'iampietro',
+					password: 'punteo',
 				}
 			},
 			{
 				user: {
-					username: 'm',
-					password: 123
+					username: 'cooper',
+					password: 'crystalmountain'
+				}
+			},
+			{
+				user: {
+					username: 'fuka',
+					password: 'notKilmes'
+				}
+			},
+			{
+				user: {
+					username: 'lisandro',
+					password: 'pantera'
 				}
 			}
-		]
+		],
+		authorized : false
 	},
 	getters: {
 		users_by_name: (state, getters) => (userToFind) =>  {
 			return state.users.find(userIterator => userIterator.user.username === userToFind.username &&
 													userIterator.user.password == userToFind.password)
+		}
+	},
+	mutations: {
+		login(state){
+			state.authorized = true;
+		},
+		logout(state){
+			state.authorized = false;
 		}
 	}
 })

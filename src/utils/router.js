@@ -7,13 +7,64 @@ import viewParticularGif from '../components/view-particularGif.vue'
 import viewLogin from '../components/view-Login.vue'
 import viewCreateGallery from '../components/viewCreateGallery.vue'
 
+import store from '../store/store'
+
 export default new VueRouter({
   routes: [
-	  { path: '/searchGIFs', component: viewSearchGIF },
-	  { path: '/trendingGIFs', component: viewTrendingGIF },
-	  { path: '/', component: viewLogin },
-	  { path: '/upload', component: viewUpload },
-	  { path: '/particularGif',component: viewParticularGif },
-	  { path: '/createGallery', component: viewCreateGallery }
+	  { 
+	  	path: '/searchGIFs', 
+	  	component: viewSearchGIF,
+	  	beforeEnter: (to, from, next) => {
+	  		if (store.state.authorized)
+	  			next();
+	  		else
+	  			next('/');
+	  	}
+	  },
+	  { 
+	  	path: '/trendingGIFs', 
+	  	component: viewTrendingGIF,
+	  	beforeEnter: (to, from, next) => {
+	  		if (store.state.authorized)
+	  			next();
+	  		else
+	  			next('/');
+	  	}
+	  },
+	  { 
+	  	path: '/', 
+	  	component: viewLogin 
+	  },
+	  { 
+	  	path: '/upload', 
+	  	component: viewUpload,
+	  	beforeEnter: (to, from, next) => {
+	  		if (store.state.authorized)
+	  			next();
+	  		else
+	  			next('/');
+	  	} 
+	  },
+	  { 
+	  	path: '/particularGif',
+	  	component: viewParticularGif,
+	  	beforeEnter: (to, from, next) => {
+	  		if (store.state.authorized)
+	  			next();
+	  		else
+	  			next('/');
+	  	}
+	  },
+	  { 
+	  	path: '/createGallery', 
+	  	component: viewCreateGallery,
+	  	beforeEnter: (to, from, next) => {
+	  		if (store.state.authorized)
+	  			next();
+	  		else
+	  			next('/');
+	  	} 
+	  }
 	]
+
 });
