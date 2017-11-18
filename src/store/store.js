@@ -10,28 +10,32 @@ export default new Vuex.Store({
 				user: {
 					username: 'iampietro',
 					password: 'punteo',
-					savedGifs: []
+					savedGifs: [],
+					lastSearchs: []
 				}
 			},
 			{
 				user: {
 					username: 'cooper',
 					password: 'crystalmountain',
-					savedGifs: []
+					savedGifs: [],
+					lastSearchs: []
 				}
 			},
 			{
 				user: {
 					username: 'fuka',
 					password: 'notKilmes',
-					savedGifs: []
+					savedGifs: [],
+					lastSearchs: []
 				}
 			},
 			{
 				user: {
 					username: 'lisandro',
 					password: 'pantera',
-					savedGifs: []
+					savedGifs: [],
+					lastSearchs: []
 				}
 			}
 		],
@@ -56,11 +60,20 @@ export default new Vuex.Store({
 			state.users[state.users.indexOf(user)].savedGifs.push(gif);
 		},
 		removeGif(state, user, gif){
-			const indexUser = state.users[state.users.indexOf(user)];
-			const indexGif = state.users[indexUser].savedGifs[state.users[indexUser].savedGifs.indexOf(gif)];
+			const indexUser = state.users.indexOf(user);
+			const indexGif = state.users[indexUser].user.savedGifs.indexOf(gif);
 
-			state.users[indexUser].savedGifs.slice(0, indexGif)
-											.concat(state.users[indexUser].savedGifs.slice(indexGif + 1));
+			state.users[indexUser].user.savedGifs.slice(0, indexGif)
+											.concat(state.users[indexUser].user.savedGifs.slice(indexGif + 1));
+		},
+		saveSearch(state, user, search){
+			const indexUser = state.users.indexOf(user);
+			if (state.users[indexUser].user.lastSearchs.length > 7) {
+				state.users[indexUser].user.lastSearchs.slice(1);
+				state.users[indexUser].user.lastSearchs.push(search);
+			} else {
+				state.users[indexUser].user.lastSearchs.push(search);
+			}
 		}
 	}
 })
