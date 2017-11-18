@@ -35,9 +35,7 @@
       computed:{
       },
       watch: {
-        authorized: function() {
-          this.$router.push('/');
-        }
+        
       },
       methods:{
         getTrendingGIFS(){

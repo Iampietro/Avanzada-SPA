@@ -66,7 +66,7 @@
 			submitLogin(){
 				const user = this.$store.getters.users_by_name(this.user);
 				if(user != undefined) {
-					this.$store.commit('login');
+					this.$store.commit('login', user);
 					this.$router.push('searchGIFs');
 				} else {
 					this.errorMsg = true;

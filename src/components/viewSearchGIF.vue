@@ -10,7 +10,7 @@
                       @click="searchGifs">
                       Search
                     </button>
-
+                    <h3>{{ currentUser.username }}</h3>
                       <h3 v-if="noResults">We're sorry, your search did't have any matches</h3>
                       <div v-else>
 
@@ -22,6 +22,9 @@
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
+                                <button class="btn waves-effect waves-light" @click.prevent="Save(gif)">
+                                  Save
+                                </button>
                             </div>
                         </div>
 
@@ -33,6 +36,9 @@
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
+                                <button class="btn waves-effect waves-light" @click.prevent="Save(gif)">
+                                  Save
+                                </button>
                             </div>
                         </div>
 
@@ -58,7 +64,8 @@
           gifs_right: [],
           search: '',
           errorStatus: false,
-          noResults: false
+          noResults: false,
+          currentUser: {}
         }
       },
       mounted() {
@@ -67,9 +74,7 @@
         
       },
       watch: {
-        authorized: function() {
-          this.$router.push('/');
-        }
+        
       },
       methods:{
         searchGifs(){
@@ -110,10 +115,14 @@
             this.gifs_left = lefty;
             this.gifs_right = righto;
           }
+        },
+        Save(gifToSave){
+          const gif = gifToSave.media[0].gif.url;
+          this.$store.commit('saveGif', gif);
         }
       },
       created() {
-        
+        this.currentUser = this.$store.state.justLoggedUser;
       }
     }
 </script>

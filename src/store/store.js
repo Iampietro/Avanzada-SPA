@@ -10,28 +10,33 @@ export default new Vuex.Store({
 				user: {
 					username: 'iampietro',
 					password: 'punteo',
+					savedGifs: []
 				}
 			},
 			{
 				user: {
 					username: 'cooper',
-					password: 'crystalmountain'
+					password: 'crystalmountain',
+					savedGifs: []
 				}
 			},
 			{
 				user: {
 					username: 'fuka',
-					password: 'notKilmes'
+					password: 'notKilmes',
+					savedGifs: []
 				}
 			},
 			{
 				user: {
 					username: 'lisandro',
-					password: 'pantera'
+					password: 'pantera',
+					savedGifs: []
 				}
 			}
 		],
-		authorized : false
+		authorized : false,
+		justLoggedUser: {}
 	},
 	getters: {
 		users_by_name: (state, getters) => (userToFind) =>  {
@@ -40,11 +45,22 @@ export default new Vuex.Store({
 		}
 	},
 	mutations: {
-		login(state){
+		login(state, user){
 			state.authorized = true;
+			state.justLoggedUser = user;
 		},
 		logout(state){
 			state.authorized = false;
+		},
+		saveGif(state, user, gif){
+			state.users[state.users.indexOf(user)].savedGifs.push(gif);
+		},
+		removeGif(state, user, gif){
+			const indexUser = state.users[state.users.indexOf(user)];
+			const indexGif = state.users[indexUser].savedGifs[state.users[indexUser].savedGifs.indexOf(gif)];
+
+			state.users[indexUser].savedGifs.slice(0, indexGif)
+											.concat(state.users[indexUser].savedGifs.slice(indexGif + 1));
 		}
 	}
 })
