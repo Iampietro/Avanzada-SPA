@@ -88,10 +88,7 @@
 			},
 			suggestions: function() {
 				this.startRotation();
-			},
-			authorized: function() {
-	          this.$router.push('/');
-	        }
+			}
 		},
 		created() { // Podriamos guardar esto en vuex (y quizas las sugerencias tmb)
 			this.$http.get('https://api.tenor.com/v1/tags?key=N7HZW5YZJLP3')

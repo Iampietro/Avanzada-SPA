@@ -4,7 +4,7 @@
       <label @click.prevent="logout">Logout</label>
       <label class="brand-logo right">Logo</label>   <!-- esto idealmente sería un boton junto al logo --> 
         <ul class="left hide-on-med-and-down">
-          <li><router-link to="/">Home</router-link></li>
+          <li><router-link to="/home">Home</router-link></li>
           <li><router-link to="/upload">Upload image</router-link></li>
           <li><router-link to="/searchGIFs">Search GIFs</router-link></li>
           <li><router-link to="/trendingGIFs">Trending GIFs</router-link></li>
