@@ -2,8 +2,7 @@
     <div class="app">
     	<top-menu></top-menu>
       <transition name="fade">
-        <router-view @seeOneGif="seeOneGif" :particularGif="particularGif">
-        </router-view>
+        <router-view @seeOneGif="seeOneGif" :particularGif="particularGif"></router-view>
       </transition>
     </div>
 </template>
@@ -18,7 +17,8 @@
     	},
       data() {
           return {
-              particularGif: {}
+              particularGif: {},
+              uploadedGif: {}
           }
       },
       methods: {

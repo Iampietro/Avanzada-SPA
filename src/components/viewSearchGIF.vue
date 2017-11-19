@@ -1,9 +1,10 @@
 <template>
   	<div class="container">
+      <div class="row">
         <div class="negrita card blue-grey darken-1">
               <form class="card-content" autocomplete="off">
                   <h2>Search for GIFs</h2>
-                  <div class="row">
+                  
                     <input v-model="search" type='text' placeholder="Search for gifs..."/>
                     <button 
                       class="btn waves-effect waves-light right" type="submit" name="action" 
@@ -43,9 +44,9 @@
                         </div>
 
                       </div>
-                  </div>
               </form>
         </div>
+      </div>
         <div v-if="errorStatus" class="row">
             <h3 class="center-align">Sorry, there was a problem with the server. ¡Please excuse us!</h3>
         </div> 
