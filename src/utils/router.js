@@ -64,6 +64,16 @@ export default new VueRouter({
 	  		else
 	  			next('/');
 	  	} 
+	  },
+	  {
+	  	path: '/home',
+	  	component: viewHome,
+	  	beforeEnter: (to, from, next) => {
+	  		if(store.state.authorized)
+	  			next();
+	  		else
+	  			next('/')
+	  	}
 	  }
 	]
 

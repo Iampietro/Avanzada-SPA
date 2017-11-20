@@ -64,8 +64,7 @@
           gifs_right: [],
           search: '',
           errorStatus: false,
-          noResults: false,
-          currentUser: {}
+          noResults: false
         }
       },
       mounted() {
@@ -92,7 +91,7 @@
                 .catch((msg) => {
                     this.errorStatus = true
                 });
-                this.$store.commit('saveSearch', this.currentUser, this.search);
+                this.$store.commit('saveSearch', this.search);
         },
         particularGif(gif){
             this.$emit('seeOneGif', gif);
