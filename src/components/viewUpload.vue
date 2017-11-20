@@ -2,24 +2,32 @@
   <div class="container">
     <div class="ac-custom ac-radio ac-circle negrita card blue-grey darken-1">
         <div class="card-content" autocomplete="off">
-          <h2>Upload</h2>
+          <h3>Upload an image or a GIF</h3>
             <div class="row">
               <div class="col l12">
 
-                <div id="app">
-                  <div v-if="!image">
-                    <h2>Select an image</h2>
-                    <input type="file" @change="onFileChange">
+                <div v-if="!edited_url" id="app">
+                  <form enctype="multipart/form-data">
+                    <label class="btn waves-effect waves-light">Select file
+                      <input type="file" @change="onFileChange($event.target.name, $event.target.files);"
+                      accept="image/*" class="btn waves-effect waves-light right">
+                    </label><br>
+                      <div v-if="loading" class="progress">
+                          <div class="indeterminate"></div>
+                      </div>
+                  </form>
+                </div>
+                
+                <div v-else>
+                  <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    Your file has been uploaded.
                   </div>
-                  <div v-else>
-                    <img :src="image" />
-                    <button @click="removeImage">Remove image</button>
-                  </div>
+                  <label><b>URL</b> <i>{{ edited_url }}</i></label>
+                  <div class="row"><img :src="edited_url"></div>
                 </div>
 
-                <button class="btn waves-effect waves-light right" @click="upload_image">Upload</button>
-
-            </div>
+              </div>
           </div>
         </div>
     </div> 
@@ -29,19 +37,16 @@
 
 <script>
 import axios from "axios"
-
+import { upload } from './file-upload.service'
 export default {
       name: 'viewUpload',
       props: [],
       data(){ 
         return {
-          formData: new FormData(),
-          pikir: {
-            body: '',
-          },
-          isLoading: false,
-          image: '',
-          image_name: ''
+          loading: false,
+          loaded: false,
+          image_url: '',
+          edited_url: ''
         }
       },
       mounted() {
@@ -52,47 +57,35 @@ export default {
         
       },
       methods:{
-        onFileChange(e) {
-          var files = e.target.files || e.dataTransfer.files;
-          this.image_name = files;
-          if (!files.length)
-            return;
-          this.createImage(files[0]);
-        },
-        createImage(file) {
-          var image = new Image();
-          var reader = new FileReader();
+        onFileChange(fieldName, fileList) {
 
-          reader.onload = (e) => {
-            this.image = e.target.result;
-            console.log(e.target.result);
-          };
-          reader.readAsDataURL(file);
+          const formData = new FormData();
+
+          if (!fileList.length) return;
+          
+          formData.append("img", fileList[0]);
+          formData.append("content_type", 0);
+
+          this.save(formData);
         },
-        removeImage: function (e) {
-          this.image = '';
-        },
-        upload_image(){
-          axios({
-            method: 'post',
-            url: 'https://api.pixhost.org/images',
-            data: {
-              img: this.image,
-              content_type: '0'
-            },
-            headers: { 'content_type': 'multipart/form-data' },
-          })
+        save(formData) {
+          this.loading = true;
+          const url = `https://api.pixhost.org/images`;
+          return axios.post(url, formData)
+            // get data
             .then(response => {
-              console.log(response.data);
+              this.image_url = response.data.show_url;
+              this.loading = false;
+              this.loaded = true;
+              this.show_it_to_me(this.image_url);
             })
             .catch((response) => {
               console.log(response);
             });
-        }
-
-            //this.message = true;
-            //setTimeout(this.message_false, 4000);
-        
+        },
+        show_it_to_me(){
+          this.edited_url = "https://img14.pixhost.org/images" + this.image_url.slice(24);
+        }   
       },
       created() {
       }
@@ -100,5 +93,29 @@ export default {
 </script>
 
 <style>
+input[type="file"] {
+    display: none;
+}
 
+.alert {
+    padding: 20px;
+    background-color: #66ff66;
+    color: black;
+    margin-bottom: 15px;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: black;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: white;
+}
 </style>
