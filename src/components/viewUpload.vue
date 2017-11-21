@@ -84,6 +84,7 @@ export default {
         },
         show_it_to_me(){
           this.edited_url = "https://img15.pixhost.org/images" + this.image_url.slice(24);
+          this.$store.commit('saveUpload', this.edited_url);
         }   
       },
       created() {

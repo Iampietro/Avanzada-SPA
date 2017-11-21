@@ -92,7 +92,6 @@
                 .catch((msg) => {
                     this.errorStatus = true
                 });
-                debugger
                 this.$store.commit('saveSearch', this.search, this.currentUser);
         },
         particularGif(gif){

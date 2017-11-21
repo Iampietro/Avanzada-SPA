@@ -4,6 +4,10 @@
 				<h4 v-if="particularGif.title">{{ particularGif.title }}</h4>
 				<h4 v-else>Untitled</h4>
 			</div>
+			<div class="alert" v-if="saved">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    Your file has been uploaded.
+            </div>
 			<div class="slider">
 				<div class="row center-align">
 					<img :src="particularGif.media[0].gif.url" class="responsive-img"> 
@@ -13,19 +17,6 @@
                    Save
             </button>
 		<div class="divider"></div>
-		<!-- <div class="row">   
-			<div class="col s12 l12">
-				<p class="center-align">
-			        <a @click="prev">Previous</a> || <a @click="next">Next</a>
-			    </p>
-			    <transition name="fade" tag="p" mode="out-in">
-				    	<img :src="suggestions[position].media[0].tinymp4.preview" :key="position" v-if="arrayOk" 																class="suggestion"
-																			   @click="change(suggestions[position])">
-			    </transition>
-			    	 
-				
-			</div> --> 
-
 
 
 			<div v-if="errorStatus" class="row">
@@ -45,7 +36,8 @@
 				suggestions: {},
 				currentNumber: 0,
 				timer: null,
-				errorStatus: null
+				errorStatus: null,
+				saved: null
 			}
 		},
 		computed: {
@@ -88,6 +80,7 @@
 	        Save(gifToSave){
 	          const gif = gifToSave.media[0].gif.url;
 	          this.$store.commit('saveGif', gif);
+	          this.saved = true;
 	        }
 		},
 		watch: {
@@ -116,6 +109,13 @@
 </script>
 
 <style>
+
+	.alert {
+    padding: 20px;
+    background-color: #66ff66;
+    color: black;
+    margin-bottom: 15px;
+	}
 
 
 	.slider {

@@ -11,7 +11,8 @@ export default new Vuex.Store({
 					username: 'iampietro',
 					password: 'punteo',
 					savedGifs: [],
-					lastSearchs: []
+					lastSearchs: [],
+					uploadedImages: []
 				}
 			},
 			{
@@ -19,7 +20,8 @@ export default new Vuex.Store({
 					username: 'cooper',
 					password: 'crystalmountain',
 					savedGifs: [],
-					lastSearchs: []
+					lastSearchs: [],
+					uploadedImages: []
 				}
 			},
 			{
@@ -27,7 +29,8 @@ export default new Vuex.Store({
 					username: 'fuka',
 					password: 'notKilmes',
 					savedGifs: [],
-					lastSearchs: []
+					lastSearchs: [],
+					uploadedImages: []
 				}
 			},
 			{
@@ -35,7 +38,8 @@ export default new Vuex.Store({
 					username: 'lisandro',
 					password: 'pantera',
 					savedGifs: [],
-					lastSearchs: []
+					lastSearchs: [],
+					uploadedImages: []
 				}
 			},
 			{
@@ -43,7 +47,8 @@ export default new Vuex.Store({
 					username: 'a',
 					password: 'a',
 					savedGifs: [],
-					lastSearchs: []
+					lastSearchs: [],
+					uploadedImages: []
 				}
 			}
 		],
@@ -82,6 +87,10 @@ export default new Vuex.Store({
 			} else {
 				state.users[indexUser].user.lastSearchs.push(search);
 			}
+		},
+		saveUpload(state, imageToSave){
+			const indexUser = state.users.indexOf(state.justLoggedUser);
+			state.users[indexUser].user.uploadedImages.push(imageToSave);
 		}
 	}
 })
