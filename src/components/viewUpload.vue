@@ -37,7 +37,6 @@
 
 <script>
 import axios from "axios"
-import { upload } from './file-upload.service'
 export default {
       name: 'viewUpload',
       props: [],
@@ -84,7 +83,7 @@ export default {
             });
         },
         show_it_to_me(){
-          this.edited_url = "https://img14.pixhost.org/images" + this.image_url.slice(24);
+          this.edited_url = "https://img15.pixhost.org/images" + this.image_url.slice(24);
         }   
       },
       created() {

@@ -23,9 +23,6 @@
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
-                                <button class="btn waves-effect waves-light" @click.prevent="Save(gif)">
-                                  Save
-                                </button>
                             </div>
                         </div>
 
@@ -37,9 +34,6 @@
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
-                                <button class="btn waves-effect waves-light" @click.prevent="Save(gif)">
-                                  Save
-                                </button>
                             </div>
                         </div>
 
@@ -65,7 +59,13 @@
           gifs_right: [],
           search: '',
           errorStatus: false,
-          noResults: false
+          noResults: false,
+          currentUser: {
+              username: '',
+              password: '',
+              savedGifs: [],
+              lastSearchs: []
+            }
         }
       },
       mounted() {
@@ -92,7 +92,8 @@
                 .catch((msg) => {
                     this.errorStatus = true
                 });
-                this.$store.commit('saveSearch', this.search);
+                debugger
+                this.$store.commit('saveSearch', this.search, this.currentUser);
         },
         particularGif(gif){
             this.$emit('seeOneGif', gif);
@@ -116,10 +117,6 @@
             this.gifs_left = lefty;
             this.gifs_right = righto;
           }
-        },
-        Save(gifToSave){
-          const gif = gifToSave.media[0].gif.url;
-          this.$store.commit('saveGif', gif);
         }
       },
       created() {

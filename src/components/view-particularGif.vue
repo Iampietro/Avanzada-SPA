@@ -1,29 +1,33 @@
 <template>
 	<div class="container">
-		<div class="row center-align">
-			<div class="col s12 m12 l12">
+			<div class="center-align">
 				<h4 v-if="particularGif.title">{{ particularGif.title }}</h4>
 				<h4 v-else>Untitled</h4>
 			</div>
-			<div class="col s9 m9 l9 offset-l3">
-				<div>
-	                <img :src="particularGif.media[0].gif.url" class="responsive-img"> 
+			<div class="slider">
+				<div class="row center-align">
+					<img :src="particularGif.media[0].gif.url" class="responsive-img"> 
 				</div>
 			</div>
-		</div>
+			<button class="btn waves-effect waves-light margin" @click.prevent="Save(particularGif)">
+                   Save
+            </button>
 		<div class="divider"></div>
-		<div class="row">
+		<!-- <div class="row">   
 			<div class="col s12 l12">
 				<p class="center-align">
 			        <a @click="prev">Previous</a> || <a @click="next">Next</a>
 			    </p>
-			    <transition name="fade" tag="p" mode="">
+			    <transition name="fade" tag="p" mode="out-in">
 				    	<img :src="suggestions[position].media[0].tinymp4.preview" :key="position" v-if="arrayOk" 																class="suggestion"
 																			   @click="change(suggestions[position])">
 			    </transition>
 			    	 
 				
-			</div>
+			</div> --> 
+
+
+
 			<div v-if="errorStatus" class="row">
 				<h3 class="center-align">Sorry, there was a problem with the server ¡Please excuse us!</h3>
 			</div>
@@ -80,6 +84,10 @@
 	        },
 	        change(gifToChange) {
 	        	this.$emit('seeOneGif', gifToChange);
+	        },
+	        Save(gifToSave){
+	          const gif = gifToSave.media[0].gif.url;
+	          this.$store.commit('saveGif', gif);
 	        }
 		},
 		watch: {
@@ -108,10 +116,22 @@
 </script>
 
 <style>
-	.fade-enter-active, .fade-leave-active {
-	  transition: opacity .5s
+
+
+	.slider {
+	  position: relative;
+	  margin-top: 3rem;
+	  margin-right: auto;
+	  margin-left: auto;
+	  overflow: hidden;
+	  width: 40.625rem;
+	  height: 26.25rem;
+	  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+
+	  .some-marggin{
+	  	margin-left: 50%;
+	  }
+
 	}
-	.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-	  opacity: 0
-	}
+
 </style>

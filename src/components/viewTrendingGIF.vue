@@ -1,19 +1,37 @@
 <template>
 	<div class="container">
     <div class="ac-custom ac-radio ac-circle negrita card blue-grey darken-1">
-        <form class="card-content" autocomplete="off">
+        <form class="card-content center" autocomplete="off">
             <h2>Trending GIFs</h2>
-            
-            <div class="row">
-                  <div v-for="gif in gifs" >
-                      <img class="img-responsive center-align" :src="gif.media[0].gif.preview">
-                  </div>
+            <div class="row" v-if="errorStatus">
+                <h3>Sorry, there was a problem with the server. ¡Please excuse us!</h3>
             </div>
+            <div class="row">
+              <div class="col l6">
+                  <div v-for="gif in gifs_left" class="card gif">
+                      <div class="card-image">
+                          <router-link to="/particularGif"> 
+                              <img class="img-responsive displayed grow" 
+                                :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
+                          </router-link> 
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col l6">
+                  <div v-for="gif in gifs_right" class="card gif">
+                      <div class="card-image">
+                          <router-link to="/particularGif"> 
+                              <img class="img-responsive displayed grow" 
+                              :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
+                          </router-link> 
+                      </div>
+                  </div>
+              </div>
+            </div>
+
         </form>
     </div> 
-    <div class="row" v-if="errorStatus">
-        <h3>Sorry, there was a problem with the server. ¡Please excuse us!</h3>
-    </div>
     <br>
   </div>
 </template>
@@ -26,8 +44,9 @@
       props: [],
       data(){ 
         return {
-          gifs: [],
-          errorStatus: false
+          errorStatus: false,
+          gifs_left: [],
+          gifs_right: []
         }
       },
       mounted() {
@@ -41,12 +60,34 @@
         getTrendingGIFS(){
             this.$http.get('https://api.tenor.com/v1/trending?key=N7HZW5YZJLP3&limit=10')
                 .then((response) => {
-                    this.gifs =  response.data.results
+                    this.addGifsToLists(response.data.results)
                     this.errorStatus = false
                 })
                 .catch((msg) => {
                     this.errorStatus = true
                 });
+        },
+        addGifsToLists(gifs_response){
+          if(gifs_response)
+          {
+            let lefty = [];
+            let righto = [];
+            for(let i = 0; gifs_response.length > i; i++) 
+            {
+              if(i < gifs_response.length / 2)
+              {
+                lefty.push(gifs_response[i]);
+              } else {
+                righto.push(gifs_response[i]);
+              }
+            }
+
+            this.gifs_left = lefty;
+            this.gifs_right = righto;
+          }
+        },
+        particularGif(gif){
+            this.$emit('seeOneGif', gif);
         }
       },
       created() {
@@ -57,5 +98,9 @@
 </script>
 
 <style>
-
+  .grow:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
 </style>

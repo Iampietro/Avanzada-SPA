@@ -1,6 +1,12 @@
 <template>
-	<div class="negrita container">
-    <h3>Welcome {{ userLogged.user.username }}</h3>
+	<div class="container">
+    <div class="row">
+      <h5 class="right"><i> Logged as: {{ userLogged.user.username }}</i></h5>
+    </div>
+    <div class="row" v-if="haveSearches">
+      <h6>Your last searches: </h6>
+      <p v-for="search in userLogged.user.lastSearchs">{{ search }}</p>
+    </div>
   </div>
 </template>
 
@@ -25,8 +31,11 @@
       methods: {
       },
       computed: {
-        userLogged() {
+        userLogged(){
           return this.$store.state.justLoggedUser;
+        },
+        haveSearches(){
+          return this.userLogged.user.lastSearchs.length > 0;
         }
       }
     }

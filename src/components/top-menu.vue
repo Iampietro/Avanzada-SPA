@@ -8,7 +8,7 @@
           <li><router-link to="/upload">Upload image</router-link></li>
           <li><router-link to="/searchGIFs">Search GIFs</router-link></li>
           <li><router-link to="/trendingGIFs">Trending GIFs</router-link></li>
-            </ul>
+        </ul>
         </div>
     </nav>
 </template>
@@ -18,12 +18,14 @@
         name: 'topMenu',
         data(){
             return {
-                
+                user: {}
             }
         },
         mounted() {
+
         },
         created() {
+
         },
         methods: {
           logout(){
