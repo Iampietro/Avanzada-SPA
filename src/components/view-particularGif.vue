@@ -6,7 +6,7 @@
 			</div>
 			<div class="alert" v-if="saved">
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-                    Your file has been uploaded.
+                    Gif Saved successfully!
             </div>
 			<div class="slider">
 				<div class="row center-align">

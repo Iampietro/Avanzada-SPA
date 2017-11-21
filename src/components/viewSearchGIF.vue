@@ -60,6 +60,7 @@
           search: '',
           errorStatus: false,
           noResults: false,
+          searchingProcess: false,
           currentUser: {
               username: '',
               password: '',
@@ -80,9 +81,9 @@
         searchGifs(){
             this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=10&q=' + this.search)
                 .then((response) => {
+                    this.searchingProcess = true
                     this.addGifsToLists(response.data.results)
                     this.errorStatus = false
-                    this.see = true
                     if (response.data.results.length == 0) {
                         this.noResults = true
                     } else {
@@ -130,4 +131,7 @@
     -ms-transform: scale(1.1);
     transform: scale(1.1);
   }
+
+
+
 </style>

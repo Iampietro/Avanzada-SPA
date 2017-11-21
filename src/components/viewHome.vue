@@ -1,15 +1,18 @@
 <template>
 	<div class="container">
     <div class="row">
-      <div class="col s12 m12 l12">
-        <h5 class="right"><i> Logged as: {{ userLogged.user.username }}</i></h5>
+      <div class="col s2 m2 l2 right">
+        <div class="chip">
+          <strong class="black-text">{{ userLogged.username }}</strong>
+          <i class="small material-icons right">account_circle</i>
+        </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col s4 m4 l4">
         <div v-if="hasGifs">
-          <h6>Your saved Gifs <i>(Fijate si podes hacer un carrusel o algo mas bonito acá Coop)</i></h6>
+          <h6>Your last saved Gifs <i>(Fijate si podes hacer un carrusel o algo mas bonito acá Coop)</i></h6>
             <div v-for="gif in gifs">
               <img :src="gif">
             </div>
@@ -62,25 +65,30 @@
       },
       computed: {
         userLogged(){
-          return this.$store.state.justLoggedUser;
+          return this.$store.state.justLoggedUser.user;
         },
         hasSearches(){
-          return this.userLogged.user.lastSearchs.length > 0;
+          return this.userLogged.lastSearchs.length > 0;
         },
         searches(){
-          return this.userLogged.user.lastSearchs;
+          return this.userLogged.lastSearchs;
         },
         hasGifs(){
-          return this.userLogged.user.savedGifs.length > 0;
+          return this.userLogged.savedGifs.length > 0;
         },
         gifs(){
-          return this.userLogged.user.savedGifs;
+          const lastGifs = this.userLogged.savedGifs;
+          if (lastGifs.length < 6) {
+            return lastGifs;
+          }else {
+            return lastGifs.slice(-5);
+          }
         },
         hasUploadedImages(){
-          return this.userLogged.user.uploadedImages.length > 0;
+          return this.userLogged.uploadedImages.length > 0;
         },
         images(){
-          return this.userLogged.user.uploadedImages;
+          return this.userLogged.uploadedImages;
         }
       }
     }
