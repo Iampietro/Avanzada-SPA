@@ -8,14 +8,17 @@
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
                     Gif Saved successfully!
             </div>
-			<div class="slider">
-				<div class="row center-align">
+			<div class="row center-align">
+				<div class="slider">
 					<img :src="particularGif.media[0].gif.url" class="responsive-img"> 
 				</div>
 			</div>
-			<button class="btn waves-effect waves-light margin" @click.prevent="Save(particularGif)">
-                   Save
-            </button>
+
+			<div class="row center-align">
+				<button class="btn waves-effect waves-light margin" @click.prevent="Save(particularGif)">
+                   	Save
+            	</button>
+			</div>
 		<div class="divider"></div>
 
 
@@ -128,10 +131,21 @@
 	  height: 26.25rem;
 	  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 
-	  .some-marggin{
-	  	margin-left: 50%;
-	  }
+	}
+	
+	.closebtn {
+	    margin-left: 15px;
+	    color: black;
+	    font-weight: bold;
+	    float: right;
+	    font-size: 22px;
+	    line-height: 20px;
+	    cursor: pointer;
+	    transition: 0.3s;
+	}
 
+	.closebtn:hover {
+	    color: white;
 	}
 
 </style>
