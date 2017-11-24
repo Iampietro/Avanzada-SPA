@@ -8,6 +8,7 @@
           <li><router-link to="/upload">Upload image</router-link></li>
           <li><router-link to="/searchGIFs">Search GIFs</router-link></li>
           <li><router-link to="/trendingGIFs">Trending GIFs</router-link></li>
+          <li><router-link to="/gallery">Gallery</router-link></li>
         </ul>
         </div>
     </nav>

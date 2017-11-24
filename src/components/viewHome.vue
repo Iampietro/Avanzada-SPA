@@ -56,10 +56,8 @@
         }
       },
       mounted() {
-        //this.getAllNews();
       },
       created() {
-        //this.getAllNews();
       },
       methods: {
       },

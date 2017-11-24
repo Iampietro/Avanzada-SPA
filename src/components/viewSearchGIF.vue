@@ -16,7 +16,7 @@
                       <div v-else>
 
                         <div class="col l6">
-                            <div v-for="gif in gifs_left" class="card gif">
+                            <div v-for="gif in gifs_left" class="card">
                                 <div class="card-image">
                                     <router-link to="/particularGif"> 
                                         <img class="img-responsive displayed grow" 
@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="col l6">
-                            <div v-for="gif in gifs_right" class="card gif">
+                            <div v-for="gif in gifs_right" class="card">
                                 <div class="card-image">
                                     <router-link to="/particularGif"> 
                                         <img class="img-responsive displayed grow" 
