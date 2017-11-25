@@ -53,7 +53,8 @@ export default new Vuex.Store({
 			}
 		],
 		authorized : false,
-		justLoggedUser: {}
+		justLoggedUser: {},
+		gifFromGallery: null
 	},
 	getters: {
 		users_by_name: (state, getters) => (userToFind) =>  {
@@ -91,6 +92,9 @@ export default new Vuex.Store({
 		saveUpload(state, imageToSave){
 			const indexUser = state.users.indexOf(state.justLoggedUser);
 			state.users[indexUser].user.uploadedImages.push(imageToSave);
+		},
+		galleryGif(state, gif){
+			state.gifFromGallery = gif;
 		}
 	}
 })

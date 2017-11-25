@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 			<div class="center-align">
-				<h4 v-if="particularGif.title">{{ particularGif.title }}</h4>
+				<h4 v-if="particularGif.title">{{ wichGif.title }}</h4>
 				<h4 v-else>Untitled</h4>
 			</div>
 			<div class="alert" v-if="saved">
@@ -9,47 +9,64 @@
                     Gif Saved successfully!
             </div>
 			<div class="row center-align">
-				<img :src="particularGif.media[0].gif.url" class="responsive-img z-depth-5 displayed"> 
+				<img :src="wichGif" class="responsive-img z-depth-5 displayed"> 
 			</div>
 
-			<div class="row center-align">
+			<div class="row center-align" v-if="particularGif">
 				<button class="btn waves-effect waves-light" @click.prevent="Save(particularGif)">
                    	<b>Save</b>
             	</button>
 			</div>
-
-	</div>
+			<div>
+				<h1 @click="increment(test)">{{ test }}</h1>
+			</div>
 	</div>
 </template>
 
 <script>
+	import io from "socket.io-client";
+
 	export default {
 		name: 'viewParticularGif',
 		props: ['particularGif'],
 		data(){
 			return {
-				saved: null
+				saved: null,
+				socket: '',
+				test: 0
 			}
 		},
 		computed: {
-
-
+			wichGif(){
+				if (this.particularGif) {
+					return this.particularGif;
+				} else {
+					return this.$store.state.gifFromGallery;
+				}
+			}
 		},
 		methods: {
 	        Save(gifToSave){
-	          const gif = gifToSave.media[0].gif.url;
-	          this.$store.commit('saveGif', gif);
+	          this.$store.commit('saveGif', gifToSave);
 	          this.saved = true;
+	        },
+	        increment(test){
+	          this.socket.emit('increment', test);
 	        }
 		},
 		watch: {
 			
 		},
-		created() { 
-			
+		beforeDestroy(){
+			this.$emit('seeOneGif', '');
 		},
-		mounted() {
-			
+		created() {
+			this.socket = io("http://localhost:3000");
+		},
+		sockets: {
+			increment(newValue){
+				this.test = newValue;
+			}
 		}
 	}
 	

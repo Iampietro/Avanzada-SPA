@@ -98,7 +98,7 @@
                 this.$store.commit('saveSearch', this.search, this.currentUser);
         },
         particularGif(gif){
-            this.$emit('seeOneGif', gif);
+            this.$emit('seeOneGif', gif.media[0].gif.url);
         },
         //acomodamos los gifs en 2 columnas para mostrarlos 
         addGifsToLists(gifs_response){
