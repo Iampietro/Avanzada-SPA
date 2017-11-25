@@ -9,15 +9,14 @@
                     Gif Saved successfully!
             </div>
 			<div class="row center-align">
-					<img :src="particularGif.media[0].gif.url" class="responsive-img z-depth-5"> 
+				<img :src="particularGif.media[0].gif.url" class="responsive-img z-depth-5 displayed"> 
 			</div>
 
 			<div class="row center-align">
-				<button class="btn waves-effect waves-light margin" @click.prevent="Save(particularGif)">
-                   	Save
+				<button class="btn waves-effect waves-light" @click.prevent="Save(particularGif)">
+                   	<b>Save</b>
             	</button>
 			</div>
-		<div class="divider"></div>
 
 	</div>
 	</div>
@@ -79,6 +78,13 @@
 
 	.closebtn:hover {
 	    color: white;
+<<<<<<< HEAD
+	}
+
+	.btn {
+		margin: 0px 00px 0px 0px !important;
+=======
+>>>>>>> 5319a871d5c466ee8d43fe47ef7e6bc32813c9d4
 	}
 
 </style>

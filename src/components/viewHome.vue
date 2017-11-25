@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+  <div class="container">
     <div class="row">
       <div class="col s2 m2 l2 right">
         <div class="chip">
@@ -48,7 +48,7 @@
 
 <script>
     export default {
-    	name: 'viewHome',
+      name: 'viewHome',
       components:{
       }, 
       data(){ 

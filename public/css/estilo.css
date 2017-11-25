@@ -80,22 +80,23 @@ select {
   background-color: #18263d !important;
 }
 
-img {
-  max-width: 320px;
+img .uploaded {
+  max-width: 500px;
   /*max-height: 220px;*/
   margin: 20px 20px 20px 20px;
   /*display: inline;*/
-  float: left;
+  /*float: left;
   /*margin-left: auto;
   margin-right: auto;*/
 
 }
 
 img .displayed {
-    display: block;
-    margin-left: auto;
-    margin-right: auto 
+  max-width: 100%; 
+  height: auto;
 }
+
+
 /*
 .gif {
   width: 20rem;

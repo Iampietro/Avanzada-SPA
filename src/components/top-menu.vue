@@ -1,8 +1,8 @@
 <template>
   <nav>
     <div class="nav-wrapper negrita">
-      <label @click.prevent="logout">Logout</label>
-      <label class="brand-logo right">Logo</label>   <!-- esto idealmente sería un boton junto al logo --> 
+      <h6 @click.prevent="logout" class="right"><a href="">Log out</a></h6>
+      <label class="brand-logo right">Imagen Express</label>   <!-- esto idealmente sería un boton junto al logo --> 
         <ul class="left hide-on-med-and-down">
           <li><router-link to="/home">Home</router-link></li>
           <li><router-link to="/upload">Upload image</router-link></li>
@@ -10,7 +10,8 @@
           <li><router-link to="/trendingGIFs">Trending GIFs</router-link></li>
           <li><router-link to="/gallery">Gallery</router-link></li>
         </ul>
-        </div>
+
+    </div>
     </nav>
 </template>
 
@@ -38,6 +39,12 @@
 </script>
 
 <style>
+
+h6 {
+  padding-right: 250px;
+  padding-top: 15px;
+  color: #d3e4ff !important;
+}
 
 nav-wrapper: { color: #7572ff }
 

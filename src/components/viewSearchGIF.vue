@@ -1,42 +1,45 @@
 <template>
   	<div class="container">
-      <div class="row">
-        <div class="negrita card blue-grey darken-1">
+        <div class="card blue-grey darken-1">
               <form class="card-content" autocomplete="off">
-                  <h2>Search for GIFs</h2>
-                  
-                    <input v-model="search" type='text' placeholder="Search for gifs..."/>
-                    <button 
-                      class="btn waves-effect waves-light right" type="submit" name="action" 
-                      @click="searchGifs">
-                      Search
-                    </button>
+                  <h2>Search for GIFs</h2><br>
+                  <div class="row">
+                  <div class="col l12 m12 s12">
+                    
+                      <input v-model="search" type='text' placeholder="Search for gifs..."/>
+                      <button 
+                        class="btn waves-effect waves-light right" type="submit" name="action" 
+                        @click="searchGifs">
+                        Search
+                      </button>
+                  </div>
+                  </div>
                     <h3>{{ currentUser.username }}</h3>
                       <h3 v-if="noResults">We're sorry, your search did't have any matches</h3>
                       <div v-else>
-
-                        <div class="col l6">
-                            <div v-for="gif in gifs_left" class="card">
-                                <div class="card-image">
+                        <div class="row">
+                        <div class="col l6 m8 s12">
+                            <div v-for="gif in gifs_left">
+                                <div class="center-align padsito">
                                     <router-link to="/particularGif"> 
-                                        <img class="img-responsive displayed grow" 
+                                        <img class="img-responsive rescatame z-depth-5 buscada" 
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col l6">
-                            <div v-for="gif in gifs_right" class="card">
-                                <div class="card-image">
+                        <div class="col l6 m8 s12">
+                            <div v-for="gif in gifs_right">
+                                <div class="center-align padsito">
                                     <router-link to="/particularGif"> 
-                                        <img class="img-responsive displayed grow" 
+                                        <img class="img-responsive rescatame z-depth-5" 
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
                             </div>
                         </div>
-
+                        </div>
                       </div>
               </form>
         </div>
@@ -126,12 +129,23 @@
 </script>
 
 <style>
-  .grow:hover {
-    -webkit-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    transform: scale(1.1);
+
+  img .buscada:hover {
+    filter:hue-rotate(90deg);
+    filter:drop-shadow(0px 0px 10px #d3e4ff);
   }
 
+  .rescatame {
+    max-width: 400px; 
+    max-height: 400px;
+  }
 
+  button {
+    padding-bottom: 15px;
+  }
+
+  .padsito {
+    padding-bottom: 15px;
+  }
 
 </style>

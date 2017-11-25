@@ -4,14 +4,18 @@
         <div class="card-content" autocomplete="off">
           <h3>Upload an image or a GIF</h3>
             <div class="row">
-              <div class="col l12">
+
+              <div class="col l12 m12 s12">
+
 
                 <div v-if="!edited_url" id="app">
                   <form enctype="multipart/form-data">
                     <label class="btn waves-effect waves-light">Select file
                       <input type="file" @change="onFileChange($event.target.name, $event.target.files);"
                       accept="image/*" class="btn waves-effect waves-light right">
-                    </label><br>
+<<<<<<< HEAD
+                    </label><br><br>
+                      
                       <div v-if="loading" class="progress">
                           <div class="indeterminate"></div>
                       </div>
@@ -23,8 +27,15 @@
                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
                     Your file has been uploaded.
                   </div>
-                  <label><b>URL</b> <i>{{ edited_url }}</i></label>
-                  <div class="row"><img :src="edited_url"></div>
+
+                  <button 
+                        class="btn waves-effect waves-light" type="submit" name="action" 
+                        @click="uploadAnother">
+                        Upload another file
+                  </button><br>
+
+                  <h6><b class="padsito">URL</b><i>{{ edited_url }}</i></h6><br>
+                  <div class="center-align"><img class="uploaded img-responsive z-depth-5" :src="edited_url"></div>
                 </div>
 
               </div>
@@ -85,7 +96,11 @@ export default {
         show_it_to_me(){
           this.edited_url = "https://img15.pixhost.org/images" + this.image_url.slice(24);
           this.$store.commit('saveUpload', this.edited_url);
-        }   
+
+        },
+        uploadAnother(){
+          this.edited_url = '';
+        }
       },
       created() {
       }
@@ -93,6 +108,7 @@ export default {
 </script>
 
 <style>
+
 input[type="file"] {
     display: none;
 }
@@ -118,4 +134,13 @@ input[type="file"] {
 .closebtn:hover {
     color: white;
 }
+
+  .progress {
+    padding-top: 5px;
+  }
+
+.padsito{
+  padding-right: 5px;
+}
+
 </style>

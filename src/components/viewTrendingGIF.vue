@@ -1,30 +1,31 @@
 <template>
-	<div class="container">
-    <div class="ac-custom ac-radio ac-circle negrita card blue-grey darken-1">
-        <form class="card-content center" autocomplete="off">
+  <div class="container">
+    <div class="card blue-grey darken-1">
+        <form class="card-content" autocomplete="off">
             <h2>Trending GIFs</h2>
             <div class="row" v-if="errorStatus">
                 <h3>Sorry, there was a problem with the server. ¡Please excuse us!</h3>
             </div>
             <div class="row">
-              <div class="col l6">
-                  <div v-for="gif in gifs_left" class="card gif">
-                      <div class="card-image">
+              <div class="col l6 m8 s12">
+                  <div v-for="gif in gifs_left">
+                      <div class="center-align padsito">
                           <router-link to="/particularGif"> 
-                              <img class="img-responsive displayed grow" 
-                                :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
-                          </router-link> 
+                              <img class="img-responsive rescatame z-depth-5 buscada" 
+                              :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
+                           </router-link> 
                       </div>
                   </div>
               </div>
 
-              <div class="col l6">
-                  <div v-for="gif in gifs_right" class="card gif">
-                      <div class="card-image">
+
+              <div class="col l6 m8 s12">
+                  <div v-for="gif in gifs_right">
+                      <div class="center-align padsito">
                           <router-link to="/particularGif"> 
-                              <img class="img-responsive displayed grow" 
+                              <img class="img-responsive rescatame z-depth-5 buscada" 
                               :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
-                          </router-link> 
+                           </router-link> 
                       </div>
                   </div>
               </div>
@@ -40,7 +41,7 @@
 <script>
 
     export default {
-    	name: 'viewSearchGIF',
+      name: 'viewSearchGIF',
       props: [],
       data(){ 
         return {
@@ -98,9 +99,19 @@
 </script>
 
 <style>
-  .grow:hover {
-    -webkit-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    transform: scale(1.1);
+
+  img .buscada:hover {
+    filter:hue-rotate(90deg) !important;
+    filter:drop-shadow(0px 0px 10px #d3e4ff) !important;
   }
+
+  .rescatame {
+    max-width: 400px; 
+    max-height: 400px;
+  }
+
+  .padsito {
+    padding-bottom: 15px;
+  }
+
 </style>
