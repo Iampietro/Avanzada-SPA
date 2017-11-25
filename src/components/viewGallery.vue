@@ -9,7 +9,9 @@
 			<div v-if="hasGifs">
 	          	<h6>Your last saved Gifs <i>(Fijate si podes hacer un carrusel o algo mas bonito acá Coop)</i></h6>
 	            <div v-for="gif in gifs">
-	              	<img :src="gif">
+	              	<router-link to="/particularGif">
+	              		<img :src="gif" @click="seeThisGif(gif)">
+	              	</router-link>
 	            </div>
 	        </div>
 	        <div v-else class="card blue-grey darken-1">
@@ -28,6 +30,11 @@
 		data() {
 			return {
 
+			}
+		},
+		methods: {
+			seeThisGif(gif){
+				this.$store.commit('galleryGif', gif);
 			}
 		},
 		computed: {

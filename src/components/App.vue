@@ -17,8 +17,7 @@
       },
       data() {
           return {
-              particularGif: {},
-              uploadedGif: {}
+              particularGif: {}
           }
       },
       methods: {
