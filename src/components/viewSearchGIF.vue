@@ -1,5 +1,5 @@
 <template>
-  	<div class="container">
+    <div class="container">
         <div class="card blue-grey darken-1">
               <form class="card-content" autocomplete="off">
                   <h2>Search for GIFs</h2><br>
@@ -43,12 +43,11 @@
                       </div>
               </form>
         </div>
+          <div v-if="errorStatus" class="row">
+              <h3 class="center-align">Sorry, there was a problem with the server. ¡Please excuse us!</h3>
+          </div> 
       </div>
-        <div v-if="errorStatus" class="row">
-            <h3 class="center-align">Sorry, there was a problem with the server. ¡Please excuse us!</h3>
-        </div> 
-      <br>
-    </div>
+        
 </template>
 
 <script>

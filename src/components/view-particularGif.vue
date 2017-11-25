@@ -78,13 +78,10 @@
 
 	.closebtn:hover {
 	    color: white;
-<<<<<<< HEAD
 	}
 
 	.btn {
 		margin: 0px 00px 0px 0px !important;
-=======
->>>>>>> 5319a871d5c466ee8d43fe47ef7e6bc32813c9d4
 	}
 
 </style>

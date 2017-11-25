@@ -13,7 +13,6 @@
                     <label class="btn waves-effect waves-light">Select file
                       <input type="file" @change="onFileChange($event.target.name, $event.target.files);"
                       accept="image/*" class="btn waves-effect waves-light right">
-<<<<<<< HEAD
                     </label><br><br>
                       
                       <div v-if="loading" class="progress">
