@@ -41,10 +41,9 @@
                         </div>
                         </div>
                       </div>
-                  
-                  
               </form>
         </div>
+      </div>
         <div v-if="errorStatus" class="row">
             <h3 class="center-align">Sorry, there was a problem with the server. ¡Please excuse us!</h3>
         </div> 
@@ -64,7 +63,13 @@
           search: '',
           errorStatus: false,
           noResults: false,
-          currentUser: {}
+          searchingProcess: false,
+          currentUser: {
+              username: '',
+              password: '',
+              savedGifs: [],
+              lastSearchs: []
+            }
         }
       },
       mounted() {
@@ -77,11 +82,12 @@
       },
       methods:{
         searchGifs(){
+          debugger
             this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=10&q=' + this.search)
                 .then((response) => {
+                    this.searchingProcess = true
                     this.addGifsToLists(response.data.results)
                     this.errorStatus = false
-                    this.see = true
                     if (response.data.results.length == 0) {
                         this.noResults = true
                     } else {
@@ -91,7 +97,7 @@
                 .catch((msg) => {
                     this.errorStatus = true
                 });
-                this.$store.commit('saveSearch', this.currentUser, this.search);
+                this.$store.commit('saveSearch', this.search, this.currentUser);
         },
         particularGif(gif){
             this.$emit('seeOneGif', gif);
@@ -115,10 +121,6 @@
             this.gifs_left = lefty;
             this.gifs_right = righto;
           }
-        },
-        Save(gifToSave){
-          const gif = gifToSave.media[0].gif.url;
-          this.$store.commit('saveGif', gif);
         }
       },
       created() {
@@ -128,6 +130,7 @@
 </script>
 
 <style>
+
   img .buscada:hover {
     filter:hue-rotate(90deg);
     filter:drop-shadow(0px 0px 10px #d3e4ff);
@@ -145,4 +148,5 @@
   .padsito {
     padding-bottom: 15px;
   }
+
 </style>

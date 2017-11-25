@@ -18,6 +18,7 @@
                   </div>
               </div>
 
+
               <div class="col l6 m8 s12">
                   <div v-for="gif in gifs_right">
                       <div class="center-align padsito">

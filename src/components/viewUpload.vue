@@ -4,13 +4,16 @@
         <div class="card-content" autocomplete="off">
           <h3>Upload an image or a GIF</h3>
             <div class="row">
+
               <div class="col l12 m12 s12">
+
 
                 <div v-if="!edited_url" id="app">
                   <form enctype="multipart/form-data">
                     <label class="btn waves-effect waves-light">Select file
                       <input type="file" @change="onFileChange($event.target.name, $event.target.files);"
                       accept="image/*" class="btn waves-effect waves-light right">
+<<<<<<< HEAD
                     </label><br><br>
                       
                       <div v-if="loading" class="progress">
@@ -93,6 +96,7 @@ export default {
         show_it_to_me(){
           this.edited_url = "https://img15.pixhost.org/images" + this.image_url.slice(24);
           this.$store.commit('saveUpload', this.edited_url);
+
         },
         uploadAnother(){
           this.edited_url = '';
@@ -104,6 +108,7 @@ export default {
 </script>
 
 <style>
+
 input[type="file"] {
     display: none;
 }

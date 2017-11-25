@@ -10,6 +10,7 @@
           <li><router-link to="/trendingGIFs">Trending GIFs</router-link></li>
           <li><router-link to="/gallery">Gallery</router-link></li>
         </ul>
+
     </div>
     </nav>
 </template>
