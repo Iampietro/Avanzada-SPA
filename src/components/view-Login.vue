@@ -2,20 +2,16 @@
 	<div class="container">
 		<div class="row">
 			<div class="col s4 m4 l4 offset-l4">
-				<div class="ac-custom ac-radio ac-circle negrita card blue-grey darken-1 login"> 
-					<form>
-						<div> <!-- form group --> 
-							<i class="material-icons">account_circle</i>
-							<input type="text" name="username" v-model="user.username" placeholder="Enter your username">
-						</div>
-						<div> <!-- form group --> 
-							<i class="material-icons">lock_open</i>
-							<input type="password" name="userpass" v-model="user.password">
-						</div>
-						<div class="row">
-							<button class="btn waves-effect waves-light right" @click.prevent="submitLogin">Enter</button>
-							
-						</div>
+				<div class="negrita card blue-grey darken-1 login"> 
+
+					<form class="card-content" autocomplete="off">
+						<h2 class="center-align moritedesida">Log in</h2><br>
+						<!-- form group --> 
+						<input type="text" name="username" v-model="user.username" placeholder="Enter your username">
+						<!-- form group --> 
+						<input type="password" name="userpass" v-model="user.password">
+						
+						<button class="btn waves-effect waves-light right" @click.prevent="submitLogin">Enter</button>
 					</form>
 				</div>
 			</div>
@@ -32,7 +28,7 @@
 						    <h5 class="black-text">Sorry! Username or password incorrect.</h5>
 						</div>
 						<div class="modal-footer text-right">
-						    <button class="btn waves-effect waves-light right" @click="errorMsg = false">
+						    <button class="btn waves-effect waves-light" @click="errorMsg = false">
 						            Understood
 						    </button>
 						</div>
@@ -153,5 +149,4 @@
 	.modal-enter, .modal-leave-to /* .fade-leave-active in <2.1.8 */ {
 	  opacity: 0
 	}
-
 </style>

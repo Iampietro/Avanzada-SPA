@@ -11,7 +11,8 @@ export default new Vuex.Store({
 					username: 'iampietro',
 					password: 'punteo',
 					savedGifs: [],
-					lastSearchs: []
+					lastSearchs: [],
+					uploadedImages: []
 				}
 			},
 			{
@@ -19,7 +20,8 @@ export default new Vuex.Store({
 					username: 'cooper',
 					password: 'crystalmountain',
 					savedGifs: [],
-					lastSearchs: []
+					lastSearchs: [],
+					uploadedImages: []
 				}
 			},
 			{
@@ -27,7 +29,8 @@ export default new Vuex.Store({
 					username: 'fuka',
 					password: 'notKilmes',
 					savedGifs: [],
-					lastSearchs: []
+					lastSearchs: [],
+					uploadedImages: []
 				}
 			},
 			{
@@ -35,7 +38,17 @@ export default new Vuex.Store({
 					username: 'lisandro',
 					password: 'pantera',
 					savedGifs: [],
-					lastSearchs: []
+					lastSearchs: [],
+					uploadedImages: []
+				}
+			},
+			{
+				user: {
+					username: 'a',
+					password: 'a',
+					savedGifs: [],
+					lastSearchs: [],
+					uploadedImages: []
 				}
 			}
 		],
@@ -56,24 +69,28 @@ export default new Vuex.Store({
 		logout(state){
 			state.authorized = false;
 		},
-		saveGif(state, user, gif){
-			state.users[state.users.indexOf(user)].savedGifs.push(gif);
+		saveGif(state, gif){
+			state.users[state.users.indexOf(state.justLoggedUser)].user.savedGifs.push(gif);
 		},
-		removeGif(state, user, gif){
-			const indexUser = state.users.indexOf(user);
+		removeGif(state, gif){
+			const indexUser = state.users.indexOf(state.justLoggedUser);
 			const indexGif = state.users[indexUser].user.savedGifs.indexOf(gif);
 
 			state.users[indexUser].user.savedGifs.slice(0, indexGif)
 											.concat(state.users[indexUser].user.savedGifs.slice(indexGif + 1));
 		},
-		saveSearch(state, user, search){
-			const indexUser = state.users.indexOf(user);
+		saveSearch(state, search){
+			const indexUser = state.users.indexOf(state.justLoggedUser);
 			if (state.users[indexUser].user.lastSearchs.length > 7) {
 				state.users[indexUser].user.lastSearchs.slice(1);
 				state.users[indexUser].user.lastSearchs.push(search);
 			} else {
 				state.users[indexUser].user.lastSearchs.push(search);
 			}
+		},
+		saveUpload(state, imageToSave){
+			const indexUser = state.users.indexOf(state.justLoggedUser);
+			state.users[indexUser].user.uploadedImages.push(imageToSave);
 		}
 	}
 })

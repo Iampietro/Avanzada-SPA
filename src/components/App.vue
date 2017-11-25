@@ -1,24 +1,24 @@
 <template>
     <div class="app">
-    	<top-menu></top-menu>
+      <top-menu></top-menu>
       <transition name="fade">
-        <router-view @seeOneGif="seeOneGif" :particularGif="particularGif">
-        </router-view>
+        <router-view @seeOneGif="seeOneGif" :particularGif="particularGif"></router-view>
       </transition>
     </div>
 </template>
 
 <script>
-	import topMenu from './top-menu.vue';
+  import topMenu from './top-menu.vue';
 
     export default {
-    	name: 'app',
-    	components: {
-    		topMenu
-    	},
+      name: 'app',
+      components: {
+        topMenu
+      },
       data() {
           return {
-              particularGif: {}
+              particularGif: {},
+              uploadedGif: {}
           }
       },
       methods: {

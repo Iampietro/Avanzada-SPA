@@ -1,29 +1,24 @@
 <template>
 	<div class="container">
-		<div class="row center-align">
-			<div class="col s12 m12 l12">
+			<div class="center-align">
 				<h4 v-if="particularGif.title">{{ particularGif.title }}</h4>
 				<h4 v-else>Untitled</h4>
 			</div>
-			<div class="col s9 m9 l9 offset-l3">
-				<div>
-	                <img :src="particularGif.media[0].gif.url" class="responsive-img"> 
-				</div>
+			<div class="alert" v-if="saved">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    Gif Saved successfully!
+            </div>
+			<div class="row center-align">
+				<img :src="particularGif.media[0].gif.url" class="responsive-img z-depth-5 displayed"> 
 			</div>
-		</div>
-		<div class="divider"></div>
-		<div class="row">
-			<div class="col s12 l12">
-				<p class="center-align">
-			        <a @click="prev">Previous</a> || <a @click="next">Next</a>
-			    </p>
-			    <transition name="fade" tag="p" mode="">
-				    	<img :src="suggestions[position].media[0].tinymp4.preview" :key="position" v-if="arrayOk" 																class="suggestion"
-																			   @click="change(suggestions[position])">
-			    </transition>
-			    	 
-				
+
+			<div class="row center-align">
+				<button class="btn waves-effect waves-light" @click.prevent="Save(particularGif)">
+                   	<b>Save</b>
+            	</button>
 			</div>
+
+
 			<div v-if="errorStatus" class="row">
 				<h3 class="center-align">Sorry, there was a problem with the server ¡Please excuse us!</h3>
 			</div>
@@ -41,7 +36,8 @@
 				suggestions: {},
 				currentNumber: 0,
 				timer: null,
-				errorStatus: null
+				errorStatus: null,
+				saved: null
 			}
 		},
 		computed: {
@@ -80,6 +76,11 @@
 	        },
 	        change(gifToChange) {
 	        	this.$emit('seeOneGif', gifToChange);
+	        },
+	        Save(gifToSave){
+	          const gif = gifToSave.media[0].gif.url;
+	          this.$store.commit('saveGif', gif);
+	          this.saved = true;
 	        }
 		},
 		watch: {
@@ -108,10 +109,43 @@
 </script>
 
 <style>
-	.fade-enter-active, .fade-leave-active {
-	  transition: opacity .5s
+
+	.alert {
+    padding: 20px;
+    background-color: #66ff66;
+    color: black;
+    margin-bottom: 15px;
 	}
-	.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-	  opacity: 0
+
+
+	.slider {
+	  position: relative;
+	  margin-top: 3rem;
+	  margin-right: auto;
+	  margin-left: auto;
+	  overflow: hidden;
+	  width: 40.625rem;
+	  height: 26.25rem;
+	  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+
+	}
+	
+	.closebtn {
+	    margin-left: 15px;
+	    color: black;
+	    font-weight: bold;
+	    float: right;
+	    font-size: 22px;
+	    line-height: 20px;
+	    cursor: pointer;
+	    transition: 0.3s;
+	}
+
+	.closebtn:hover {
+	    color: white;
+	}
+
+	.btn {
+		margin: 0px 00px 0px 0px !important;
 	}
 </style>
