@@ -2,7 +2,7 @@
   <div class="container">
     <div class="ac-custom ac-radio ac-circle negrita card blue-grey darken-1">
         <div class="card-content" autocomplete="off">
-          <h3>Upload an image or a GIF</h3>
+          <h3>Upload an image or a GIF</h3><br>
             <div class="row">
 
               <div class="col l12 m12 s12">
@@ -10,7 +10,7 @@
 
                 <div v-if="!edited_url" id="app">
                   <form enctype="multipart/form-data">
-                    <label class="btn waves-effect waves-light">Select file
+                    <label v-if="!loading" class="btn waves-effect waves-light">Select file
                       <input type="file" @change="onFileChange($event.target.name, $event.target.files);"
                       accept="image/*" class="btn waves-effect waves-light right">
 
@@ -28,11 +28,17 @@
                     Your file has been uploaded.
                   </div>
 
-                  <button 
-                        class="btn waves-effect waves-light" type="submit" name="action" 
-                        @click="uploadAnother">
-                        Upload another file
-                  </button><br>
+                  <form enctype="multipart/form-data">
+                    <label v-if="!loading" class="btn waves-effect waves-light">Upload another file
+                      <input type="file" @change="onFileChange($event.target.name, $event.target.files);"
+                      accept="image/*" class="btn waves-effect waves-light right">
+
+                    </label><br>
+                      
+                      <div v-if="loading" class="progress">
+                          <div class="indeterminate"></div>
+                      </div>
+                  </form><br>
 
                   <h6><b class="padsito">URL</b><i>{{ edited_url }}</i></h6><br>
                   <div class="center-align"><img class="uploaded img-responsive z-depth-5" :src="edited_url"></div>
@@ -141,6 +147,11 @@ input[type="file"] {
 
 .padsito{
   padding-right: 5px;
+}
+
+.uploaded {
+  max-width: 500px;
+  margin: 20px 20px 20px 20px;
 }
 
 </style>

@@ -10,7 +10,7 @@
                       <button 
                         class="btn waves-effect waves-light right" type="submit" name="action" 
                         @click="searchGifs">
-                        Search
+                        <b>Search</b>
                       </button>
                   </div>
                   </div>
@@ -98,7 +98,7 @@
                 this.$store.commit('saveSearch', this.search, this.currentUser);
         },
         particularGif(gif){
-            this.$emit('seeOneGif', gif.media[0].gif.url);
+            this.$emit('seeOneGif', gif);
         },
         //acomodamos los gifs en 2 columnas para mostrarlos 
         addGifsToLists(gifs_response){
