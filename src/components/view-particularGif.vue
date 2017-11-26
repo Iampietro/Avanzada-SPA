@@ -37,9 +37,14 @@
 			}
 		},
 		computed: {
+			fromTrending(){
+				return this.$store.state.gifFromTrending;
+			},
 			wichGif(){
 				if (this.particularGif) {
 					return this.particularGif;
+				} else if (this.fromTrending) {
+					return this.fromTrending;
 				} else {
 					return this.$store.state.gifFromGallery;
 				}
@@ -58,7 +63,12 @@
 			
 		},
 		beforeDestroy(){
-			this.$emit('seeOneGif', '');
+			if (this.particularGif) {
+				this.$emit('seeOneGif', '');
+			} else {
+				this.$store.commit('cleanGifs');
+			}
+
 		},
 		created() {
 			this.socket = io("http://localhost:3000");

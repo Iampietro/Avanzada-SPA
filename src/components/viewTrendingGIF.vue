@@ -88,7 +88,8 @@
           }
         },
         particularGif(gif){
-            this.$emit('seeOneGif', gif);
+            //this.$emit('seeOneGif', gif);
+            this.$store.commit('trendingGif', gif);
         }
       },
       created() {
