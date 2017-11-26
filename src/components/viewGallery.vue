@@ -14,7 +14,7 @@
 			      	<div class="card-content white-text">
 			      		<div v-if="hasUploadedImages">
 				        	<router-link to="/particularGallery">
-				        	<h5>Your uploads</h5 @click="particularGallery(this.userLogged.uploadedImages)">
+				        	<h5>Your uploads</h5 @click="particularGallery(allImages)">
 				        	</router-link>
 				        	<div class="row">
 				          		<div class="col l12">
@@ -110,6 +110,9 @@
 	              return lista.slice(-3);
 	            }
 	          }
+	        },
+	        allImages(){
+	        	return this.userLogged.uploadedImages.length.reverse();
 	        }
 		}
 	}
