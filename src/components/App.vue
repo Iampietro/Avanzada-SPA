@@ -3,6 +3,7 @@
       <top-menu></top-menu>
       <transition name="fade">
         <router-view @seeOneGif="seeOneGif" :particularGif="particularGif"></router-view>
+        <router-view @llevameEsta="llevameEsta" :particularGallery="particularGallery"></router-view>
       </transition>
     </div>
 </template>
@@ -17,12 +18,16 @@
       },
       data() {
           return {
-              particularGif: {}
+              particularGif: {},
+              particularGallery: {} 
           }
       },
       methods: {
           seeOneGif(gif){
               this.particularGif = gif;
+          },
+          llevameEsta(gall){
+              this.particularGallery = gall;
           }
       }
     }

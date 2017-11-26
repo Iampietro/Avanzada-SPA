@@ -156,7 +156,7 @@
             const lista = [];
 
             for (let i = 0; i < this.userLogged.uploadedImages.length; i++) {
-              lista.push(this.userLogged.uploadedImages);
+              lista.push(this.userLogged.uploadedImages[i]);
             }
 
             lista.reverse();
@@ -177,8 +177,8 @@
 .uploadid {
   max-width: 280px;
   height: auto;
-  margin-right: 7px;
-  margin-left: 7px;
+  margin-right: 8px;
+  margin-left: 8px;
   vertical-align: middle;
 }
 

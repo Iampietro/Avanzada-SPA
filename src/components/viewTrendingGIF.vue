@@ -25,7 +25,7 @@
                           <router-link to="/particularGif"> 
                               <img class="img-responsive rescatame z-depth-5 buscada" 
                               :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
-                           </router-link> 
+                          </router-link> 
                       </div>
                   </div>
               </div>
