@@ -46,7 +46,7 @@ html {
 .todo_bien_box {
     padding: 20px;
     background-color: white;
-    color: black;
+    color: black !important;
     margin-bottom: 15px;
 
      animation:signup-response 0.5s 1;
@@ -80,37 +80,7 @@ select {
   background-color: #18263d !important;
 }
 
-img .uploaded {
-  max-width: 500px;
-  /*max-height: 220px;*/
-  margin: 20px 20px 20px 20px;
-  /*display: inline;*/
-  /*float: left;
-  /*margin-left: auto;
-  margin-right: auto;*/
-
-}
-
 img .displayed {
   max-width: 100%; 
   height: auto;
-}
-
-
-/*
-.gif {
-  width: 20rem;
-  margin: 10px;
-  border-color: #333; 
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-}
-/*
-.forGifs {
-  max-width: 400px;
-  max-height: 400px;
-}*/
-
-.suggestion {
-  max-width: 300px;
 }

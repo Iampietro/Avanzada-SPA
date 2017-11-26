@@ -10,36 +10,65 @@
     </div>
 
     <div class="row">
-      <div class="col s4 m4 l4">
+      <div class="col s12 m12 l12">
         <div v-if="hasGifs">
-          <h6>Your last saved Gifs <i>(Fijate si podes hacer un carrusel o algo mas bonito acá Coop)</i></h6>
-            <div v-for="gif in gifs">
-              <img :src="gif">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <h5>Recently saved GIFs</h5>
+              <div class="row">
+                <div class="col l12">
+                  <div v-for="gif in gifs" class="costadito">
+                    <router-link to="/particularGif"> 
+                      <img :src="gif.media[0].gif.preview" @click="particularGif(gif)"
+                        class="uploadid img-responsive z-depth-5 center-align">
+                    </router-link>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
-        <div v-else class="card blue-grey darken-1">
-          <div class="card-content white-text">
-            <span class="card-title">It seems that you haven't saved any Gif!</span>
-            <p>You heard that? There's a laugh waiting for you in the corner</p>
           </div>
-          <div class="card-action">
-            <router-link to="/searchGIFs">
-              <a href="#">Click me!</a>
-            </router-link>
+        </div>
+
+        <div v-else>
+          <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+              <router-link to="/searchGIFs">
+              <a href="#">
+                <b>It seems that you haven't saved any GIF!</b>
+                <p>You heard that? There's a laugh waiting for you in the corner</p>
+              </a>
+              </router-link>
           </div>
         </div>
       </div>
     </div>
 
+  <div v-if="hasSearches">
     <div class="row">
-      <div class="col s4 m4 l4" v-if="hasSearches">
-        <h6>Your last searches: </h6>
-        <p v-for="search in searches">{{ search }}</p>
+      <div class="">
+      <h5>Some GIFs you may like...</h5>
+        <div v-for="suggestion in suggestionsGifs">
+
+          <img :src="suggestion.gif">
+
+        </div>
       </div>
-      <div class="col s8 m8 l8" v-if="hasUploadedImages">
-        <h6>Uploaded images:</h6>
-        <div v-for="img in images">
-          <img :src="img">
+    </div>
+  </div>
+
+    <div class="row">  
+      <div class="col s12 m12 l12" v-if="hasUploadedImages">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <h5>Your recent uploads</h5>
+            <div class="row">
+              <div class="col l12">
+                <div v-for="img in images" class="costadito">
+                  <img :src="img" class="uploadid img-responsive z-depth-5 center-align">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -53,13 +82,50 @@
       }, 
       data(){ 
         return {
+          suggestionsGifs: []
         }
       },
-      mounted() {
+      mounted(){
+        //this.bringSuggestionsGifs();
       },
       created() {
+        
       },
       methods: {
+        bringSuggestionsGifs(){
+          if(this.hasSearches)
+          {
+            let i_search = 0;
+            while(this.suggestionsGifs.length < 5)
+            {
+              if(i_search >= this.searches.length){
+                i_search = 0;  
+              }
+                
+              let index = Math.floor(Math.random() * 19);
+              const suggestion_gif = {};
+
+              this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=20&q=' 
+                + this.searches[i_search])
+                  .then((response) => {
+                    suggestion_gif.preview = response.data.results[index].media[0].gif.preview;
+                    suggestion_gif.gif = response.data.results[index].media[0].gif.url;
+                    
+                  })
+                  .catch((msg) => {
+                    console.log(msg)
+              });
+              this.maneje_de_gifs(suggestion_gif);
+              i_search++;
+            }
+          }
+        },
+        maneje_de_gifs(sugg_gif){
+          this.suggestionsGifs.push(sugg_gif);
+        },
+        particularGif(gif){
+            this.$emit('seeOneGif', gif);
+        }
       },
       computed: {
         userLogged(){
@@ -86,12 +152,38 @@
           return this.userLogged.uploadedImages.length > 0;
         },
         images(){
-          return this.userLogged.uploadedImages;
+          if (this.userLogged.uploadedImages.length > 0){
+            const lista = [];
+
+            for (let i = 0; i < this.userLogged.uploadedImages.length; i++) {
+              lista.push(this.userLogged.uploadedImages);
+            }
+
+            lista.reverse();
+
+            if (lista.length < 4) {
+              return lista;
+            }else {
+              return lista.slice(-3);
+            }
+          }
         }
       }
     }
 </script>
 
 <style>
+
+.uploadid {
+  max-width: 280px;
+  height: auto;
+  margin-right: 7px;
+  margin-left: 7px;
+  vertical-align: middle;
+}
+
+.costadito {
+  display: inline;
+}
 
 </style>
