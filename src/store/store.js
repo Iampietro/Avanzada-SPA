@@ -54,7 +54,8 @@ export default new Vuex.Store({
 		],
 		authorized : false,
 		justLoggedUser: {},
-		gifFromGallery: null
+		gifFromGallery: null,
+		gifFromTrending: null
 	},
 	getters: {
 		users_by_name: (state, getters) => (userToFind) =>  {
@@ -95,6 +96,13 @@ export default new Vuex.Store({
 		},
 		galleryGif(state, gif){
 			state.gifFromGallery = gif;
+		},
+		trendingGif(state, gif){
+			state.gifFromTrending = gif;
+		},
+		cleanGifs(state){
+			state.gifFromTrending = null;
+			state.gifFromGallery = null;
 		}
 	}
 })

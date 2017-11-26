@@ -37,12 +37,11 @@
 			}
 		},
 		computed: {
+			fromTrending(){
+				return this.$store.state.gifFromTrending;
+			},
 			wichGif(){
-				if (this.particularGif) {
-					return this.particularGif;
-				} else {
-					return this.$store.state.gifFromGallery;
-				}
+				return this.discriminate();
 			}
 		},
 		methods: {
@@ -52,13 +51,27 @@
 	        },
 	        increment(test){
 	          this.socket.emit('increment', test);
-	        }
+	        },
+	        discriminate(){
+				if (this.particularGif) {
+					return this.particularGif;
+				} else if (this.fromTrending != null) {
+					return this.fromTrending;
+				} else {
+					return this.$store.state.gifFromGallery;
+				}
+			}
 		},
 		watch: {
 			
 		},
 		beforeDestroy(){
-			this.$emit('seeOneGif', '');
+			if (this.particularGif) {
+				this.$emit('seeOneGif', '');
+			} else {
+				this.$store.commit('cleanGifs');
+			}
+
 		},
 		created() {
 			this.socket = io("http://localhost:3000");

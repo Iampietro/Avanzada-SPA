@@ -48,9 +48,9 @@
       <div class="">
       <h5>Some GIFs you may like...</h5>
         <div v-for="suggestion in suggestionsGifs">
-
-          <img :src="suggestion.gif">
-
+          <router-link to="/particularGif"> 
+            <img :src="suggestion.media[0].gif.preview" @click="particularGif(suggestion)">
+          </router-link>
         </div>
       </div>
     </div>
@@ -86,7 +86,7 @@
         }
       },
       mounted(){
-        //this.bringSuggestionsGifs();
+        this.bringSuggestionsGifs();
       },
       created() {
         
@@ -95,29 +95,18 @@
         bringSuggestionsGifs(){
           if(this.hasSearches)
           {
-            let i_search = 0;
-            while(this.suggestionsGifs.length < 5)
-            {
-              if(i_search >= this.searches.length){
-                i_search = 0;  
-              }
-                
-              let index = Math.floor(Math.random() * 19);
-              const suggestion_gif = {};
-
-              this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=20&q=' 
+            const suggestion_gif = {};
+            let i_search = Math.floor(Math.random() * this.searches.length);
+            this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=20&q=' 
                 + this.searches[i_search])
                   .then((response) => {
-                    suggestion_gif.preview = response.data.results[index].media[0].gif.preview;
-                    suggestion_gif.gif = response.data.results[index].media[0].gif.url;
+                    this.suggestionsGifs = response.data.results;
+                    //suggestion_gif.gif = response.data.results[index].media[0].gif.url;
                     
                   })
                   .catch((msg) => {
                     console.log(msg)
               });
-              this.maneje_de_gifs(suggestion_gif);
-              i_search++;
-            }
           }
         },
         maneje_de_gifs(sugg_gif){
