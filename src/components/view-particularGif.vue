@@ -41,13 +41,7 @@
 				return this.$store.state.gifFromTrending;
 			},
 			wichGif(){
-				if (this.particularGif) {
-					return this.particularGif;
-				} else if (this.fromTrending) {
-					return this.fromTrending;
-				} else {
-					return this.$store.state.gifFromGallery;
-				}
+				return this.discriminate();
 			}
 		},
 		methods: {
@@ -57,7 +51,16 @@
 	        },
 	        increment(test){
 	          this.socket.emit('increment', test);
-	        }
+	        },
+	        discriminate(){
+				if (this.particularGif) {
+					return this.particularGif;
+				} else if (this.fromTrending != null) {
+					return this.fromTrending;
+				} else {
+					return this.$store.state.gifFromGallery;
+				}
+			}
 		},
 		watch: {
 			

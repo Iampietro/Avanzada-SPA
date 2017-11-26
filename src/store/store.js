@@ -98,7 +98,7 @@ export default new Vuex.Store({
 			state.gifFromGallery = gif;
 		},
 		trendingGif(state, gif){
-			state.trendingGif = gif;
+			state.gifFromTrending = gif;
 		},
 		cleanGifs(state){
 			state.gifFromTrending = null;
