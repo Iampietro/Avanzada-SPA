@@ -17,9 +17,9 @@
               <h5>Recently saved GIFs</h5>
               <div class="row">
                 <div class="col l12">
-                  <div v-for="gif in saved_gifs" class="costadito">
+                  <div v-for="(gif, index) in saved_gifs" class="costadito">
                     <router-link to="/particularGif"> 
-                      <img :src="gif.media[0].gif.preview" @click="particularGif(gif)"
+                      <img :src="gif.media[0].gif.preview" @click="particularGif(gif, index)"
                         class="uploadid img-responsive z-depth-5 center-align">
                     </router-link>
                   </div>

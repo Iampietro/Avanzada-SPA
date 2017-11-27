@@ -22,6 +22,9 @@
 				<button class="btn waves-effect waves-light" @click.prevent="Save(wichGif)">
                    	<b>Save</b>
             	</button>
+            	<label v-if="alreadySaved" class="light-green-text text-darken-3">
+                   	<strong>You have already saved this gif!</strong>
+                </label>
 			</div>
 
 			<div class="row center-align" v-else>
@@ -53,7 +56,8 @@
 				socket: '',
 				test: 0,
 				coment: null,
-				comentsMade: []
+				comentsMade: [],
+				alreadySaved: false
 			}
 		},
 		computed: {
@@ -77,6 +81,11 @@
 			}*/
 		},
 		methods: {
+			saveIt(gifToSave){
+				gifToSave.coments = [];
+		        this.$store.commit('saveGif', gifToSave);
+		        this.saved = true;
+			},
 			verifyComents(){
 				if (this.particularSavedGif) {
 					return this.particularSavedGif.coments.length > 0;
@@ -98,9 +107,17 @@
 				 
 			},
 	        Save(gifToSave){
-	          gifToSave.coments = [];
-	          this.$store.commit('saveGif', gifToSave);
-	          this.saved = true;
+	        	debugger
+	          const gifGuardados = this.$store.state.justLoggedUser.user.savedGifs;
+	          if (gifGuardados) {
+	          	for (var i = 0; i < gifGuardados.length; i++){
+	          		if (gifGuardados[i].id == gifToSave.id)
+	          			this.alreadySaved = true;
+	          	}
+	          	if (this.alreadySaved == false) 
+	          		this.saveIt(gifToSave);
+	          } else 
+	          		this.saveIt(gifToSave);
 	        },
 	        increment(test){
 	          this.socket.emit('increment', test);
