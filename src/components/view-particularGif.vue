@@ -19,7 +19,7 @@
 			</div>
 
 			<div class="row center-align" v-if="notFromGallery">
-				<button class="btn waves-effect waves-light" @click.prevent="Save(particularGif)">
+				<button class="btn waves-effect waves-light" @click.prevent="Save(wichGif)">
                    	<b>Save</b>
             	</button>
 			</div>
@@ -44,7 +44,7 @@
 
 	export default {
 		name: 'viewParticularGif',
-		props: ['particularGif', 'particularSavedGif'],
+		props: ['particularGif', 'particularSavedGif', 'index'],
 		data(){
 			return {
 				saved: null,
@@ -112,15 +112,14 @@
 	        discriminate(){					// gif from where
 				if (this.particularGif) {
 					return this.particularGif;
-				} else if (this.fromTrending != null) {
+				} else if (this.fromTrending) {
 					return this.fromTrending;
 				} else if (this.particularSavedGif) {
 					return this.particularSavedGif;
-				} else {
-					return this.$store.state.gifFromGallery;
-				}
+				} 
 			},
 			addComent(coment){
+				
 				const fuckingArray = [];
 				const gif = this.wichGif;
 				const where = "savedGifs";
@@ -130,11 +129,13 @@
 				fuckingArray.push(where);
 
 				this.$store.commit('addComent', fuckingArray);
+
  	          	this.socket.emit('comentMade', coment);
 
 			}
 		},
 		watch: {
+
 			
 		},
 		beforeDestroy(){
@@ -151,16 +152,21 @@
 			this.socket = io("http://localhost:3000");
 		},
 		mounted(){
-			if (this.hasComents) {
-				this.comentsMade = this.giveMeComents();
+			if (this.index != null) {
+				let images = localStorage.getItem('images');
+				if (images) {
+					images = JSON.parse(images);
+					this.comentsMade = images[this.index].coments;
+				}
 			}
+			
 		},
 		sockets:{
 			increment(newValue){
 				this.test = newValue;
 			},
 			comentMade(coment){
-				this.comentsMade.push(coment);
+				this.comentsMade = this.giveMeComents();
 			}
 		}
 	}

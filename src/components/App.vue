@@ -3,7 +3,8 @@
       <top-menu></top-menu>
       <transition name="fade">
         <router-view @seeOneGif="seeOneGif" :particularGif="particularGif"
-                     @seeSavedGif="seeSavedGif" :particularSavedGif="particularSavedGif">
+                     @seeSavedGif="seeSavedGif" :particularSavedGif="particularSavedGif"
+                     @seeSugestion="seeSugestion" :index="index">
           
         </router-view>
       </transition>
@@ -20,16 +21,21 @@
       },
       data() {
           return {
-              particularGif: {},
-              particularSavedGif: null 
+              particularGif: null,
+              particularSavedGif: null,
+              index: null 
           }
       },
       methods: {
           seeOneGif(gif){
               this.particularGif = gif;
           },
-          seeSavedGif(gif){
+          seeSavedGif(gif, index){
               this.particularSavedGif = gif;
+              this.index = index;
+          },
+          seeSugestion(gif){
+            this.particularGif = gif;
           }
       }
     }

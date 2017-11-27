@@ -42,9 +42,9 @@
 	              <h5>Recently saved GIFs</h5>
 	              <div class="row">
 	                <div class="col l12">
-	                  <div v-for="gif in gifs" class="costadito">
+	                  <div v-for="(gif, index) in gifs" class="costadito">
 	                    <router-link to="/particularGif"> 
-	                      <img :src="gif.media[0].gif.preview" @click="seeThisGif(gif)"
+	                      <img :src="gif.media[0].gif.preview" @click="seeThisGif(gif, index)"
 	                        class="uploadid img-responsive z-depth-5 center-align">
 	                    </router-link>
 	                  </div>
@@ -74,8 +74,9 @@
 			}
 		},
 		methods: {
-			seeThisGif(gif){
-				this.$store.commit('galleryGif', gif);
+			seeThisGif(gif, index){
+				//this.$store.commit('galleryGif', gif);
+				this.$emit('seeSavedGif', gif, index);
 			},
 			particularGallery(gall){
 				debugger;
