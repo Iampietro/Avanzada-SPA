@@ -14,4 +14,7 @@ io.on('connection', (socket) => {
         test++;
         socket.broadcast.emit('increment', test);
     });
+    socket.on('comentMade', (coment) => {
+    	socket.broadcast.emit('comentMade', coment);
+    })
 });

@@ -2,8 +2,11 @@
     <div class="app">
       <top-menu></top-menu>
       <transition name="fade">
-        <router-view @seeOneGif="seeOneGif" :particularGif="particularGif"></router-view>
-        <router-view @llevameEsta="llevameEsta" :particularGallery="particularGallery"></router-view>
+        <router-view @seeOneGif="seeOneGif" :particularGif="particularGif"
+                     @seeSavedGif="seeSavedGif" :particularSavedGif="particularSavedGif"
+                     @seeSugestion="seeSugestion" :index="index">
+          
+        </router-view>
       </transition>
     </div>
 </template>
@@ -18,16 +21,21 @@
       },
       data() {
           return {
-              particularGif: {},
-              particularGallery: {} 
+              particularGif: null,
+              particularSavedGif: null,
+              index: null 
           }
       },
       methods: {
           seeOneGif(gif){
               this.particularGif = gif;
           },
-          llevameEsta(gall){
-              this.particularGallery = gall;
+          seeSavedGif(gif, index){
+              this.particularSavedGif = gif;
+              this.index = index;
+          },
+          seeSugestion(gif){
+            this.particularGif = gif;
           }
       }
     }

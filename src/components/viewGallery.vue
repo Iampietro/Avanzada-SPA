@@ -14,7 +14,7 @@
 			      	<div class="card-content white-text">
 			      		<div v-if="hasUploadedImages">
 				        	<router-link to="/particularGallery">
-				        	<h5>Your uploads</h5 @click="particularGallery(allImages)">
+				        		<h5>Your uploads</h5 @click="particularGallery(allImages)">
 				        	</router-link>
 				        	<div class="row">
 				          		<div class="col l12">
@@ -42,9 +42,9 @@
 	              <h5>Recently saved GIFs</h5>
 	              <div class="row">
 	                <div class="col l12">
-	                  <div v-for="gif in gifs" class="costadito">
+	                  <div v-for="(gif, index) in gifs" class="costadito">
 	                    <router-link to="/particularGif"> 
-	                      <img :src="gif.media[0].gif.preview" @click="particularGif(gif)"
+	                      <img :src="gif.media[0].gif.preview" @click="seeThisGif(gif, index)"
 	                        class="uploadid img-responsive z-depth-5 center-align">
 	                    </router-link>
 	                  </div>
@@ -74,11 +74,14 @@
 			}
 		},
 		methods: {
-			seeThisGif(gif){
-				this.$store.commit('galleryGif', gif);
+			seeThisGif(gif, index){
+				//this.$store.commit('galleryGif', gif);
+				this.$emit('seeSavedGif', gif, index);
 			},
 			particularGallery(gall){
-				this.$emit('llevameEsta', gall);
+				debugger;
+				//this.$emit('llevameEsta', gall);
+				this.userLogged.uploadedImages = gall;
 			}
 		},
 		computed: {
@@ -112,7 +115,13 @@
 	          }
 	        },
 	        allImages(){
-	        	return this.userLogged.uploadedImages.length.reverse();
+	        	const lista = [];
+
+	            for (let i = 0; i < this.userLogged.uploadedImages.length; i++) {
+	              lista.push(this.userLogged.uploadedImages[i]);
+	            }
+
+	            return lista;
 	        }
 		}
 	}
