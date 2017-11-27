@@ -14,7 +14,7 @@
 
 			<div class="row center-align" v-if="hasComents">
 				<ul>
-					<li v-for="coment in coments">{{ coment }}</li>
+					<li v-for="coment in comentsMade">{{ coment }}</li>
 				</ul>
 			</div>
 
@@ -50,7 +50,8 @@
 				saved: null,
 				socket: '',
 				test: 0,
-				coment: ''
+				coment: '',
+				comentsMade: []
 			}
 		},
 		computed: {
@@ -69,9 +70,9 @@
 			hasComents(){
 				return this.fromWhere();
 			},
-			coments(){
+			/*coments(){
 				return this.giveMeComents();
-			}
+			}*/
 		},
 		methods: {
 			fromWhere(){						// if the gif is saved
@@ -146,15 +147,20 @@
 			}
 
 		},
-		created() {
+		created(){
 			this.socket = io("http://localhost:3000");
 		},
-		sockets: {
+		mounted(){
+			if (this.hasComents) {
+				this.comentsMade = this.giveMeComents();
+			}
+		},
+		sockets:{
 			increment(newValue){
 				this.test = newValue;
 			},
 			comentMade(coment){
-				
+				this.comentsMade.push(coment);
 			}
 		}
 	}
