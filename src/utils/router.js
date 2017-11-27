@@ -7,7 +7,6 @@ import viewParticularGif from '../components/view-particularGif.vue'
 import viewLogin from '../components/view-Login.vue'
 import viewCreateGallery from '../components/viewCreateGallery.vue'
 import viewGallery from '../components/viewGallery.vue'
-import viewParticularGallery from '../components/viewParticularGallery.vue'
 
 import store from '../store/store'
 
@@ -80,16 +79,6 @@ export default new VueRouter({
 	  {
 	  	path: '/gallery',
 	  	component: viewGallery,
-	  	beforeEnter: (to, from, next) => {
-	  		if(store.state.authorized)
-	  			next();
-	  		else
-	  			next('/')
-	  	}
-	  },
-	  {
-	  	path: '/particularGallery',
-	  	component: viewParticularGallery,
 	  	beforeEnter: (to, from, next) => {
 	  		if(store.state.authorized)
 	  			next();
