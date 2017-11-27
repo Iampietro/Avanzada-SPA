@@ -42,10 +42,10 @@
 					<carousel>
 					    <slide v-for="(gif, index) in gifs">
 					    	<div class="center-align">
-					    	<router-link to="/particularGif"> 
-					    	<img :src="gif.media[0].gif.preview" @click="seeThisGif(gif, index)"
-						                        class="saved img-responsive z-depth-5">
-						    </router-link>
+						    	<router-link to="/particularGif"> 
+						    		<img :src="gif.media[0].gif.preview" @click="seeThisGif(gif, index)"
+							                        class="saved img-responsive z-depth-5">
+							    </router-link>
 						    </div>
 					    </slide>
 					</carousel>
