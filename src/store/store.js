@@ -67,6 +67,13 @@ export default new Vuex.Store({
 		login(state, user){
 			state.authorized = true;
 			state.justLoggedUser = user;
+
+			const name = state.justLoggedUser.user.username;
+			let previousGifs = localStorage.getItem('images' + name);
+			if (previousGifs) {
+				 previousGifs = JSON.parse(previousGifs);
+				 state.users[state.users.indexOf(state.justLoggedUser)].user.savedGifs = previousGifs;
+			}
 		},
 		logout(state){
 			state.authorized = false;

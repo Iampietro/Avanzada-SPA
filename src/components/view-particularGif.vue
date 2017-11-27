@@ -28,7 +28,9 @@
 				<div class="col s5 m5 l5">
 					<input type="text" v-model="coment" placeholder="Say what you think!">
 					
-					<button class="waves-effect waves-light btn" @click="addComent(coment)">Coment</button>
+					<button class="waves-effect waves-light btn" @click="addComent(coment)">
+						Coment
+					</button>
 				</div>
 			</div>
 
@@ -50,7 +52,7 @@
 				saved: null,
 				socket: '',
 				test: 0,
-				coment: '',
+				coment: null,
 				comentsMade: []
 			}
 		},
@@ -69,7 +71,7 @@
 			},
 			hasComents(){
 				return this.verifyComents();
-			},
+			}
 			/*coments(){
 				return this.giveMeComents();
 			}*/
