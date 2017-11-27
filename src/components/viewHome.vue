@@ -9,33 +9,32 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col s12 m12 l12">
-        <div v-if="hasGifs">
+    <div v-if="hasGifs"> <!-- saved gifs -->
+      <div class="row">
+        <div class="col m4 l12 s4">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
-              <h5>Recently saved GIFs</h5>
               <div class="row">
-                <div class="col l12">
-                  <div v-for="(gif, index) in saved_gifs" class="costadito">
-                    <router-link to="/particularGif"> 
-                      <img :src="gif.media[0].gif.preview" @click="particularGif(gif, index)"
+                <h5>Recently saved GIFs</h5>
+                <div v-for="(gif, index) in saved_gifs" class="costadito col m4 l4 s4">
+                  <router-link to="/particularGif"> 
+                    <img :src="gif.media[0].gif.preview" @click="particularGif(gif, index)"
                         class="uploadid img-responsive z-depth-5 center-align">
-                    </router-link>
-                  </div>
+                  </router-link>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <div v-else >
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title center">
-                You have no saved GIFs to show. Don't be shy, go ahead and save some.
-              </span>
-            </div>
+      </div>
+    </div>
+    <div v-else>        
+      <div class="row">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title center">
+              You have no saved GIFs to show. Don't be shy, go ahead and save some.
+            </span>
           </div>
         </div>
       </div>
@@ -43,26 +42,35 @@
 
   <div v-if="hasSearches">
     <div class="row">
-      <div class="">
-      <h5>Some GIFs you may like...</h5>
-        <div v-for="suggestion in suggestionsGifs">
-          <router-link to="/particularGif"> 
-            <img :src="suggestion.media[0].gif.preview" @click="suggestionGif(suggestion)">
-          </router-link>
+      <div class="col s4 m4 l12">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <div class="row">
+              <h5>Some GIFs you may like...</h5>
+              <div v-for="suggestion in suggestionsGifs" class="costadito col m4 l4 s4">
+                <router-link to="/particularGif"> 
+                  <img :src="suggestion.media[0].gif.preview" @click="suggestionGif(suggestion)" 
+                    class="uploadid img-responsive z-depth-5 center-align">
+                </router-link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-    <div class="row">  
-      <div class="col s12 m12 l12" v-if="hasUploadedImages">
+    <div class="row" v-if="hasUploadedImages">  
+      <div class="col s4 m4 l12">
         <div class="card blue-grey darken-1">
           <div class="card-content white-text">
-            <h5>Your recent uploads</h5>
             <div class="row">
-              <div class="col l12">
-                <div v-for="img in uploaded_imgs" class="costadito">
-                  <img :src="img" class="uploadid img-responsive z-depth-5 center-align">
+              <h5>Your recent uploads</h5>
+              <div class="row">
+                <div class="col l12">
+                  <div v-for="img in uploaded_imgs" class="costadito col m4 l4 s4">
+                    <img :src="img" class="uploadid img-responsive z-depth-5 center-align">
+                  </div>
                 </div>
               </div>
             </div>
@@ -71,6 +79,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -86,7 +95,7 @@
         }
       },
       mounted(){
-        //this.bringSuggestionsGifs();
+        this.bringSuggestionsGifs();
         this.gifs();
         this.images();
       },
@@ -98,28 +107,27 @@
           if(this.hasSearches)
           {
             let i_search = 0;
-            //while(this.suggestionsGifs.length < 5)
-            //{
+            let super_iterator = 0;
+            while(super_iterator < 3)
+            {
               if(i_search >= this.searches.length){
                 i_search = 0;  
               }
               
-              this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=2&q=' 
+              this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=40&q=' 
                 + this.searches[i_search])
                   .then((response) => {
-                    debugger;
-                    let index = Math.floor(Math.random() * 1);
-                    const suggestion_gif = {};
-                    suggestion_gif.preview = response.data.results[index].media[0].gif.preview;
-                    suggestion_gif.gif = response.data.results[index].media[0].gif.url;
+                    let index = Math.floor(Math.random() * 39);
+                    let suggestion_gif = {};
+                    suggestion_gif = response.data.results[index];
                     this.suggestionsGifs.push(suggestion_gif);
                   })
                   .catch((msg) => {
                     console.log(msg)
               });
-
+              super_iterator++;
               i_search++;
-            //}
+            }
           }
         },
         maneje_de_gifs(sugg_gif){

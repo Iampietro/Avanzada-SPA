@@ -12,34 +12,41 @@
 				<img :src="wichGif.media[0].gif.url" class="responsive-img z-depth-5 displayed"> 
 			</div>
 
-			<div class="row center-align" v-if="hasComents">
-				<ul>
-					<li v-for="coment in comentsMade">{{ coment }}</li>
-				</ul>
-			</div>
-
 			<div class="row center-align" v-if="notFromGallery">
 				<button class="btn waves-effect waves-light" @click.prevent="Save(wichGif)">
                    	<b>Save</b>
             	</button>
-            	<label v-if="alreadySaved" class="light-green-text text-darken-3">
-                   	<strong>You have already saved this gif!</strong>
-                </label>
 			</div>
 
 			<div class="row center-align" v-else>
-				<div class="col s5 m5 l5">
-					<input type="text" v-model="coment" placeholder="Say what you think!">
-					
-					<button class="waves-effect waves-light btn" @click="addComent(coment)">
-						Coment
-					</button>
+				<div class="col l6 s12 m12">
+					<div class="card blue-grey darken-1">
+		          		<div class="card-content white-text">
+		          			<div class="row">
+							<div class="col s6 m9 l7">
+								<input type="text" v-model="coment" placeholder="Write a comment...">
+							</div>
+							<div class="col s6 m3 l4">
+								<button class="waves-effect waves-light btn" @click="addComent(coment)">Comment</button>
+							</div>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
 
-			
-			<div>
-				<h1 @click="increment(test)">{{ test }}</h1>
+				<div class="center-align" v-if="hasComents">
+					<div class="col s12 m12 l6">
+					<div class="mequieroirdeaca">
+			        	<div class="card cyan lighten-5" v-for="coment in comentsMade">
+			          		<div class="black-text">
+								<ul>
+									<li >{{ coment }}</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
 			</div>
 	</div>
 </template>
@@ -55,9 +62,8 @@
 				saved: null,
 				socket: '',
 				test: 0,
-				coment: null,
-				comentsMade: [],
-				alreadySaved: false
+				coment: '',
+				comentsMade: []
 			}
 		},
 		computed: {
@@ -75,17 +81,12 @@
 			},
 			hasComents(){
 				return this.verifyComents();
-			}
+			},
 			/*coments(){
 				return this.giveMeComents();
 			}*/
 		},
 		methods: {
-			saveIt(gifToSave){
-				gifToSave.coments = [];
-		        this.$store.commit('saveGif', gifToSave);
-		        this.saved = true;
-			},
 			verifyComents(){
 				if (this.particularSavedGif) {
 					return this.particularSavedGif.coments.length > 0;
@@ -107,17 +108,9 @@
 				 
 			},
 	        Save(gifToSave){
-	        	debugger
-	          const gifGuardados = this.$store.state.justLoggedUser.user.savedGifs;
-	          if (gifGuardados) {
-	          	for (var i = 0; i < gifGuardados.length; i++){
-	          		if (gifGuardados[i].id == gifToSave.id)
-	          			this.alreadySaved = true;
-	          	}
-	          	if (this.alreadySaved == false) 
-	          		this.saveIt(gifToSave);
-	          } else 
-	          		this.saveIt(gifToSave);
+	          gifToSave.coments = [];
+	          this.$store.commit('saveGif', gifToSave);
+	          this.saved = true;
 	        },
 	        increment(test){
 	          this.socket.emit('increment', test);
@@ -214,6 +207,15 @@
 
 	.btn {
 		margin: 0px 00px 0px 0px !important;
+	}
+
+	.mequieroirdeaca {
+	   padding-left: 10px;
+	   padding-right: 10px;
+	   border: 10px;
+	   width: 100%;
+	   height: 300px;
+	   overflow-y: scroll;
 	}
 
 </style>
