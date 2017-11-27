@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 			<div class="center-align">
-				<h4 v-if="particularGif.title">{{ wichGif.title }}</h4>
+				<h4 v-if="wichGif.title">{{ wichGif.title }}</h4>
 				<h4 v-else>Untitled</h4>
 			</div>
 			<div class="alert" v-if="saved">
@@ -12,7 +12,21 @@
 				<img :src="wichGif.media[0].gif.url" class="responsive-img z-depth-5 displayed"> 
 			</div>
 
-			<div class="row center-align" v-if="particularGif">
+			<div class="row center-align">
+				<ul id="coments">
+					
+				</ul>
+			</div>
+
+			<div class="row center-align">
+				<div class="col s5 m5 l5">
+					<input type="text" v-model="coment" placeholder="Say what you think!">
+					
+					<button class="waves-effect waves-light btn" @click="addComent(coment)">Coment</button>
+				</div>
+			</div>
+
+			<div class="row center-align" v-if="notFromGallery">
 				<button class="btn waves-effect waves-light" @click.prevent="Save(particularGif)">
                    	<b>Save</b>
             	</button>
@@ -28,12 +42,13 @@
 
 	export default {
 		name: 'viewParticularGif',
-		props: ['particularGif'],
+		props: ['particularGif', 'particularSavedGif'],
 		data(){
 			return {
 				saved: null,
 				socket: '',
-				test: 0
+				test: 0,
+				coment: ''
 			}
 		},
 		computed: {
@@ -42,9 +57,20 @@
 			},
 			wichGif(){
 				return this.discriminate();
+			},
+			notFromGallery(){
+				return this.check();
 			}
 		},
 		methods: {
+			check(){
+				if (this.particularGif || this.fromTrending){
+					return true;
+				} else {
+					return false;
+				}
+				 
+			},
 	        Save(gifToSave){
 	          this.$store.commit('saveGif', gifToSave);
 	          this.saved = true;
@@ -57,9 +83,16 @@
 					return this.particularGif;
 				} else if (this.fromTrending != null) {
 					return this.fromTrending;
+				} else if (this.particularSavedGif) {
+					return this.particularSavedGif;
 				} else {
 					return this.$store.state.gifFromGallery;
 				}
+			},
+			addComent(coment){
+				debugger
+				const aux = 'savedGifs';
+				this.$store.commit('addComent', this.wichGif, coment, aux);
 			}
 		},
 		watch: {
@@ -68,6 +101,8 @@
 		beforeDestroy(){
 			if (this.particularGif) {
 				this.$emit('seeOneGif', '');
+			} else if (this.particularSavedGif) {
+				this.$emit('seeSavedGif', '')
 			} else {
 				this.$store.commit('cleanGifs');
 			}

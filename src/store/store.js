@@ -103,6 +103,22 @@ export default new Vuex.Store({
 		cleanGifs(state){
 			state.gifFromTrending = null;
 			state.gifFromGallery = null;
+		},
+		addComent(state, image, coment, whereToSave){
+			const aux = whereToSave;
+			if (aux.localeCompare('savedGifs')) {
+				for (var i = 0; i < state.justLoggedUser.savedGifs.length; i++) {
+					if (state.justLoggedUser.savedGifs[i].id == image.id) {
+						state.justLoggedUser.savedGifs[i].coments.push(coment)
+					}
+				}
+			} else {
+				for (var i = 0; i < state.justLoggedUser.uploadedImages.length; i++) {
+					if (state.justLoggedUser.uploadedImages[i].id == image.id) {
+						state.justLoggedUser.uploadedImages[i].coments.push(coment)
+					}
+				}
+			}
 		}
 	}
 })

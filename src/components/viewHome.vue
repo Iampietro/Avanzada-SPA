@@ -113,7 +113,7 @@
           this.suggestionsGifs.push(sugg_gif);
         },
         particularGif(gif){
-            this.$emit('seeOneGif', gif);
+            this.$emit('seeSavedGif', gif);
         }
       },
       computed: {
