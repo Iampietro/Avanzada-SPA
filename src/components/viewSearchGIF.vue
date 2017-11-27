@@ -81,7 +81,7 @@
       },
       methods:{
         searchGifs(){
-            this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=10&q=' + this.search)
+            this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=12&q=' + this.search)
                 .then((response) => {
                     this.searchingProcess = true
                     this.addGifsToLists(response.data.results)

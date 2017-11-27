@@ -50,7 +50,7 @@
 					    </slide>
 					</carousel>
 					</div>
-					<div v-else>
+					<div v-else class="card-content white-text">
 						<span class="card-title center">
 			         			You don't have any saved GIFs man, save some so you can save them
 			         	</span>
