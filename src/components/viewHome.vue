@@ -9,6 +9,8 @@
       </div>
     </div>
 
+    <h1>concha {{suggestionsGifs}}</h1>
+
     <div class="row">
       <div class="col s12 m12 l12">
         <div v-if="hasGifs">
@@ -17,12 +19,14 @@
               <h5>Recently saved GIFs</h5>
               <div class="row">
                 <div class="col l12">
+                <tr>
                   <div v-for="gif in gifs" class="costadito">
-                    <router-link to="/particularGif"> 
+                    <td><router-link to="/particularGif"> 
                       <img :src="gif.media[0].gif.preview" @click="particularGif(gif)"
                         class="uploadid img-responsive z-depth-5 center-align">
-                    </router-link>
+                    </router-link></td>
                   </div>
+                </tr>
                 </div>
               </div>
             </div>
@@ -86,7 +90,7 @@
         }
       },
       mounted(){
-        this.bringSuggestionsGifs();
+        //this.bringSuggestionsGifs();
       },
       created() {
         
@@ -95,18 +99,29 @@
         bringSuggestionsGifs(){
           if(this.hasSearches)
           {
-            const suggestion_gif = {};
-            let i_search = Math.floor(Math.random() * this.searches.length);
-            this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=20&q=' 
+            let i_search = 0;
+            //while(this.suggestionsGifs.length < 5)
+            //{
+              if(i_search >= this.searches.length){
+                i_search = 0;  
+              }
+              
+              this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=2&q=' 
                 + this.searches[i_search])
                   .then((response) => {
-                    this.suggestionsGifs = response.data.results;
-                    //suggestion_gif.gif = response.data.results[index].media[0].gif.url;
-                    
+                    debugger;
+                    let index = Math.floor(Math.random() * 1);
+                    const suggestion_gif = {};
+                    suggestion_gif.preview = response.data.results[index].media[0].gif.preview;
+                    suggestion_gif.gif = response.data.results[index].media[0].gif.url;
+                    this.suggestionsGifs.push(suggestion_gif);
                   })
                   .catch((msg) => {
                     console.log(msg)
               });
+
+              i_search++;
+            //}
           }
         },
         maneje_de_gifs(sugg_gif){
@@ -173,6 +188,10 @@
 
 .costadito {
   display: inline;
+}
+
+table, th, td {
+   border: 1px solid black;
 }
 
 </style>
