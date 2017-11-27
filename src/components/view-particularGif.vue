@@ -68,19 +68,16 @@
 				return this.check();
 			},
 			hasComents(){
-				return this.fromWhere();
+				return this.verifyComents();
 			},
 			/*coments(){
 				return this.giveMeComents();
 			}*/
 		},
 		methods: {
-			fromWhere(){						// if the gif is saved
+			verifyComents(){
 				if (this.particularSavedGif) {
 					return this.particularSavedGif.coments.length > 0;
-				}
-				if (this.fromGallery) {
-					return this.fromGallery.coments.length > 0;
 				} else {
 					return false;
 				}
@@ -88,9 +85,6 @@
 			giveMeComents(){
 				if (this.particularSavedGif) {
 					return this.particularSavedGif.coments;
-				}
-				if (this.fromGallery) {
-					return this.fromGallery.coments;
 				}
 			},
 			check(){
@@ -152,8 +146,9 @@
 			this.socket = io("http://localhost:3000");
 		},
 		mounted(){
+			const name = this.$store.state.justLoggedUser.user.username;
 			if (this.index != null) {
-				let images = localStorage.getItem('images');
+				let images = localStorage.getItem('images' + name);
 				if (images) {
 					images = JSON.parse(images);
 					this.comentsMade = images[this.index].coments;
