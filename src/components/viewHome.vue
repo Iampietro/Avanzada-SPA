@@ -17,9 +17,9 @@
               <h5>Recently saved GIFs</h5>
               <div class="row">
                 <div class="col l12">
-                  <div v-for="(gif, index) in gifs" class="costadito">
+                  <div v-for="gif in saved_gifs" class="costadito">
                     <router-link to="/particularGif"> 
-                      <img :src="gif.media[0].gif.preview" @click="particularGif(gif, index)"
+                      <img :src="gif.media[0].gif.preview" @click="particularGif(gif)"
                         class="uploadid img-responsive z-depth-5 center-align">
                     </router-link>
                   </div>
@@ -29,15 +29,13 @@
           </div>
         </div>
 
-        <div v-else>
-          <div class="alert">
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-              <router-link to="/searchGIFs">
-              <a href="#">
-                <b>It seems that you haven't saved any GIF!</b>
-                <p>You heard that? There's a laugh waiting for you in the corner</p>
-              </a>
-              </router-link>
+        <div v-else >
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title center">
+                You have no saved GIFs to show. Don't be shy, go ahead and save some.
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -63,7 +61,7 @@
             <h5>Your recent uploads</h5>
             <div class="row">
               <div class="col l12">
-                <div v-for="img in images" class="costadito">
+                <div v-for="img in uploaded_imgs" class="costadito">
                   <img :src="img" class="uploadid img-responsive z-depth-5 center-align">
                 </div>
               </div>
@@ -82,11 +80,15 @@
       }, 
       data(){ 
         return {
-          suggestionsGifs: []
+          suggestionsGifs: [],
+          uploaded_imgs: [],
+          saved_gifs: []
         }
       },
       mounted(){
-        this.bringSuggestionsGifs();
+        //this.bringSuggestionsGifs();
+        this.gifs();
+        this.images();
       },
       created() {
         
@@ -95,18 +97,29 @@
         bringSuggestionsGifs(){
           if(this.hasSearches)
           {
-            const suggestion_gif = {};
-            let i_search = Math.floor(Math.random() * this.searches.length);
-            this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=20&q=' 
+            let i_search = 0;
+            //while(this.suggestionsGifs.length < 5)
+            //{
+              if(i_search >= this.searches.length){
+                i_search = 0;  
+              }
+              
+              this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=2&q=' 
                 + this.searches[i_search])
                   .then((response) => {
-                    this.suggestionsGifs = response.data.results;
-                    //suggestion_gif.gif = response.data.results[index].media[0].gif.url;
-                    
+                    debugger;
+                    let index = Math.floor(Math.random() * 1);
+                    const suggestion_gif = {};
+                    suggestion_gif.preview = response.data.results[index].media[0].gif.preview;
+                    suggestion_gif.gif = response.data.results[index].media[0].gif.url;
+                    this.suggestionsGifs.push(suggestion_gif);
                   })
                   .catch((msg) => {
                     console.log(msg)
               });
+
+              i_search++;
+            //}
           }
         },
         maneje_de_gifs(sugg_gif){
@@ -117,6 +130,29 @@
         },
         suggestionGif(gif){
             this.$emit('seeSugestion', gif);
+        },
+        bringLast3(list){
+          let lista_nueva = [];
+
+          for (let i = 0; i < list.length; i++) {
+            lista_nueva.push(list[i]);
+          }
+
+          if (lista_nueva.length < 4) {
+            return lista_nueva.reverse();
+          }else {
+            return lista_nueva.slice(-3).reverse();
+          }
+        },
+        gifs(){
+          if (this.userLogged.savedGifs.length > 0){
+            this.saved_gifs = this.bringLast3(this.userLogged.savedGifs);
+          }
+        },
+        images(){
+          if (this.userLogged.uploadedImages.length > 0){
+            this.uploaded_imgs = this.bringLast3(this.userLogged.uploadedImages);
+          }
         }
       },
       computed: {
@@ -132,33 +168,8 @@
         hasGifs(){
           return this.userLogged.savedGifs.length > 0;
         },
-        gifs(){
-          const lastGifs = this.userLogged.savedGifs;
-          if (lastGifs.length < 6) {
-            return lastGifs;
-          }else {
-            return lastGifs.slice(-5);
-          }
-        },
         hasUploadedImages(){
           return this.userLogged.uploadedImages.length > 0;
-        },
-        images(){
-          if (this.userLogged.uploadedImages.length > 0){
-            const lista = [];
-
-            for (let i = 0; i < this.userLogged.uploadedImages.length; i++) {
-              lista.push(this.userLogged.uploadedImages[i]);
-            }
-
-            lista.reverse();
-
-            if (lista.length < 4) {
-              return lista;
-            }else {
-              return lista.slice(-3);
-            }
-          }
         }
       }
     }
@@ -169,8 +180,8 @@
 .uploadid {
   max-width: 280px;
   height: auto;
-  margin-right: 8px;
-  margin-left: 8px;
+  margin-right: 9px;
+  margin-left: 9px;
   vertical-align: middle;
 }
 

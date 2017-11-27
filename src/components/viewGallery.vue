@@ -13,20 +13,20 @@
 			    <div class="card blue-grey darken-1">
 			      	<div class="card-content white-text">
 			      		<div v-if="hasUploadedImages">
-				        	<router-link to="/particularGallery">
-				        		<h5>Your uploads</h5 @click="particularGallery(allImages)">
-				        	</router-link>
-				        	<div class="row">
-				          		<div class="col l12">
-				            		<div v-for="img in images" class="costadito">
-				              			<img :src="img" class="uploadid img-responsive z-depth-5 center-align">
+				        	<h5>Your uploads</h5>
+				        	<carousel>
+				          		<slide v-for="img in images">
+				            		<div class="center-align">
+				              			<img :src="img" class="saved img-responsive z-depth-5">
 				            		</div>
-				           		</div>
-				         	</div>
+				           		</slide>
+				         	</carousel>
 			         	</div>
 			         	<div v-else>
 			         		<span class="card-title center">
-			         			This is where my images and GIFs would be...IF I HAD SOME !!
+			         			<router-link to="/upload">
+			         				<a href="#">This is where my uploads would be...IF I HAD SOME !!</a>
+			         			</router-link>
 			         		</span>
 			         	</div>
 			        </div>
@@ -35,37 +35,35 @@
 		</div>
 
 		<div class="row">
-	      <div class="col s12 m12 l12">
-	        <div v-if="hasGifs">
-	          <div class="card blue-grey darken-1">
-	            <div class="card-content white-text">
-	              <h5>Recently saved GIFs</h5>
-	              <div class="row">
-	                <div class="col l12">
-	                  <div v-for="(gif, index) in gifs" class="costadito">
-	                    <router-link to="/particularGif"> 
-	                      <img :src="gif.media[0].gif.preview" @click="seeThisGif(gif, index)"
-	                        class="uploadid img-responsive z-depth-5 center-align">
-	                    </router-link>
-	                  </div>
-	                </div>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-		    <div v-else class="card blue-grey darken-1">
-			  <div class="card-content white-text">
-				<span class="card-title center">
-					There's nothing to show. Don't be shy! Go ahead and save some gifs.
-				</span>
-			  </div>
-		    </div>
-		  </div>
+	    	<div class="col s12 m12 l12">
+	    		<div class="card blue-grey darken-1">
+            		<div class="card-content white-text" v-if="hasGifs">
+	    			<h5>Saved GIFs</h5>
+					<carousel>
+					    <slide v-for="(gif, index) in gifs">
+					    	<div class="center-align">
+					    	<router-link to="/particularGif"> 
+					    	<img :src="gif.media[0].gif.preview" @click="seeThisGif(gif, index)"
+						                        class="saved img-responsive z-depth-5">
+						    </router-link>
+						    </div>
+					    </slide>
+					</carousel>
+					</div>
+					<div v-else>
+						<span class="card-title center">
+			         			You don't have any saved GIFs man, save some so you can save them
+			         	</span>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+import { Carousel, Slide } from 'vue-carousel';
+
 	export default {
 		name: 'viewGallery',
 		data() {
@@ -73,15 +71,14 @@
 
 			}
 		},
+		components: {
+		   	Carousel,
+		   	Slide
+		},
 		methods: {
 			seeThisGif(gif, index){
 				//this.$store.commit('galleryGif', gif);
 				this.$emit('seeSavedGif', gif, index);
-			},
-			particularGallery(gall){
-				debugger;
-				//this.$emit('llevameEsta', gall);
-				this.userLogged.uploadedImages = gall;
 			}
 		},
 		computed: {
@@ -92,36 +89,13 @@
 	          return this.userLogged.savedGifs.length > 0;
 	        },
 	        gifs(){
-	          return this.userLogged.savedGifs;
+	          return this.userLogged.savedGifs.reverse();
 	        },
 	        hasUploadedImages(){
 	          return this.userLogged.uploadedImages.length > 0;
 	        },
 	        images(){
-	          if (this.userLogged.uploadedImages.length > 0){
-	            const lista = [];
-
-	            for (let i = 0; i < this.userLogged.uploadedImages.length; i++) {
-	              lista.push(this.userLogged.uploadedImages[i]);
-	            }
-
-	            lista.reverse();
-
-	            if (lista.length < 4) {
-	              return lista;
-	            }else {
-	              return lista.slice(-3);
-	            }
-	          }
-	        },
-	        allImages(){
-	        	const lista = [];
-
-	            for (let i = 0; i < this.userLogged.uploadedImages.length; i++) {
-	              lista.push(this.userLogged.uploadedImages[i]);
-	            }
-
-	            return lista;
+	          return this.userLogged.uploadedImages.reverse();
 	        }
 		}
 	}
@@ -133,6 +107,12 @@
   height: auto;
   margin-right: 8px;
   margin-left: 8px;
+  vertical-align: middle;
+}
+
+.saved {
+  max-width: 390px;
+  height: auto;
   vertical-align: middle;
 }
 
