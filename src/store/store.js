@@ -93,6 +93,7 @@ export default new Vuex.Store({
 		saveUpload(state, imageToSave){
 			const indexUser = state.users.indexOf(state.justLoggedUser);
 			state.users[indexUser].user.uploadedImages.push(imageToSave);
+			state.users[indexUser].user.uploadedImages.coments = [];
 		},
 		galleryGif(state, gif){
 			state.gifFromGallery = gif;
@@ -104,12 +105,14 @@ export default new Vuex.Store({
 			state.gifFromTrending = null;
 			state.gifFromGallery = null;
 		},
-		addComent(state, image, coment, whereToSave){
-			const aux = whereToSave;
-			if (aux.localeCompare('savedGifs')) {
-				for (var i = 0; i < state.justLoggedUser.savedGifs.length; i++) {
-					if (state.justLoggedUser.savedGifs[i].id == image.id) {
-						state.justLoggedUser.savedGifs[i].coments.push(coment)
+		addComent(state, array){
+			debugger
+			const whereTo = array[2];
+			if (whereTo == "savedGifs") {
+				for (var i = 0; i < state.justLoggedUser.user.savedGifs.length; i++) {
+					if (state.justLoggedUser.user.savedGifs[i].id == array[0].id) {
+
+						state.justLoggedUser.user.savedGifs[i].coments.push(array[1])
 					}
 				}
 			} else {

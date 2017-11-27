@@ -12,18 +12,10 @@
 				<img :src="wichGif.media[0].gif.url" class="responsive-img z-depth-5 displayed"> 
 			</div>
 
-			<div class="row center-align">
-				<ul id="coments">
-					
+			<div class="row center-align" v-if="hasComents">
+				<ul>
+					<li v-for="coment in coments">{{ coment }}</li>
 				</ul>
-			</div>
-
-			<div class="row center-align">
-				<div class="col s5 m5 l5">
-					<input type="text" v-model="coment" placeholder="Say what you think!">
-					
-					<button class="waves-effect waves-light btn" @click="addComent(coment)">Coment</button>
-				</div>
 			</div>
 
 			<div class="row center-align" v-if="notFromGallery">
@@ -31,6 +23,16 @@
                    	<b>Save</b>
             	</button>
 			</div>
+
+			<div class="row center-align" v-else>
+				<div class="col s5 m5 l5">
+					<input type="text" v-model="coment" placeholder="Say what you think!">
+					
+					<button class="waves-effect waves-light btn" @click="addComent(coment)">Coment</button>
+				</div>
+			</div>
+
+			
 			<div>
 				<h1 @click="increment(test)">{{ test }}</h1>
 			</div>
@@ -55,14 +57,41 @@
 			fromTrending(){
 				return this.$store.state.gifFromTrending;
 			},
+			fromGallery(){
+				return this.$store.state.gifFromGallery;
+			},
 			wichGif(){
 				return this.discriminate();
 			},
 			notFromGallery(){
 				return this.check();
+			},
+			hasComents(){
+				return this.fromWhere();
+			},
+			coments(){
+				return this.giveMeComents();
 			}
 		},
 		methods: {
+			fromWhere(){						// if the gif is saved
+				if (this.particularSavedGif) {
+					return this.particularSavedGif.coments.length > 0;
+				}
+				if (this.fromGallery) {
+					return this.fromGallery.coments.length > 0;
+				} else {
+					return false;
+				}
+			},
+			giveMeComents(){
+				if (this.particularSavedGif) {
+					return this.particularSavedGif.coments;
+				}
+				if (this.fromGallery) {
+					return this.fromGallery.coments;
+				}
+			},
 			check(){
 				if (this.particularGif || this.fromTrending){
 					return true;
@@ -72,13 +101,14 @@
 				 
 			},
 	        Save(gifToSave){
+	          gifToSave.coments = [];
 	          this.$store.commit('saveGif', gifToSave);
 	          this.saved = true;
 	        },
 	        increment(test){
 	          this.socket.emit('increment', test);
 	        },
-	        discriminate(){
+	        discriminate(){					// gif from where
 				if (this.particularGif) {
 					return this.particularGif;
 				} else if (this.fromTrending != null) {
@@ -90,9 +120,17 @@
 				}
 			},
 			addComent(coment){
-				debugger
-				const aux = 'savedGifs';
-				this.$store.commit('addComent', this.wichGif, coment, aux);
+				const fuckingArray = [];
+				const gif = this.wichGif;
+				const where = "savedGifs";
+
+				fuckingArray.push(gif);
+				fuckingArray.push(coment);
+				fuckingArray.push(where);
+
+				this.$store.commit('addComent', fuckingArray);
+ 	          	this.socket.emit('comentMade', coment);
+
 			}
 		},
 		watch: {
@@ -102,7 +140,7 @@
 			if (this.particularGif) {
 				this.$emit('seeOneGif', '');
 			} else if (this.particularSavedGif) {
-				this.$emit('seeSavedGif', '')
+				this.$emit('seeSavedGif', null);
 			} else {
 				this.$store.commit('cleanGifs');
 			}
@@ -114,6 +152,9 @@
 		sockets: {
 			increment(newValue){
 				this.test = newValue;
+			},
+			comentMade(coment){
+				
 			}
 		}
 	}

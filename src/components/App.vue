@@ -21,7 +21,7 @@
       data() {
           return {
               particularGif: {},
-              particularSavedGif: {} 
+              particularSavedGif: null 
           }
       },
       methods: {
