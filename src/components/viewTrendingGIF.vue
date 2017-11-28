@@ -39,6 +39,7 @@
 
 
 <script>
+    import config from "./../config/config";
 
     export default {
       name: 'viewSearchGIF',
@@ -59,7 +60,7 @@
       },
       methods:{
         getTrendingGIFS(){
-            this.$http.get('https://api.tenor.com/v1/trending?key=N7HZW5YZJLP3&limit=10')
+            this.$http.get(config.TRENDING + config.KEY + config.LIMIT10)
                 .then((response) => {
                     this.addGifsToLists(response.data.results)
                     this.errorStatus = false

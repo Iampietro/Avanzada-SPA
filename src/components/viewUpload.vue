@@ -54,6 +54,9 @@
 
 <script>
 import axios from "axios"
+
+import config from "./../config/config";
+
 export default {
       name: 'viewUpload',
       props: [],
@@ -86,8 +89,8 @@ export default {
         },
         save(formData) {
           this.loading = true;
-          const url = `https://api.pixhost.org/images`;
-          return axios.post(url, formData)
+          //const url = `https://api.pixhost.org/images`;
+          return axios.post(config.UPLOAD_URL, formData)
             // get data
             .then(response => {
               this.image_url = response.data.show_url;
@@ -100,7 +103,7 @@ export default {
             });
         },
         show_it_to_me(){
-          this.edited_url = "https://img15.pixhost.org/images" + this.image_url.slice(24);
+          this.edited_url = config.EDITED_URL + this.image_url.slice(24);
           this.$store.commit('saveUpload', this.edited_url);
 
         },

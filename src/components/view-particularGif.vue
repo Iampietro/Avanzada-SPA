@@ -57,6 +57,8 @@
 <script>
 	import io from "socket.io-client";
 
+	import config from "./../config/config";
+
 	export default {
 		name: 'viewParticularGif',
 		props: ['particularGif', 'particularSavedGif'],
@@ -172,7 +174,7 @@
 
 		},
 		created(){
-			this.socket = io("http://localhost:3000");
+			this.socket = io(config.WS_URL);
 		},
 		mounted(){
 			if (this.particularSavedGif) {

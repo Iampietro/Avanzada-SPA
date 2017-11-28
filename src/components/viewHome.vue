@@ -83,6 +83,8 @@
 </template>
 
 <script>
+    import config from "./../config/config";
+
     export default {
       name: 'viewHome',
       components:{
@@ -114,7 +116,7 @@
                 i_search = 0;  
               }
               
-              this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=40&q=' 
+              this.$http.get(config.ENDPOINT_SEARCH + config.KEY + config.LIMIT40 
                 + this.searches[i_search])
                   .then((response) => {
                     let index = Math.floor(Math.random() * 39);
