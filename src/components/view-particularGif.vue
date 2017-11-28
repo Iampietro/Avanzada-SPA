@@ -177,7 +177,7 @@
 		mounted(){
 			debugger
 			const name = this.$store.state.justLoggedUser.user.username;
-				let images = localStorage.getItem('images' + name);
+				let images = localStorage.getItem('imagesOf:' + name);
 				if (images) {
 					images = JSON.parse(images);
 					for (var i = images.length - 1; i >= 0; i--) {
