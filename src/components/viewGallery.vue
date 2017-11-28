@@ -17,8 +17,10 @@
 				        	<carousel>
 				          		<slide v-for="img in images">
 				            		<div class="center-align">
-				              			<v-zoom :img="img" :width="1000"
-				              				class="saved img-responsive z-depth-5 gallery materialboxed"></v-zoom>
+				            			<router-link to="/particularGif">
+				              				<img :src="img" @click="seeThisImg(img)"
+				              					class="saved img-responsive z-depth-5 gallery">
+				              			</router-link>
 				            		</div>
 				           		</slide>
 				         	</carousel>
@@ -64,7 +66,6 @@
 
 <script>
 import { Carousel, Slide } from 'vue-carousel';
-import vZoom from 'vue-zoom';
 
 	export default {
 		name: 'viewGallery',
@@ -75,13 +76,15 @@ import vZoom from 'vue-zoom';
 		},
 		components: {
 		   	Carousel,
-		   	Slide,
-		   	vZoom
+		   	Slide
 		},
 		methods: {
 			seeThisGif(gif){
 				//this.$store.commit('galleryGif', gif);
 				this.$emit('seeSavedGif', gif);
+			},
+			seeThisImg(img){
+				this.$emit('seeUploadedImg', img);
 			}
 		},
 		computed: {

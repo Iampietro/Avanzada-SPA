@@ -18,13 +18,21 @@
                 <h5>Your recent uploads</h5>
               </router-link>
               <div v-for="img in uploaded_imgs" class="costadito col m6 l4 s12">
-                <img :src="img" class="uploadid img-responsive z-depth-5 center-align home">
+                <router-link to="/particularGif">
+                  <img :src="img" @click="seeThisImg(img)"
+                    class="uploadid img-responsive z-depth-5 center-align home">
+                </router-link>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <router-link to="/particularGif">
+                              <img :src="img" @click="seeThisImg(img)"
+                                class="saved img-responsive z-depth-5 gallery">
+                            </router-link>
 
     <div v-if="hasGifs"> <!-- saved gifs -->
       <div class="row">
@@ -163,6 +171,9 @@
           if (this.userLogged.uploadedImages.length > 0){
             this.uploaded_imgs = this.bringLast3(this.userLogged.uploadedImages);
           }
+        },
+        seeThisImg(img){
+          this.$emit('seeUploadedImg', img);
         }
       },
       computed: {
