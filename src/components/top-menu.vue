@@ -1,7 +1,6 @@
 <template>
   <nav>
     <div class="nav-wrapper negrita">
-      
       <label class="brand-logo right">Imagen Express</label>   <!-- esto idealmente sería un boton junto al logo --> 
         <ul class="left hide-on-med-and-down">
           <li><router-link to="/home">Home</router-link></li>
@@ -10,15 +9,18 @@
           <li><router-link to="/trendingGIFs">Trending GIFs</router-link></li>
           <li><router-link to="/gallery">Gallery</router-link></li>
           <li>
-            <a class="" href='#' data-activates='dropdown1'>My Account</a>
-              <ul id='dropdown1' class="dropdown-content">
-                <li><h6 @click.prevent="logout" class="right"><a href="">Log out</a></h6></li>
-              </ul>
+            <div v-if="userLogged">
+              <div @click="logout()">
+                <router-link to="/">
+                  Log out
+                </router-link>
+              </div>
+            </div>
           </li>
         </ul>
 
     </div>
-    </nav>
+  </nav>
 </template>
 
 <script>
@@ -40,6 +42,11 @@
             this.$store.commit('logout');
             this.$router.push('/')
           }
+        },
+        computed: {
+          userLogged(){
+            return this.$store.state.justLoggedUser.user;
+          }
         }
     }
 </script>
@@ -55,7 +62,3 @@ h6 {
 nav-wrapper: { color: #7572ff }
 
 </style>
-
-
-
-
