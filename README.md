@@ -1,6 +1,6 @@
 # Imagen Express
 
-## Usage
+## Usage (WINDOWS)
 
 Inside ImagenExpress folder and then over websockets folder, run:
 
@@ -19,3 +19,16 @@ In  websockets folder:
 ``` bash
 node index.js
 ```
+
+
+
+## Usage (LINUX)
+
+On the ImagenExpress folder run:
+ 
+-npm run install 
+-npm run start
+
+On the websockets folder:
+
+-node index.js

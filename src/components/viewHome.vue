@@ -29,11 +29,6 @@
       </div>
     </div>
 
-    <router-link to="/particularGif">
-                              <img :src="img" @click="seeThisImg(img)"
-                                class="saved img-responsive z-depth-5 gallery">
-                            </router-link>
-
     <div v-if="hasGifs"> <!-- saved gifs -->
       <div class="row">
         <div class="col m12 l12 s12">

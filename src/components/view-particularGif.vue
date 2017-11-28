@@ -38,13 +38,13 @@
 									<button class="waves-effect waves-light btn" @click="addComent(coment)">Comment</button>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col s6 m3 l4">
-									<button class="waves-effect waves-light btn red" @click="deleteGif(wichGif)">Delete</button>
-								</div>
-							</div>
 						</div>
 					</div>
+
+					<button class="waves-effect waves-light btn red" @click="deleteGif(wichGif)">
+						Delete saved GIF
+					</button>
+
 				</div>
 
 				<div class="center-align" v-if="hasComents">
