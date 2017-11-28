@@ -1,17 +1,17 @@
 <template>
 	<div class="container">
 		<div class="row">
-			<div class="col s4 m4 l4 offset-l4">
+			<div class="col s12 m5 l4 offset-l4">
 				<div class="negrita card blue-grey darken-1 login"> 
 
-					<form class="card-content" autocomplete="off">
+					<form class="card-content center-align" autocomplete="off">
 						<h2 class="center-align moritedesida">Log in</h2><br>
 						<!-- form group --> 
 						<input type="text" name="username" v-model="user.username" placeholder="Enter your username">
 						<!-- form group --> 
 						<input type="password" name="userpass" v-model="user.password">
 						
-						<button class="btn waves-effect waves-light right" @click.prevent="submitLogin">Enter</button>
+						<button class="btn waves-effect waves-light" @click.prevent="submitLogin">Enter</button>
 					</form>
 				</div>
 			</div>
@@ -89,10 +89,6 @@
 		margin: 150px 0px 0px 0px;
 	}
 
-	.btn{
-		margin: 0px 60px 0px 0px;
-	}
-
 	.modal-mask {
 	  position: fixed;
 	  z-index: 9998;
@@ -149,4 +145,5 @@
 	.modal-enter, .modal-leave-to /* .fade-leave-active in <2.1.8 */ {
 	  opacity: 0
 	}
+
 </style>

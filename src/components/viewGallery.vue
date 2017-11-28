@@ -17,7 +17,8 @@
 				        	<carousel>
 				          		<slide v-for="img in images">
 				            		<div class="center-align">
-				              			<img :src="img" class="saved img-responsive z-depth-5">
+				              			<v-zoom :img="img" :width="1000"
+				              				class="saved img-responsive z-depth-5 gallery materialboxed"></v-zoom>
 				            		</div>
 				           		</slide>
 				         	</carousel>
@@ -40,14 +41,14 @@
             		<div class="card-content white-text" v-if="hasGifs">
 	    			<h5>Saved GIFs</h5>
 					<carousel>
-					    <slide v-for="gif in gifs">
-					    	<div class="center-align">
-						    	<router-link to="/particularGif"> 
-						    		<img :src="gif.media[0].gif.preview" @click="seeThisGif(gif)"
-							                        class="saved img-responsive z-depth-5">
-							    </router-link>
-						    </div>
-					    </slide>
+						    <slide v-for="gif in gifs">
+						    	<div class="center-align">
+							    	<router-link to="/particularGif"> 
+							    		<img :src="gif.media[0].gif.preview" @click="seeThisGif(gif)"
+								            class="saved img-responsive z-depth-5 gallery">
+								    </router-link>
+							    </div>
+						    </slide>
 					</carousel>
 					</div>
 					<div v-else class="card-content white-text">
@@ -63,6 +64,7 @@
 
 <script>
 import { Carousel, Slide } from 'vue-carousel';
+import vZoom from 'vue-zoom';
 
 	export default {
 		name: 'viewGallery',
@@ -73,7 +75,8 @@ import { Carousel, Slide } from 'vue-carousel';
 		},
 		components: {
 		   	Carousel,
-		   	Slide
+		   	Slide,
+		   	vZoom
 		},
 		methods: {
 			seeThisGif(gif){
@@ -102,13 +105,6 @@ import { Carousel, Slide } from 'vue-carousel';
 </script>
 
 <style>
-.uploadid {
-  max-width: 280px;
-  height: auto;
-  margin-right: 8px;
-  margin-left: 8px;
-  vertical-align: middle;
-}
 
 .saved {
   max-width: 390px;

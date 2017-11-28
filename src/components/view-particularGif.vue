@@ -9,7 +9,7 @@
                     Gif Saved successfully!
             </div>
 			<div class="row center-align">
-				<img :src="wichGif.media[0].gif.url" class="responsive-img z-depth-5 displayed"> 
+				<img :src="wichGif.media[0].gif.url" class="responsive-img z-depth-5 displayed particular"> 
 			</div>
 
 			<div class="row center-align" v-if="notFromGallery">

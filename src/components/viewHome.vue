@@ -10,15 +10,15 @@
     </div>
 
     <div class="row" v-if="hasUploadedImages">  
-      <div class="col s4 m4 l12">
+      <div class="col s12 m12 l12">
         <div class="card blue-grey darken-1">
           <div class="card-content white-text">
             <div class="row">
               <router-link to="/gallery"> 
                 <h5>Your recent uploads</h5>
               </router-link>
-              <div v-for="img in uploaded_imgs" class="costadito col m4 l4 s4">
-                <img :src="img" class="uploadid img-responsive z-depth-5 center-align">
+              <div v-for="img in uploaded_imgs" class="costadito col m6 l4 s12">
+                <img :src="img" class="uploadid img-responsive z-depth-5 center-align home">
               </div>
             </div>
           </div>
@@ -28,17 +28,17 @@
 
     <div v-if="hasGifs"> <!-- saved gifs -->
       <div class="row">
-        <div class="col m4 l12 s4">
+        <div class="col m12 l12 s12">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
               <div class="row">
                 <router-link to="/gallery"> 
                   <h5>Recently saved GIFs</h5>
                 </router-link> 
-                <div v-for="gif in saved_gifs" class="costadito col m4 l4 s4">
+                <div v-for="gif in saved_gifs" class="costadito col m6 l4 s12">
                   <router-link to="/particularGif"> 
                     <img :src="gif.media[0].gif.preview" @click="particularGif(gif)"
-                        class="uploadid img-responsive z-depth-5 center-align">
+                        class="uploadid img-responsive z-depth-5 center-align home">
                   </router-link>
                 </div>
               </div>
@@ -61,15 +61,15 @@
 
   <div v-if="hasSearches">
     <div class="row">
-      <div class="col s4 m4 l12">
+      <div class="col s12 m12 l12">
         <div class="card blue-grey darken-1">
           <div class="card-content white-text">
             <div class="row">
               <h5>Some GIFs you may like...</h5>
-              <div v-for="suggestion in suggestionsGifs" class="costadito col m4 l4 s4">
+              <div v-for="suggestion in suggestionsGifs" class="costadito col m6 l4 s12">
                 <router-link to="/particularGif"> 
                   <img :src="suggestion.media[0].gif.preview" @click="suggestionGif(suggestion)" 
-                    class="uploadid img-responsive z-depth-5 center-align">
+                    class="uploadid img-responsive z-depth-5 center-align home">
                 </router-link>
               </div>
             </div>

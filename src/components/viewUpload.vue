@@ -41,7 +41,9 @@
                   </form><br>
 
                   <h6><b class="padsito">URL</b><i>{{ edited_url }}</i></h6><br>
-                  <div class="center-align"><img class="uploaded img-responsive z-depth-5" :src="edited_url"></div>
+                  <div class="center-align"><img class="uploaded img-responsive z-depth-5" 
+                      :src="edited_url">
+                  </div>
                 </div>
 
               </div>
@@ -153,7 +155,7 @@ input[type="file"] {
 }
 
 .uploaded {
-  max-width: 500px;
+  max-width: 500px !important;
   margin: 20px 20px 20px 20px;
 }
 

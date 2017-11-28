@@ -18,7 +18,7 @@
                       <h3 v-if="noResults">We're sorry, your search did't have any matches</h3>
                       <div v-else>
                         <div class="row">
-                        <div class="col l6 m8 s12">
+                        <div class="col l6 m6 s12">
                             <div v-for="gif in gifs_left">
                                 <div class="center-align padsito">
                                     <router-link to="/particularGif"> 
@@ -29,11 +29,11 @@
                             </div>
                         </div>
 
-                        <div class="col l6 m8 s12">
+                        <div class="col l6 m6 s12">
                             <div v-for="gif in gifs_right">
                                 <div class="center-align padsito">
                                     <router-link to="/particularGif"> 
-                                        <img class="img-responsive rescatame z-depth-5" 
+                                        <img class="img-responsive rescatame z-depth-5 buscada" 
                                         :src="gif.media[0].gif.preview" @click="particularGif(gif)"> 
                                     </router-link> 
                                 </div>
@@ -130,7 +130,7 @@
 
 <style>
 
-  img .buscada:hover {
+  .buscada:hover {
     filter:hue-rotate(90deg);
     filter:drop-shadow(0px 0px 10px #d3e4ff);
   }
