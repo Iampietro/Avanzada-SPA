@@ -8,6 +8,7 @@ import viewLogin from '../components/view-Login.vue'
 import viewCreateGallery from '../components/viewCreateGallery.vue'
 import viewGallery from '../components/viewGallery.vue'
 import viewNavigate from '../components/view-Navigate.vue'
+import viewAnothersGallery from '../components/anothersGallery.vue'
 
 import store from '../store/store'
 
@@ -90,6 +91,16 @@ export default new VueRouter({
 	  {
 	  	path: '/navigate',
 	  	component: viewNavigate,
+	  	beforeEnter: (to, from, next) => {
+	  		if(store.state.authorized)
+	  			next();
+	  		else
+	  			next('/')
+	  	}
+	  },
+	  {
+	  	path: '/anothersGallery',
+	  	component: viewAnothersGallery,
 	  	beforeEnter: (to, from, next) => {
 	  		if(store.state.authorized)
 	  			next();

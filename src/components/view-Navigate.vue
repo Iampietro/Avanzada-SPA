@@ -8,8 +8,8 @@
 				<div class="row">
 					<div class="col s4 m4 l4" v-for="user in users">
 						<h5>{{ user.username }}'s Gallery</h5>
-						<router-link to="/particularGif"> 
-							<img :src="user.savedGifs[0].media[0].gif.preview">
+						<router-link to="/anothersGallery"> 
+							<img :src="user.savedGifs[0].media[0].gif.preview" @click="showMe(user)">
 						</router-link>
 					</div>
 				</div>
@@ -21,7 +21,7 @@
 <script>
 	
 	export default {
-		name: 'viewNAvigate',
+		name: 'viewNavigate',
 		data() {
 			return {
 				
@@ -46,6 +46,10 @@
 					}
 				}
 				return hasGifs;
+			},
+			showMe(user){
+				this.$store.commit('pass', user);
+				
 			}
 		}
 	}
