@@ -2,14 +2,14 @@
 	<div class="container">
 		<div class="row center-align">
 			<div class="col s12 m12 l12">
-				<h4>Explore people's saved gifs!</h4>
+				<h3>Explore people's saved gifs!</h3>
 			</div>
 			<div class="col s12 m12 l12">
 				<div class="row">
 					<div class="col s4 m4 l4" v-for="user in users">
 						<h5>{{ user.username }}'s Gallery</h5>
 						<router-link to="/particularGif"> 
-							<img :src="user.savedGifs[0].media[0].gif.preview">
+							<img :src="user.savedGifs[0].media[0].gif.preview" class="z-depth-5">
 						</router-link>
 					</div>
 				</div>
@@ -50,3 +50,9 @@
 		}
 	}
 </script>
+
+<style>
+	h5 {
+		color: #263238;
+	}
+</style>
