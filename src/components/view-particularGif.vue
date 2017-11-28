@@ -9,6 +9,10 @@
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
                     Gif Saved successfully!
             </div>
+            <div class="alert" v-if="deleted">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    Gif Deleted successfully!
+            </div>
 			<div class="row center-align">
 				<img :src="wichGif.media[0].gif.url" class="responsive-img z-depth-5 displayed particular"> 
 			</div>
@@ -27,12 +31,17 @@
 					<div class="card blue-grey darken-1">
 		          		<div class="card-content white-text">
 		          			<div class="row">
-							<div class="col s6 m9 l7">
-								<input type="text" v-model="coment" placeholder="Write a comment...">
+								<div class="col s6 m9 l7">
+									<input type="text" v-model="coment" placeholder="Write a comment...">
+								</div>
+								<div class="col s6 m3 l4">
+									<button class="waves-effect waves-light btn" @click="addComent(coment)">Comment</button>
+								</div>
 							</div>
-							<div class="col s6 m3 l4">
-								<button class="waves-effect waves-light btn" @click="addComent(coment)">Comment</button>
-							</div>
+							<div class="row">
+								<div class="col s6 m3 l4">
+									<button class="waves-effect waves-light btn red" @click="deleteGif(wichGif)">Delete</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -77,7 +86,8 @@
 				coment: '',
 				comentsMade: [],
 				alreadySaved: false,
-				index: null
+				index: null,
+				deleted: false
 			}
 		},
 		computed: {
@@ -163,7 +173,14 @@
 				this.$store.commit('addComent', fuckingArray);
 
  	          	this.socket.emit('comentMade', coment);
-
+			},
+			deleteGif(gifToDelete){
+				this.$store.commit('removeGif', gifToDelete);
+ 		        this.deleted = true;
+ 		        const that = this;
+ 		        setTimeout(function(){
+ 		        	that.$router.push('gallery');
+ 		        }, 3000);
 			}
 		},
 		watch: {

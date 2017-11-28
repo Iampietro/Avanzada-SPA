@@ -99,11 +99,14 @@ export default new Vuex.Store({
 			
 		},
 		removeGif(state, gif){
+			const name = state.justLoggedUser.user.username;
 			const indexUser = state.users.indexOf(state.justLoggedUser);
 			const indexGif = state.users[indexUser].user.savedGifs.indexOf(gif);
 
-			state.users[indexUser].user.savedGifs.slice(0, indexGif)
-											.concat(state.users[indexUser].user.savedGifs.slice(indexGif + 1));
+			state.users[indexUser].user.savedGifs = state.users[indexUser].user.savedGifs.slice(0, indexGif)
+													.concat(state.users[indexUser].user.savedGifs.slice(indexGif + 1));
+			localStorage.setItem('imagesOf:' + name, JSON.stringify(state.users[indexUser].user.savedGifs));
+
 		},
 		saveSearch(state, search){
 			const indexUser = state.users.indexOf(state.justLoggedUser);
