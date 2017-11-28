@@ -4,7 +4,7 @@
       <transition name="fade">
         <router-view @seeOneGif="seeOneGif" :particularGif="particularGif"
                      @seeSavedGif="seeSavedGif" :particularSavedGif="particularSavedGif"
-                     @seeSugestion="seeSugestion" :index="index">
+                     @seeSugestion="seeSugestion">
           
         </router-view>
       </transition>
@@ -22,17 +22,15 @@
       data() {
           return {
               particularGif: null,
-              particularSavedGif: null,
-              index: null 
+              particularSavedGif: null
           }
       },
       methods: {
           seeOneGif(gif){
               this.particularGif = gif;
           },
-          seeSavedGif(gif, index){
+          seeSavedGif(gif){
               this.particularSavedGif = gif;
-              this.index = index;
           },
           seeSugestion(gif){
             this.particularGif = gif;

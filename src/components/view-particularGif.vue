@@ -39,15 +39,15 @@
 
 				<div class="center-align" v-if="hasComents">
 					<div class="col s12 m12 l6">
-					<div class="mequieroirdeaca">
-			        	<div class="card cyan lighten-5" v-for="coment in comentsMade">
-			          		<div class="black-text">
-								<ul>
-									<li >{{ coment }}</li>
-								</ul>
+						<div class="mequieroirdeaca">
+				        	<div class="card cyan lighten-5" v-for="coment in comentsMade">
+				          		<div class="black-text">
+									<ul>
+										<li >{{ coment }}</li>
+									</ul>
+								</div>
 							</div>
 						</div>
-					</div>
 					</div>
 				</div>
 			</div>
@@ -59,7 +59,7 @@
 
 	export default {
 		name: 'viewParticularGif',
-		props: ['particularGif', 'particularSavedGif', 'index'],
+		props: ['particularGif', 'particularSavedGif'],
 		data(){
 			return {
 				saved: null,
@@ -67,7 +67,8 @@
 				test: 0,
 				coment: '',
 				comentsMade: [],
-				alreadySaved: false
+				alreadySaved: false,
+				index: null
 			}
 		},
 		computed: {
@@ -174,15 +175,18 @@
 			this.socket = io("http://localhost:3000");
 		},
 		mounted(){
+			debugger
 			const name = this.$store.state.justLoggedUser.user.username;
-			if (this.index != null) {
 				let images = localStorage.getItem('images' + name);
 				if (images) {
 					images = JSON.parse(images);
+					for (var i = images.length - 1; i >= 0; i--) {
+						if (images[i].id == this.particularSavedGif.id) {
+							this.index = i;
+						}
+					}
 					this.comentsMade = images[this.index].coments;
-				}
-			}
-			
+				}			
 		},
 		sockets:{
 			increment(newValue){

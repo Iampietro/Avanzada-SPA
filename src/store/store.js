@@ -127,12 +127,11 @@ export default new Vuex.Store({
 			if (whereTo == "savedGifs") {
 				for (var i = 0; i < state.justLoggedUser.user.savedGifs.length; i++) {
 					if (state.justLoggedUser.user.savedGifs[i].id == array[0].id) {
-
 						state.justLoggedUser.user.savedGifs[i].coments.push(array[1])
-
-						localStorage.setItem('images' + name, JSON.stringify(state.justLoggedUser.user.savedGifs));
 					}
 				}
+				localStorage.setItem('images' + name, JSON.stringify(state.justLoggedUser.user.savedGifs));
+
 			} else {
 				for (var i = 0; i < state.justLoggedUser.uploadedImages.length; i++) {
 					if (state.justLoggedUser.uploadedImages[i].id == image.id) {

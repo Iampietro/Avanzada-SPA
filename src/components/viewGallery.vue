@@ -40,10 +40,10 @@
             		<div class="card-content white-text" v-if="hasGifs">
 	    			<h5>Saved GIFs</h5>
 					<carousel>
-					    <slide v-for="(gif, index) in gifs">
+					    <slide v-for="gif in gifs">
 					    	<div class="center-align">
 						    	<router-link to="/particularGif"> 
-						    		<img :src="gif.media[0].gif.preview" @click="seeThisGif(gif, index)"
+						    		<img :src="gif.media[0].gif.preview" @click="seeThisGif(gif)"
 							                        class="saved img-responsive z-depth-5">
 							    </router-link>
 						    </div>
@@ -76,9 +76,9 @@ import { Carousel, Slide } from 'vue-carousel';
 		   	Slide
 		},
 		methods: {
-			seeThisGif(gif, index){
+			seeThisGif(gif){
 				//this.$store.commit('galleryGif', gif);
-				this.$emit('seeSavedGif', gif, index);
+				this.$emit('seeSavedGif', gif);
 			}
 		},
 		computed: {

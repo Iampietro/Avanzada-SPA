@@ -16,9 +16,9 @@
             <div class="card-content white-text">
               <div class="row">
                 <h5>Recently saved GIFs</h5>
-                <div v-for="(gif, index) in saved_gifs" class="costadito col m4 l4 s4">
+                <div v-for="gif in saved_gifs" class="costadito col m4 l4 s4">
                   <router-link to="/particularGif"> 
-                    <img :src="gif.media[0].gif.preview" @click="particularGif(gif, index)"
+                    <img :src="gif.media[0].gif.preview" @click="particularGif(gif)"
                         class="uploadid img-responsive z-depth-5 center-align">
                   </router-link>
                 </div>
@@ -133,8 +133,8 @@
         maneje_de_gifs(sugg_gif){
           this.suggestionsGifs.push(sugg_gif);
         },
-        particularGif(gif, index){
-            this.$emit('seeSavedGif', gif, index);
+        particularGif(gif){
+            this.$emit('seeSavedGif', gif);
         },
         suggestionGif(gif){
             this.$emit('seeSugestion', gif);
