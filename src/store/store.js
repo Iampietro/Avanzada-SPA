@@ -55,7 +55,8 @@ export default new Vuex.Store({
 		authorized : false,
 		justLoggedUser: {},
 		gifFromGallery: null,
-		gifFromTrending: null
+		gifFromTrending: null,
+		toShowGallery: null
 	},
 	getters: {
 		users_by_name: (state, getters) => (userToFind) =>  {
@@ -187,6 +188,9 @@ export default new Vuex.Store({
 				previousGifs = JSON.parse(previousGifs);
 				state.users[4].user.savedGifs = previousGifs;
 			}
+		},
+		pass(state, user){
+			state.toShowGallery = user;
 		}
 	}
 })
