@@ -51,6 +51,7 @@
 </template>
 
 <script>
+    import config from "./../config/config";
 
     export default {
     	name: 'viewSearchGIF',
@@ -81,7 +82,7 @@
       },
       methods:{
         searchGifs(){
-            this.$http.get('https://api.tenor.com/v1/search?key=N7HZW5YZJLP3&limit=12&q=' + this.search)
+            this.$http.get(config.ENDPOINT_SEARCH + config.KEY + config.LIMIT12 + this.search)
                 .then((response) => {
                     this.searchingProcess = true
                     this.addGifsToLists(response.data.results)

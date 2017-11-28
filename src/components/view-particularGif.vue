@@ -57,6 +57,8 @@
 <script>
 	import io from "socket.io-client";
 
+	import config from "./../config/config";
+
 	export default {
 		name: 'viewParticularGif',
 		props: ['particularGif', 'particularSavedGif'],
@@ -99,7 +101,7 @@
  			},
 			verifyComents(){
 				if (this.particularSavedGif) {
-					return this.particularSavedGif.coments.length > 0;
+					return this.comentsMade.length > 0;
 				} else {
 					return false;
 				}
@@ -172,11 +174,11 @@
 
 		},
 		created(){
-			this.socket = io("http://localhost:3000");
+			this.socket = io(config.WS_URL);
 		},
 		mounted(){
-			debugger
-			const name = this.$store.state.justLoggedUser.user.username;
+			if (this.particularSavedGif) {
+				const name = this.$store.state.justLoggedUser.user.username;
 				let images = localStorage.getItem('imagesOf:' + name);
 				if (images) {
 					images = JSON.parse(images);
@@ -186,7 +188,9 @@
 						}
 					}
 					this.comentsMade = images[this.index].coments;
-				}			
+				}
+			}
+						
 		},
 		sockets:{
 			increment(newValue){
