@@ -84,3 +84,241 @@ img .displayed {
   max-width: 100%; 
   height: auto;
 }
+
+@media screen and (max-width: 992px) and (min-width: 600px) {
+  .card .login {
+    min-width: 400px !important;  
+  }
+}
+
+@media screen and (min-width: 1192px) {
+  .buscada {
+    max-width: 390px !important;
+  }
+}
+
+@media screen and (max-width: 1192px) and (min-width: 1142px) {
+  .buscada {
+    max-width: 340px !important;
+  }
+}
+
+@media screen and (max-width: 1142px) and (min-width: 1042px) {
+  .buscada {
+    max-width: 330px !important;
+  }
+}
+
+@media screen and (max-width: 1092px) and (min-width: 1042px) {
+  .buscada {
+    max-width: 320px !important;
+  }
+}
+
+@media screen and (max-width: 1042px) and (min-width: 992px) {
+  .buscada {
+    max-width: 300px !important;
+  }
+}
+
+@media screen and (min-width: 1192px) {
+  .gallery {
+    max-width: 390px !important;
+  }
+}
+
+@media screen and (max-width: 1192px) and (min-width: 1142px) {
+  .gallery {
+    max-width: 340px !important;
+  }
+}
+
+@media screen and (max-width: 1142px) and (min-width: 1042px) {
+  .gallery {
+    max-width: 330px !important;
+  }
+}
+
+@media screen and (max-width: 1092px) and (min-width: 1042px) {
+  .gallery {
+    max-width: 320px !important;
+  }
+}
+
+@media screen and (max-width: 1042px) and (min-width: 992px) {
+  .gallery {
+    max-width: 300px !important;
+  }
+}
+
+@media screen and (max-width: 1392px) and (min-width: 1242px) {
+  img {
+    max-width: 260px !important;
+  }
+}
+
+@media screen and (max-width: 1242px) and (min-width: 1192px) {
+  img {
+    max-width: 250px !important;
+  }
+}
+
+@media screen and (max-width: 1192px) and (min-width: 1142px) {
+  img {
+    max-width: 240px !important;
+  }
+}
+
+@media screen and (max-width: 1142px) and (min-width: 1042px) {
+  img {
+    max-width: 230px !important;
+  }
+}
+
+@media screen and (max-width: 1092px) and (min-width: 1042px) {
+  img {
+    max-width: 220px !important;
+  }
+}
+
+@media screen and (max-width: 1042px) and (min-width: 992px) {
+  img {
+    max-width: 200px !important;
+  }
+}
+
+/* IMG COLUMN MEDIUM */
+
+@media screen and (max-width: 992px) and (min-width: 950px) {
+  img {
+    max-width: 355px !important;
+  }
+}
+
+@media screen and (max-width: 950px) and (min-width: 900px) {
+  img {
+    max-width: 329px !important;
+  }
+}
+
+@media screen and (max-width: 900px) and (min-width: 850px) {
+  img {
+    max-width: 310px !important;
+  }
+}
+
+@media screen and (max-width: 850px) and (min-width: 800px) {
+  img {
+    max-width: 295px !important;
+  }
+}
+
+
+@media screen and (max-width: 800px) and (min-width: 750px) {
+  img {
+    max-width: 280px !important;
+  }
+}
+
+@media screen and (max-width: 750px) and (min-width: 700px) {
+  img {
+    max-width: 265px !important;
+  }
+}
+
+@media screen and (max-width: 700px) and (min-width: 660px) {
+  img {
+    max-width: 250px !important;
+  }
+}
+
+@media screen and (max-width: 660px) and (min-width: 600px) {
+  img {
+    max-width: 220px !important;
+  }
+}
+
+/* IMG COLUMN SMALL */
+
+@media screen and (max-width: 600px) and (min-width: 500px) {
+  img {
+    max-width: 370px !important;
+  }
+}
+
+@media screen and (max-width: 500px) and (min-width: 400px) {
+  img {
+    max-width: 300px !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  img {
+    max-width: 235px !important;
+  }
+}
+
+/* IMG OTHERS */
+
+@media screen and (min-width: 400px) {
+  .particular {
+    max-width: 100% !important;
+  }
+}
+
+/* JUST UPLOADED IMAGE */
+
+@media screen and (min-width: 1100px) {
+  .justuploaded {
+    max-width: 690px !important;
+  }
+}
+
+@media screen and (max-width: 1100px) and (min-width: 992px) {
+  .justuploaded {
+    max-width: 610px !important;
+  }
+}
+
+@media screen and (max-width: 992px) and (min-width: 900px) {
+  .justuploaded {
+    max-width: 650px !important;
+  }
+}
+
+@media screen and (max-width: 900px) and (min-width: 800px) {
+  .justuploaded {
+    max-width: 570px !important;
+  }
+}
+
+@media screen and (max-width: 800px) and (min-width: 700px) {
+  .justuploaded {
+    max-width: 500px !important;
+  }
+}
+
+@media screen and (max-width: 700px) and (min-width: 600px) {
+  .justuploaded {
+    max-width: 420px !important;
+  }
+}
+
+@media screen and (max-width: 600px) and (min-width: 500px) {
+  .justuploaded {
+    max-width: 370px !important;
+  }
+}
+
+@media screen and (max-width: 500px) and (min-width: 400px) {
+  .justuploaded {
+    max-width: 250px !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .justuploaded {
+    max-width: 200px !important;
+  }
+}
+

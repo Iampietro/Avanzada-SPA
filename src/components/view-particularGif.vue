@@ -1,5 +1,6 @@
 <template>
 	<div class="container">
+		<div v-if="wichGif">	
 			<div class="center-align">
 				<h4 v-if="wichGif.title">{{ wichGif.title }}</h4>
 				<h4 v-else>Untitled</h4>
@@ -13,7 +14,7 @@
                     Gif Deleted successfully!
             </div>
 			<div class="row center-align">
-				<img :src="wichGif.media[0].gif.url" class="responsive-img z-depth-5 displayed"> 
+				<img :src="wichGif.media[0].gif.url" class="responsive-img z-depth-5 displayed particular"> 
 			</div>
 
 			<div class="row center-align" v-if="notFromGallery">
@@ -59,7 +60,13 @@
 						</div>
 					</div>
 				</div>
+			</div>	
+		</div>
+		<div v-else>
+			<div class="row center-align">
+				<img :src="particularImg" class="responsive-img z-depth-5 displayed particular"> 
 			</div>
+		</div>
 	</div>
 </template>
 
@@ -70,7 +77,7 @@
 
 	export default {
 		name: 'viewParticularGif',
-		props: ['particularGif', 'particularSavedGif'],
+		props: ['particularGif', 'particularSavedGif', 'particularImg'],
 		data(){
 			return {
 				saved: null,
@@ -144,7 +151,7 @@
 	        increment(test){
 	          this.socket.emit('increment', test);
 	        },
-	        discriminate(){					// gif from where
+	        discriminate(){					// gif from...
 				if (this.particularGif) {
 					return this.particularGif;
 				} else if (this.fromTrending) {

@@ -7,7 +7,7 @@
                 <h3>Sorry, there was a problem with the server. ¡Please excuse us!</h3>
             </div>
             <div class="row">
-              <div class="col l6 m8 s12">
+              <div class="col l6 m6 s12">
                   <div v-for="gif in gifs_left">
                       <div class="center-align padsito">
                           <router-link to="/particularGif"> 
@@ -19,7 +19,7 @@
               </div>
 
 
-              <div class="col l6 m8 s12">
+              <div class="col l6 m6 s12">
                   <div v-for="gif in gifs_right">
                       <div class="center-align padsito">
                           <router-link to="/particularGif"> 

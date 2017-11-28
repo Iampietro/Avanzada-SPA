@@ -17,7 +17,10 @@
 				        	<carousel>
 				          		<slide v-for="img in images">
 				            		<div class="center-align">
-				              			<img :src="img" class="saved img-responsive z-depth-5">
+				            			<router-link to="/particularGif">
+				              				<img :src="img" @click="seeThisImg(img)"
+				              					class="saved img-responsive z-depth-5 gallery">
+				              			</router-link>
 				            		</div>
 				           		</slide>
 				         	</carousel>
@@ -40,14 +43,14 @@
             		<div class="card-content white-text" v-if="hasGifs">
 	    			<h5>Saved GIFs</h5>
 					<carousel>
-					    <slide v-for="gif in gifs">
-					    	<div class="center-align">
-						    	<router-link to="/particularGif"> 
-						    		<img :src="gif.media[0].gif.preview" @click="seeThisGif(gif)"
-							                        class="saved img-responsive z-depth-5">
-							    </router-link>
-						    </div>
-					    </slide>
+						    <slide v-for="gif in gifs">
+						    	<div class="center-align">
+							    	<router-link to="/particularGif"> 
+							    		<img :src="gif.media[0].gif.preview" @click="seeThisGif(gif)"
+								            class="saved img-responsive z-depth-5 gallery">
+								    </router-link>
+							    </div>
+						    </slide>
 					</carousel>
 					</div>
 					<div v-else class="card-content white-text">
@@ -79,6 +82,9 @@ import { Carousel, Slide } from 'vue-carousel';
 			seeThisGif(gif){
 				//this.$store.commit('galleryGif', gif);
 				this.$emit('seeSavedGif', gif);
+			},
+			seeThisImg(img){
+				this.$emit('seeUploadedImg', img);
 			}
 		},
 		computed: {
@@ -102,13 +108,6 @@ import { Carousel, Slide } from 'vue-carousel';
 </script>
 
 <style>
-.uploadid {
-  max-width: 280px;
-  height: auto;
-  margin-right: 8px;
-  margin-left: 8px;
-  vertical-align: middle;
-}
 
 .saved {
   max-width: 390px;

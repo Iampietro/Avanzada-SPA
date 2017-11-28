@@ -1,12 +1,18 @@
 <template>
   <div class="container">
-    <div class="ac-custom ac-radio ac-circle negrita card blue-grey darken-1">
+    <div class="negrita card blue-grey darken-1">
         <div class="card-content" autocomplete="off">
           <h3>Upload an image or a GIF</h3><br>
             <div class="row">
 
               <div class="col l12 m12 s12">
 
+                <div v-if="failed">
+                    <div class="alertfailed">
+                      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                      Your file failed to upload.
+                    </div>
+                </div>
 
                 <div v-if="!edited_url" id="app">
                   <form enctype="multipart/form-data">
@@ -40,8 +46,10 @@
                       </div>
                   </form><br>
 
-                  <h6><b class="padsito">URL</b><i>{{ edited_url }}</i></h6><br>
-                  <div class="center-align"><img class="uploaded img-responsive z-depth-5" :src="edited_url"></div>
+                  <div style="overflow:hidden;"><h6><b class="padsito">URL</b><i>{{ edited_url }}</i></h6></div><br>
+                  <div class="center-align"><img class="uploaded img-responsive z-depth-5 justuploaded" 
+                      :src="edited_url">
+                  </div>
                 </div>
 
               </div>
@@ -63,7 +71,8 @@ export default {
       data(){ 
         return {
           loading: false,
-          loaded: false,
+          loaded: false, //creo que esto no hace nada ajaj
+          failed: false,
           image_url: '',
           edited_url: ''
         }
@@ -88,8 +97,8 @@ export default {
           this.save(formData);
         },
         save(formData) {
+          this.failed = false;
           this.loading = true;
-          //const url = `https://api.pixhost.org/images`;
           return axios.post(config.UPLOAD_URL, formData)
             // get data
             .then(response => {
@@ -99,6 +108,8 @@ export default {
               this.show_it_to_me(this.image_url);
             })
             .catch((response) => {
+              this.loading = false;
+              this.failed = true;
               console.log(response);
             });
         },
@@ -129,6 +140,14 @@ input[type="file"] {
     margin-bottom: 15px;
 }
 
+.alertfailed {
+  padding: 20px;
+  background-color: red;
+  color: black;
+  margin-bottom: 15px;
+
+}
+
 .closebtn {
     margin-left: 15px;
     color: black;
@@ -153,7 +172,6 @@ input[type="file"] {
 }
 
 .uploaded {
-  max-width: 500px;
   margin: 20px 20px 20px 20px;
 }
 
