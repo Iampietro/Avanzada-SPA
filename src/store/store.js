@@ -68,26 +68,34 @@ export default new Vuex.Store({
 			state.authorized = true;
 			state.justLoggedUser = user;
 
+			const indexUser = state.users.indexOf(state.justLoggedUser);
 			const name = state.justLoggedUser.user.username;
-			let previousGifs = localStorage.getItem('images' + name);
+			let previousGifs = localStorage.getItem('imagesOf:' + name);
+			let previousUploads = localStorage.getItem('uploadedBy:' + name);
+
 			if (previousGifs) {
 				 previousGifs = JSON.parse(previousGifs);
-				 state.users[state.users.indexOf(state.justLoggedUser)].user.savedGifs = previousGifs;
+				 state.users[indexUser].user.savedGifs = previousGifs;
 			}
+			if (previousUploads) {
+				previousUploads = JSON.parse(previousUploads);
+				state.users[indexUser].user.uploadedImages = previousUploads;
+			}
+
 		},
 		logout(state){
 			state.authorized = false;
 		},
 		saveGif(state, gif){
 			const name = state.justLoggedUser.user.username;
-			let previousGifs = localStorage.getItem('images' + name);
+			let previousGifs = localStorage.getItem('imagesOf:' + name);
 			if (previousGifs) {
 				 previousGifs = JSON.parse(previousGifs);
 				 state.users[state.users.indexOf(state.justLoggedUser)].user.savedGifs = previousGifs;
 			}
 
 			state.users[state.users.indexOf(state.justLoggedUser)].user.savedGifs.push(gif);
-			localStorage.setItem('images' + name, JSON.stringify(state.users[state.users.indexOf(state.justLoggedUser)].user.savedGifs));
+			localStorage.setItem('imagesOf:' + name, JSON.stringify(state.users[state.users.indexOf(state.justLoggedUser)].user.savedGifs));
 			
 		},
 		removeGif(state, gif){
@@ -107,9 +115,15 @@ export default new Vuex.Store({
 			}
 		},
 		saveUpload(state, imageToSave){
+			const name = state.justLoggedUser.user.username;
 			const indexUser = state.users.indexOf(state.justLoggedUser);
+			let previousUploads = localStorage.getItem('uploadedBy:' + name);
+			if (previousUploads) {
+				previousUploads = JSON.parse(previousUploads);
+				state.users[indexUser].user.uploadedImages = previousUploads;
+			}
 			state.users[indexUser].user.uploadedImages.push(imageToSave);
-			state.users[indexUser].user.uploadedImages.coments = [];
+			localStorage.setItem('uploadedBy:' + name, JSON.stringify(state.users[indexUser].user.uploadedImages));
 		},
 		galleryGif(state, gif){
 			state.gifFromGallery = gif;
@@ -130,7 +144,7 @@ export default new Vuex.Store({
 						state.justLoggedUser.user.savedGifs[i].coments.push(array[1])
 					}
 				}
-				localStorage.setItem('images' + name, JSON.stringify(state.justLoggedUser.user.savedGifs));
+				localStorage.setItem('imagesOf:' + name, JSON.stringify(state.justLoggedUser.user.savedGifs));
 
 			} else {
 				for (var i = 0; i < state.justLoggedUser.uploadedImages.length; i++) {
