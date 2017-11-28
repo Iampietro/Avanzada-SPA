@@ -63,7 +63,7 @@
 				const user = this.$store.getters.users_by_name(this.user);
 				if(user != undefined) {
 					this.$store.commit('login', user);
-					this.$router.push('searchGIFs');
+					this.$router.push('home');
 				} else {
 					this.errorMsg = true;
 				}
