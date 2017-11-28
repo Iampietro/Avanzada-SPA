@@ -9,6 +9,7 @@
           <li><router-link to="/searchGIFs">Search GIFs</router-link></li>
           <li><router-link to="/trendingGIFs">Trending GIFs</router-link></li>
           <li><router-link to="/gallery">Gallery</router-link></li>
+          <li><router-link to="/navigate">Navigate</router-link></li>
           <li>
             <a class="" href='#' data-activates='dropdown1'>My Account</a>
               <ul id='dropdown1' class="dropdown-content">

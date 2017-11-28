@@ -156,6 +156,37 @@ export default new Vuex.Store({
 					}
 				}
 			}
+		},
+		check(state){ // Perdon por la hardcodeada
+			let previousGifs = localStorage.getItem('imagesOf:' + 'iampietro');
+			if (previousGifs) {
+				previousGifs = JSON.parse(previousGifs);
+				state.users[0].user.savedGifs = previousGifs;
+			}
+
+			previousGifs = localStorage.getItem('imagesOf:' + 'cooper');
+			if (previousGifs) {
+				previousGifs = JSON.parse(previousGifs);
+				state.users[1].user.savedGifs = previousGifs;
+			}
+
+			previousGifs = localStorage.getItem('imagesOf:' + 'fuka');
+			if (previousGifs) {
+				previousGifs = JSON.parse(previousGifs);
+				state.users[2].user.savedGifs = previousGifs;
+			}
+
+			previousGifs = localStorage.getItem('imagesOf:' + 'lisandro');
+			if (previousGifs) {
+				previousGifs = JSON.parse(previousGifs);
+				state.users[3].user.savedGifs = previousGifs;
+			}
+
+			previousGifs = localStorage.getItem('imagesOf:' + 'a');
+			if (previousGifs) {
+				previousGifs = JSON.parse(previousGifs);
+				state.users[4].user.savedGifs = previousGifs;
+			}
 		}
 	}
 })
