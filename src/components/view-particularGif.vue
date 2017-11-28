@@ -99,7 +99,7 @@
  			},
 			verifyComents(){
 				if (this.particularSavedGif) {
-					return this.particularSavedGif.coments.length > 0;
+					return this.comentsMade.length > 0;
 				} else {
 					return false;
 				}
@@ -175,7 +175,6 @@
 			this.socket = io("http://localhost:3000");
 		},
 		mounted(){
-			debugger
 			const name = this.$store.state.justLoggedUser.user.username;
 				let images = localStorage.getItem('imagesOf:' + name);
 				if (images) {
