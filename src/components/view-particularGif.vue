@@ -175,7 +175,8 @@
 			this.socket = io("http://localhost:3000");
 		},
 		mounted(){
-			const name = this.$store.state.justLoggedUser.user.username;
+			if (this.particularSavedGif) {
+				const name = this.$store.state.justLoggedUser.user.username;
 				let images = localStorage.getItem('imagesOf:' + name);
 				if (images) {
 					images = JSON.parse(images);
@@ -185,7 +186,9 @@
 						}
 					}
 					this.comentsMade = images[this.index].coments;
-				}			
+				}
+			}
+						
 		},
 		sockets:{
 			increment(newValue){
